@@ -1,0 +1,205 @@
+.wao-btn,
+.wao-trigger,
+.wao-menu-item,
+.wao-input {
+  font: inherit;
+}
+
+.wao-btn {
+  appearance: none;
+  -webkit-appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: var(--wao-button-height);
+  padding: 0 16px;
+  border: 1px solid transparent;
+  border-radius: var(--wao-radius-md);
+  background: var(--wao-surface-base);
+  color: var(--wao-text-primary);
+  cursor: pointer;
+  box-shadow: none !important;
+  transition:
+    background-color var(--wao-transition-fast),
+    border-color var(--wao-transition-fast),
+    color var(--wao-transition-fast),
+    box-shadow var(--wao-transition-fast),
+    transform var(--wao-transition-fast);
+}
+
+.wao-btn:hover:not(:disabled) {
+  background: var(--wao-surface-hover);
+  border-color: var(--wao-border-strong);
+}
+
+.wao-btn:active:not(:disabled) {
+  background: var(--wao-surface-active);
+  transform: translateY(0);
+}
+
+.wao-btn:focus-visible,
+.wao-trigger:focus-visible,
+.wao-menu-item:focus-visible,
+.wao-input:focus-visible {
+  outline: none;
+  box-shadow: var(--wao-focus-ring);
+}
+
+.wao-btn:disabled,
+.wao-trigger:disabled,
+.wao-input:disabled {
+  cursor: not-allowed;
+  background: var(--wao-surface-muted);
+  border-color: var(--wao-border-default);
+  color: var(--wao-text-disabled);
+  box-shadow: none !important;
+}
+
+.wao-btn--primary {
+  background: linear-gradient(90deg, var(--wao-primary-start) 0%, var(--wao-primary-end) 100%);
+  color: var(--wao-primary-text) !important;
+}
+
+.wao-btn--primary:hover:not(:disabled) {
+  background: linear-gradient(90deg, color-mix(in srgb, var(--wao-primary-start) 92%, white) 0%, color-mix(in srgb, var(--wao-primary-end) 92%, white) 100%);
+  border-color: transparent;
+}
+
+.wao-btn--primary:active:not(:disabled) {
+  background: linear-gradient(90deg, var(--wao-primary-end) 0%, #6d28d9 100%);
+}
+
+.wao-btn--secondary,
+.wao-btn--ghost {
+  border-color: var(--wao-border-default);
+  background: var(--wao-surface-base);
+  color: var(--wao-text-primary);
+}
+
+.wao-btn--danger {
+  border-color: color-mix(in srgb, var(--wao-danger) 50%, var(--wao-border-default));
+  color: color-mix(in srgb, var(--wao-danger) 75%, #0f172a);
+}
+
+.wao-btn--danger:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--wao-danger) 10%, var(--wao-surface-base));
+  border-color: color-mix(in srgb, var(--wao-danger) 55%, var(--wao-border-default));
+}
+
+.wao-btn--menu {
+  width: 100%;
+  justify-content: flex-start;
+  min-height: 44px;
+  padding: 0 14px;
+  border-radius: 0;
+  border-color: transparent;
+  background: transparent;
+}
+
+.wao-btn--menu:hover:not(:disabled) {
+  background: var(--wao-surface-hover);
+  border-color: transparent;
+}
+
+.wao-btn--menu.is-selected,
+.wao-btn--menu[aria-selected="true"],
+.wao-btn--menu[aria-pressed="true"] {
+  background: var(--wao-accent-muted);
+  color: var(--wao-accent-active);
+  font-weight: 500;
+}
+
+.wao-trigger {
+  appearance: none;
+  -webkit-appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  min-height: var(--wao-control-height);
+  padding: 0 12px;
+  border: 1px solid var(--wao-border-default);
+  border-radius: var(--wao-radius-md);
+  background: var(--wao-surface-base);
+  color: var(--wao-text-primary);
+  cursor: pointer;
+  box-shadow: none !important;
+  transition:
+    background-color var(--wao-transition-fast),
+    border-color var(--wao-transition-fast),
+    color var(--wao-transition-fast),
+    box-shadow var(--wao-transition-fast),
+    transform var(--wao-transition-fast);
+}
+
+.wao-trigger:hover:not(:disabled),
+.wao-trigger[aria-expanded="true"] {
+  background: var(--wao-surface-hover);
+  border-color: var(--wao-border-strong);
+}
+
+.wao-trigger:active:not(:disabled) {
+  background: var(--wao-surface-active);
+}
+
+.wao-trigger.is-selected,
+.wao-trigger[aria-pressed="true"] {
+  border-color: var(--wao-border-selected);
+  background: var(--wao-accent-muted);
+}
+
+.wao-menu {
+  border: 1px solid var(--wao-border-default);
+  border-radius: var(--wao-radius-md);
+  background: var(--wao-surface-base);
+  box-shadow: none;
+  overflow: hidden;
+}
+
+.wao-menu-item {
+  appearance: none;
+  -webkit-appearance: none;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--wao-text-primary);
+  text-align: left;
+  cursor: pointer;
+  transition: background-color var(--wao-transition-fast), color var(--wao-transition-fast);
+}
+
+.wao-menu-item:hover {
+  background: var(--wao-surface-hover);
+}
+
+.wao-menu-item.is-selected,
+.wao-menu-item[aria-selected="true"],
+.wao-menu-item[aria-pressed="true"] {
+  background: var(--wao-accent-muted);
+  color: var(--wao-accent-active);
+  font-weight: 500;
+}
+
+.wao-input {
+  width: 100%;
+  min-height: var(--wao-control-height);
+  padding: 8px 10px;
+  border: 1px solid var(--wao-border-default);
+  border-radius: 8px;
+  background: var(--wao-surface-base);
+  color: var(--wao-text-primary);
+  transition:
+    border-color var(--wao-transition-fast),
+    box-shadow var(--wao-transition-fast),
+    background-color var(--wao-transition-fast);
+}
+
+.wao-input:hover:not(:disabled) {
+  border-color: var(--wao-border-strong);
+}

@@ -1,0 +1,282 @@
+.wao-help {
+  position: relative;
+}
+
+.wao-help-popover {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + var(--wao-space-md));
+  width: 440px;
+  padding: 16px var(--wao-space-lg);
+  border: 1px solid var(--wao-border-soft);
+  border-radius: var(--wao-radius-lg);
+  background: var(--wao-surface);
+  box-shadow: var(--wao-shadow-lg);
+  z-index: 10;
+}
+
+.wao-help-popover strong {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.wao-help-popover ol {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 6px;
+}
+
+.wao-help-popover li {
+  padding-left: 2px;
+}
+
+.wao-help-popover__line {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  align-items: start;
+  column-gap: 0;
+  line-height: 1.65;
+}
+
+.wao-help-popover__term {
+  font-weight: 700;
+}
+
+.wao-help-popover__desc {
+  min-width: 0;
+}
+
+.wao-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--wao-overlay-backdrop);
+  z-index: 20;
+}
+
+.wao-modal {
+  position: relative;
+  width: min(720px, calc(100% - 48px));
+  max-height: calc(100% - 48px);
+  overflow: auto;
+  padding: 24px;
+  border-radius: var(--wao-radius-xl);
+  background: var(--wao-surface);
+  box-shadow: var(--wao-shadow-xl);
+}
+
+.wao-modal__close {
+  position: absolute;
+  top: var(--wao-space-md);
+  right: var(--wao-space-md);
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: var(--wao-radius-pill);
+  background: var(--wao-surface-muted);
+  cursor: pointer;
+}
+
+.wao-modal__body h2 {
+  margin: 0 0 16px;
+  font-weight: 600;
+}
+
+.wao-modal__body p {
+  margin: 0 0 14px;
+  line-height: 1.75;
+}
+
+.wao-author-modal__body ul {
+  margin: 0 0 16px;
+  padding-left: 20px;
+  display: grid;
+  gap: 8px;
+}
+
+.wao-author-modal__body li {
+  line-height: 1.7;
+}
+
+.wao-author-modal__body img {
+  display: block;
+  max-width: min(100%, 360px);
+  height: auto;
+  margin: 14px auto;
+  border-radius: 12px;
+}
+
+.wao-regenerate-dialog__header h3 {
+  margin: 0 0 8px;
+  font-weight: 600;
+}
+
+.wao-regenerate-dialog__header p {
+  margin: 0 0 16px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.wao-regenerate-dialog__meta {
+  margin: -8px 0 16px;
+  color: var(--text-muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.wao-regenerate-dialog {
+  width: min(520px, calc(100% - 40px));
+  max-height: calc(100% - 40px);
+}
+
+.wao-regenerate-dialog__content {
+  display: grid;
+  gap: 8px;
+}
+
+.wao-regenerate-dialog__field {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  min-height: 36px;
+}
+
+.wao-regenerate-dialog__field--compact {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.wao-regenerate-dialog__field-group {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  gap: 14px;
+  align-items: center;
+}
+
+.wao-regenerate-dialog__label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--wao-text-secondary);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.wao-regenerate-dialog__dropdown {
+  min-width: 0;
+}
+
+.wao-regenerate-dialog__dropdown .wao-dropdown__trigger {
+  width: fit-content;
+  max-width: 100%;
+  min-width: 132px;
+  height: 32px;
+  padding: 0 2px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--wao-text-primary);
+  box-shadow: none !important;
+  justify-content: flex-start;
+  gap: 6px;
+}
+
+.wao-regenerate-dialog__dropdown .wao-dropdown__trigger:hover:not(:disabled),
+.wao-regenerate-dialog__dropdown .wao-dropdown__trigger[aria-expanded="true"] {
+  background: transparent;
+  border-color: transparent;
+  color: var(--interactive-accent);
+  box-shadow: none !important;
+}
+
+.wao-regenerate-dialog__dropdown .wao-dropdown__trigger:focus-visible {
+  outline: 2px solid var(--background-modifier-border-focus);
+  outline-offset: 2px;
+  border-color: transparent;
+  box-shadow: none !important;
+}
+
+.wao-regenerate-dialog__dropdown .wao-dropdown__trigger-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  color: var(--wao-text-secondary);
+  flex-shrink: 0;
+  transition: color var(--wao-transition-fast);
+}
+
+.wao-regenerate-dialog__dropdown .wao-dropdown__trigger-text {
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: 320px;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+  transition: color var(--wao-transition-fast);
+}
+
+.wao-regenerate-dialog__dropdown .wao-dropdown__chevron {
+  margin-left: 0;
+  color: var(--wao-text-secondary);
+  transition:
+    color var(--wao-transition-fast),
+    transform var(--wao-transition-fast);
+}
+
+.wao-regenerate-dialog__dropdown .wao-dropdown__trigger:hover:not(:disabled) .wao-dropdown__trigger-icon,
+.wao-regenerate-dialog__dropdown .wao-dropdown__trigger:hover:not(:disabled) .wao-dropdown__chevron,
+.wao-regenerate-dialog__dropdown .wao-dropdown__trigger[aria-expanded="true"] .wao-dropdown__trigger-icon,
+.wao-regenerate-dialog__dropdown .wao-dropdown__trigger[aria-expanded="true"] .wao-dropdown__chevron {
+  color: var(--interactive-accent);
+}
+
+.wao-regenerate-dialog__dropdown .wao-dropdown__trigger[aria-expanded="true"] .wao-dropdown__chevron {
+  transform: rotate(180deg);
+}
+
+.wao-regenerate-dialog__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.wao-secondary-button.is-active {
+  border-color: var(--interactive-accent);
+  color: var(--interactive-accent);
+}
+
+@media (max-width: 960px) {
+  .wao-help-popover {
+    width: min(360px, calc(100vw - 48px));
+  }
+
+  .wao-regenerate-dialog {
+    width: calc(100% - 24px);
+    padding: 20px;
+  }
+
+  .wao-regenerate-dialog__field {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .wao-regenerate-dialog__field-group {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .wao-regenerate-dialog__field--compact {
+    display: grid;
+  }
+
+  .wao-regenerate-dialog__label {
+    text-align: left;
+  }
+}

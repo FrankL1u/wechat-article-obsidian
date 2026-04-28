@@ -1,0 +1,87 @@
+// Cover mood definitions aligned to baoyu-cover-image references/dimensions/mood.md.
+{
+  "moods": [
+    {
+      "value": "subtle",
+      "contrast": "Low",
+      "saturation": "Muted",
+      "weight": "Light",
+      "energy": "Calm",
+      "characteristics": [
+        "Low contrast between elements",
+        "Muted, desaturated colors",
+        "Light visual weight",
+        "Gentle, refined aesthetic",
+        "Soft edges and transitions"
+      ],
+      "useCases": [
+        "Thought leadership content",
+        "Professional/corporate communications",
+        "Meditation, wellness topics",
+        "Academic or scholarly articles",
+        "Luxury brand aesthetics"
+      ],
+      "colorGuidance": [
+        "Pastels, earth tones, neutrals",
+        "Low saturation (30-50%)",
+        "Soft gradients",
+        "Minimal color variety (2-3 colors)"
+      ]
+    },
+    {
+      "value": "balanced",
+      "contrast": "Medium",
+      "saturation": "Normal",
+      "weight": "Medium",
+      "energy": "Moderate",
+      "characteristics": [
+        "Medium contrast",
+        "Natural saturation levels",
+        "Balanced visual weight",
+        "Clear but not aggressive",
+        "Standard aesthetic approach"
+      ],
+      "useCases": [
+        "General articles (default)",
+        "Most blog content",
+        "Educational material",
+        "Product documentation",
+        "News and updates"
+      ],
+      "colorGuidance": [
+        "Standard saturation (50-70%)",
+        "Complementary color schemes",
+        "Clear foreground/background separation",
+        "Moderate color variety (3-4 colors)"
+      ]
+    },
+    {
+      "value": "bold",
+      "contrast": "High",
+      "saturation": "Vivid",
+      "weight": "Heavy",
+      "energy": "Dynamic",
+      "characteristics": [
+        "High contrast between elements",
+        "Vivid, saturated colors",
+        "Heavy visual weight",
+        "Energetic, attention-grabbing",
+        "Sharp edges and strong shapes"
+      ],
+      "useCases": [
+        "Product launches",
+        "Promotional announcements",
+        "Event marketing",
+        "Call-to-action content",
+        "Entertainment/gaming topics"
+      ],
+      "colorGuidance": [
+        "High saturation (70-100%)",
+        "Vibrant, primary colors",
+        "Strong contrast ratios",
+        "Dynamic color combinations (4+ colors)"
+      ]
+    }
+  ],
+  "default": "balanced"
+}

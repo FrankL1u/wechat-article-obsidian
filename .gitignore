@@ -1,0 +1,9 @@
+node_modules
+dist
+.DS_Store
+.userdata
+.playwright-mcp/
+tmp-*
+main.js
+styles.css
+.agents/log/

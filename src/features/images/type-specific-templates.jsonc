@@ -1,0 +1,90 @@
+// 字段说明：
+// templates：按正文图类型索引的模板集合
+// templates.<type>.template：给模型直接使用的文档型模板内容
+// templates.<type>.output：该类型对应的 typeSpecific JSON 返回结构定义
+{
+  "templates": {
+    "infographic": {
+      "scenarios": [
+        "API, metrics, data, comparison, numbers",
+        "Knowledge, concept, tutorial, learning, guide",
+        "Tech, AI, programming, development, code",
+        "Productivity, SaaS, tool, app, software",
+        "Biology, chemistry, medical, scientific",
+        "Explainer, journalism, magazine, investigation"
+      ],
+      "template": "TITLE: [Title] - Data Visualization\nLAYOUT: [grid / radial / hierarchical]\n\nZONES:\n- Zone 1: [data point with specific values]\n- Zone 2: [comparison with metrics]\n- Zone 3: [summary / conclusion]\n\nLABELS: [specific numbers, percentages, terms from article]\nCOLORS: [semantic color mapping]\nSTYLE: [style characteristics]\nASPECT: 16:9",
+      "output": {
+        "title": "string",
+        "layout": "string",
+        "zones": "string[]",
+        "labels": "string"
+      }
+    },
+    "scene": {
+      "scenarios": [
+        "Story, emotion, journey, experience, personal",
+        "Opinion, editorial, culture, philosophy, cinematic, dramatic, poster"
+      ],
+      "template": "TITLE: [Title] - Scene Illustration\nFOCAL POINT: [main visual subject]\nATMOSPHERE: [lighting, environment, overall ambience]\nMOOD: [emotion or feeling]\nCOLOR TEMPERATURE: [warm / cool / neutral]\nSTYLE: [style characteristics]\nASPECT: 16:9",
+      "output": {
+        "title": "string",
+        "focalPoint": "string",
+        "atmosphere": "string",
+        "mood": "string",
+        "colorTemperature": "string"
+      }
+    },
+    "flowchart": {
+      "scenarios": [
+        "How-to, steps, workflow, process, tutorial"
+      ],
+      "template": "TITLE: [Title] - Workflow\nLAYOUT: [left-right / top-down / circular]\n\nSTEPS:\n1. [step name] - [short description]\n2. [step name] - [short description]\n3. [step name] - [short description]\n\nCONNECTIONS: [arrows, decision points, flow direction]\nSTYLE: [style characteristics]\nASPECT: 16:9",
+      "output": {
+        "title": "string",
+        "layout": "string",
+        "steps": "string[]",
+        "connections": "string"
+      }
+    },
+    "comparison": {
+      "scenarios": [
+        "vs, pros/cons, before/after, alternatives",
+        "Manifesto, mindset shift, workforce, OS, whiteboard, professional visual note"
+      ],
+      "template": "TITLE: [Title] - Side-by-Side Comparison\n\nLEFT SIDE:\n- [point 1]\n- [point 2]\n\nRIGHT SIDE:\n- [point 1]\n- [point 2]\n\nDIVIDER: [how the two sides are separated]\nSTYLE: [style characteristics]\nASPECT: 16:9",
+      "output": {
+        "title": "string",
+        "leftSide": "string[]",
+        "rightSide": "string[]",
+        "divider": "string"
+      }
+    },
+    "framework": {
+      "scenarios": [
+        "Framework, model, architecture, principles",
+        "Manifesto, mindset shift, workforce, OS, whiteboard, professional visual note",
+        "Business, professional, strategy, corporate"
+      ],
+      "template": "TITLE: [Title] - System Framework\nSTRUCTURE: [hierarchical / network / matrix]\n\nNODES:\n- [concept 1] - [role]\n- [concept 2] - [role]\n\nRELATIONSHIPS: [how the nodes connect]\nSTYLE: [style characteristics]\nASPECT: 16:9",
+      "output": {
+        "title": "string",
+        "structure": "string",
+        "nodes": "string[]",
+        "relationships": "string"
+      }
+    },
+    "timeline": {
+      "scenarios": [
+        "History, timeline, progress, evolution"
+      ],
+      "template": "TITLE: [Title] - Chronological View\nDIRECTION: [horizontal / vertical]\n\nEVENTS:\n- [time / stage 1]: [milestone]\n- [time / stage 2]: [milestone]\n\nMARKERS: [visual marker style]\nSTYLE: [style characteristics]\nASPECT: 16:9",
+      "output": {
+        "title": "string",
+        "direction": "string",
+        "events": "string[]",
+        "markers": "string"
+      }
+    }
+  }
+}

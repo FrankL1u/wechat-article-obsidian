@@ -1,0 +1,818 @@
+.wao-settings-root {
+  margin: 0 auto;
+  padding: 20px;
+  background-color: var(--wao-surface-base);
+}
+
+.wao-settings-root > h2 {
+  margin: 0 0 16px;
+  font-size: 24px;
+  line-height: 1.2;
+  color: var(--wao-text-primary);
+}
+
+.wao-settings-tabs {
+  display: inline-flex;
+  gap: 0;
+  padding: 0;
+  margin-bottom: 18px;
+  border: 0;
+  border-bottom: 1px solid var(--wao-border-default);
+  background: transparent;
+}
+
+.wao-settings-tab-btn {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--wao-text-secondary);
+  padding: 9px 16px 11px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+  transition: color var(--wao-transition-fast), background-color var(--wao-transition-fast);
+}
+
+.wao-settings-tab-btn::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 0;
+  height: 2px;
+  border-radius: 999px;
+  background: transparent;
+}
+
+.wao-settings-tab-btn.is-active {
+  color: var(--wao-text-primary);
+}
+
+.wao-settings-tab-btn.is-active::after {
+  background: var(--wao-accent);
+}
+
+.wao-settings-tab-btn:hover:not(:disabled) {
+  color: var(--wao-text-primary);
+  background: color-mix(in srgb, var(--wao-surface-hover) 56%, transparent);
+}
+
+.wao-settings-tab-btn:active:not(:disabled) {
+  background: color-mix(in srgb, var(--wao-surface-active) 62%, transparent);
+}
+
+.wao-settings-tab-btn:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 1px var(--wao-border-selected), var(--wao-focus-ring);
+}
+
+.wao-settings-tab-btn:disabled {
+  color: var(--wao-text-disabled);
+  cursor: not-allowed;
+}
+
+.wao-settings-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.wao-settings-section {
+  border: 1px solid var(--wao-border-default);
+  border-radius: var(--wao-radius-md);
+  overflow: hidden;
+  background-color: var(--wao-surface-base);
+  box-shadow: none;
+}
+
+.wao-settings-section__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 18px;
+  background-color: var(--wao-surface-base);
+  transition: background-color var(--wao-transition-fast), box-shadow var(--wao-transition-fast);
+}
+
+.wao-settings-section__header--toggle {
+  cursor: pointer;
+}
+
+.wao-settings-section__header--toggle:hover {
+  background: color-mix(in srgb, var(--wao-surface-hover) 42%, var(--wao-surface-base));
+}
+
+.wao-settings-section__header--toggle:active {
+  background: color-mix(in srgb, var(--wao-surface-active) 45%, var(--wao-surface-base));
+}
+
+.wao-settings-section__header--toggle:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 1px var(--wao-border-selected), var(--wao-focus-ring);
+}
+
+.wao-settings-section__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wao-settings-section__chevron {
+  width: 16px;
+  color: var(--wao-text-secondary);
+  font-size: 14px;
+  line-height: 1;
+}
+
+.wao-settings-section__header h3 {
+  margin: 0;
+  font-size: 1.08em;
+  color: var(--wao-text-primary);
+}
+
+.wao-settings-section__content {
+  display: none;
+  padding: 6px 18px 18px;
+  background: var(--wao-surface-base);
+}
+
+.wao-settings-section.is-expanded .wao-settings-section__content {
+  display: block;
+}
+
+.wao-settings-section__footer {
+  display: flex;
+  justify-content: flex-start;
+  padding: 2px 0 0;
+  background: var(--wao-surface-base);
+}
+
+.wao-settings-action-btn {
+  border-radius: 8px !important;
+  padding: 8px 14px !important;
+  font-size: 13px;
+  box-shadow: none !important;
+}
+
+.wao-settings-account-gallery {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 0 18px 18px;
+  background: var(--wao-surface-base);
+}
+
+.wao-settings-account-row,
+.wao-settings-account-empty {
+  border: 1px solid var(--wao-border-default);
+  border-radius: var(--wao-radius-md);
+  background-color: var(--wao-surface-base);
+  box-shadow: none;
+}
+
+.wao-settings-account-row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16px 20px;
+  align-items: start;
+  padding: 16px 18px;
+  transition: border-color var(--wao-transition-fast), box-shadow var(--wao-transition-fast), transform var(--wao-transition-fast);
+}
+
+.wao-settings-account-row:hover {
+  border-color: var(--wao-border-strong);
+  box-shadow: none;
+}
+
+.wao-settings-account-row__title,
+.wao-settings-account-empty__title {
+  display: block;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--wao-text-primary);
+}
+
+.wao-settings-account-row__meta,
+.wao-settings-account-empty__meta {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--wao-text-secondary);
+  line-height: 1.5;
+}
+
+.wao-settings-account-row__meta-value {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.wao-settings-account-row__top-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  justify-self: end;
+}
+
+.wao-settings-status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  flex: none;
+}
+
+.wao-settings-status-dot.is-ready {
+  background: var(--wao-success);
+}
+
+.wao-settings-status-dot.is-missing {
+  background: var(--wao-danger);
+}
+
+.wao-settings-account-row__actions {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  grid-column: 1 / -1;
+  justify-content: flex-end;
+}
+
+.wao-settings-inline-btn {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 1px solid var(--wao-border-default);
+  background: var(--wao-surface-muted);
+  color: var(--wao-text-secondary);
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color var(--wao-transition-fast), color var(--wao-transition-fast), border-color var(--wao-transition-fast), box-shadow var(--wao-transition-fast);
+}
+
+.wao-settings-inline-btn:hover:not(:disabled) {
+  background: var(--wao-surface-hover);
+  border-color: var(--wao-border-strong);
+  color: var(--wao-text-primary);
+}
+
+.wao-settings-inline-btn:active:not(:disabled) {
+  background: var(--wao-surface-active);
+}
+
+.wao-settings-inline-btn:focus-visible {
+  outline: none;
+  box-shadow: var(--wao-focus-ring);
+}
+
+.wao-settings-inline-btn:disabled {
+  cursor: not-allowed;
+  background: var(--wao-surface-muted);
+  border-color: var(--wao-border-default);
+  color: var(--wao-text-disabled);
+  box-shadow: none;
+}
+
+.wao-settings-inline-btn--credential {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wao-settings-inline-btn--credential.is-ready {
+  color: color-mix(in srgb, var(--wao-success) 72%, #0f172a);
+}
+
+.wao-settings-inline-btn--credential.is-missing {
+  color: color-mix(in srgb, var(--wao-danger) 70%, #0f172a);
+}
+
+.wao-settings-icon-btn {
+  min-height: 32px;
+  width: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--wao-surface-muted) 70%, white);
+  color: var(--wao-text-secondary);
+}
+
+.wao-settings-icon-btn svg {
+  display: block;
+  flex: none;
+}
+
+.wao-settings-icon-btn:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--wao-surface-hover) 78%, white);
+  color: var(--wao-text-primary);
+}
+
+.wao-settings-test-icon-btn {
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  min-height: 28px;
+  padding: 0;
+  border: 0;
+  box-shadow: none;
+  background: transparent;
+  color: var(--wao-text-secondary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wao-settings-test-icon-btn svg {
+  display: block;
+  width: 18px;
+  height: 18px;
+}
+
+.wao-settings-test-icon-btn:hover:not(:disabled),
+.wao-settings-test-icon-btn:focus-visible {
+  background: transparent;
+  color: var(--wao-text-primary);
+}
+
+.wao-settings-icon-btn:active:not(:disabled) {
+  background: color-mix(in srgb, var(--wao-surface-active) 78%, white);
+}
+
+.wao-settings-icon-btn--danger {
+  color: var(--wao-text-secondary);
+}
+
+.wao-settings-account-empty {
+  width: 100%;
+  padding: 18px;
+}
+
+.wao-settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0 16px 16px;
+  background: var(--background-primary);
+}
+
+.wao-settings-group-title {
+  margin: 4px 0 0;
+  font-size: 1em;
+  font-weight: 600;
+  color: var(--text-normal);
+}
+
+.wao-settings-root .setting-item,
+.wao-settings-field-row,
+.wao-settings-field-stack {
+  border: 0;
+  border-radius: var(--wao-radius-sm);
+  background-color: color-mix(in srgb, var(--wao-surface-muted) 55%, white);
+}
+
+.wao-settings-root .setting-item {
+  margin: 0 0 12px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  transition: border-color var(--wao-transition-fast), background-color var(--wao-transition-fast), box-shadow var(--wao-transition-fast);
+}
+
+.wao-settings-root .setting-item:hover {
+  background: color-mix(in srgb, var(--wao-surface-hover) 42%, white);
+}
+
+.wao-settings-root .setting-item-info {
+  margin-right: 18px;
+}
+
+.wao-settings-root .setting-item-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--wao-text-primary);
+}
+
+.wao-settings-root .setting-item-description {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--wao-text-secondary);
+}
+
+.wao-settings-root .setting-item-control {
+  margin-left: auto;
+}
+
+.wao-settings-root .setting-item input[type="text"],
+.wao-settings-root .setting-item input[type="number"],
+.wao-settings-root .setting-item select {
+  min-width: 220px;
+  border: 1px solid var(--wao-border-default);
+  border-radius: 6px;
+  background: var(--wao-surface-base);
+  color: var(--wao-text-primary);
+}
+
+.wao-settings-endpoint-row {
+  margin: 0 0 12px;
+  padding: 14px 16px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 18px;
+  border: 0;
+  border-radius: var(--wao-radius-sm);
+  background-color: color-mix(in srgb, var(--wao-surface-muted) 55%, white);
+}
+
+.wao-settings-endpoint-row__label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--wao-text-primary);
+}
+
+.wao-settings-endpoint-strip {
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  padding: 5px;
+  border-radius: 999px;
+  background: var(--wao-surface-muted);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.wao-settings-endpoint-pill {
+  appearance: none;
+  -webkit-appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 34px;
+  padding: 0 13px;
+  border: 0 !important;
+  border-radius: 999px;
+  background: transparent !important;
+  color: var(--wao-text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: none !important;
+}
+
+.wao-settings-endpoint-pill:hover:not(:disabled) {
+  color: var(--wao-text-primary);
+  background: color-mix(in srgb, var(--wao-surface-hover) 68%, transparent) !important;
+}
+
+.wao-settings-endpoint-pill.is-active,
+.wao-settings-endpoint-pill[aria-pressed="true"] {
+  background: #ffffff !important;
+  color: var(--wao-text-primary);
+  border: 1px solid var(--wao-border-default) !important;
+}
+
+.wao-settings-field-row {
+  display: grid;
+  grid-template-columns: minmax(96px, 160px) minmax(0, 1fr);
+  align-items: center;
+  gap: 18px;
+  padding: 14px 16px;
+}
+
+.wao-settings-field-row--textarea {
+  align-items: flex-start;
+}
+
+.wao-settings-field-row__label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--wao-text-primary);
+}
+
+.wao-settings-field-row__control {
+  display: flex;
+  justify-content: flex-end;
+  min-width: 0;
+}
+
+.wao-settings-field-row__control--textarea {
+  width: 100%;
+}
+
+.wao-settings-field-row__input,
+.wao-settings-field-stack__textarea {
+  width: min(100%, 340px);
+  border: 1px solid var(--wao-border-default);
+  border-radius: 6px;
+  background: var(--wao-surface-base);
+  padding: 8px 10px;
+  font: inherit;
+  color: var(--wao-text-primary);
+  transition: border-color var(--wao-transition-fast), box-shadow var(--wao-transition-fast), background-color var(--wao-transition-fast);
+}
+
+.wao-settings-root .setting-item input[type="text"]:hover,
+.wao-settings-root .setting-item select:hover,
+.wao-settings-field-row__input:hover,
+.wao-settings-field-stack__textarea:hover {
+  border-color: var(--wao-border-strong);
+}
+
+.wao-settings-root .setting-item input[type="text"]:focus-visible,
+.wao-settings-root .setting-item select:focus-visible,
+.wao-settings-field-row__input:focus-visible,
+.wao-settings-field-stack__textarea:focus-visible,
+.wao-account-modal__input:focus-visible,
+.wao-account-modal__textarea:focus-visible {
+  outline: none;
+  border-color: var(--wao-border-selected);
+  box-shadow: var(--wao-focus-ring);
+}
+
+.wao-settings-root .setting-item input[type="text"]:disabled,
+.wao-settings-root .setting-item select:disabled,
+.wao-settings-field-row__input:disabled,
+.wao-settings-field-stack__textarea:disabled {
+  cursor: not-allowed;
+  background: var(--wao-surface-muted);
+  color: var(--wao-text-disabled);
+}
+
+.wao-settings-field-stack__textarea {
+  width: 100%;
+  min-height: 110px;
+  resize: vertical;
+}
+
+.wao-settings-danger-btn {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 1px solid var(--wao-border-default);
+  border-radius: 8px;
+  background: var(--wao-surface-base);
+  color: var(--wao-text-primary);
+  padding: 8px 12px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.wao-settings-danger-btn:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--wao-danger) 10%, var(--wao-surface-base));
+  border-color: color-mix(in srgb, var(--wao-danger) 55%, var(--wao-border-default));
+}
+
+.wao-account-modal-shell {
+  width: min(680px, calc(100vw - 64px));
+  border-radius: 14px;
+  box-shadow: none;
+}
+
+.wao-account-modal {
+  display: flex;
+  flex-direction: column;
+  min-height: 420px;
+  background-color: var(--wao-surface-base);
+}
+
+.wao-account-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 28px 30px 12px;
+}
+
+.wao-account-modal__title {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.2;
+  color: var(--wao-text-primary);
+}
+
+.wao-account-modal__close {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--wao-text-secondary);
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.wao-account-modal__close:hover {
+  color: var(--wao-text-primary);
+}
+
+.wao-account-modal__content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 8px 30px 24px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.wao-account-modal__content--plain {
+  gap: 12px;
+}
+
+.wao-account-modal__section {
+  border: 1px solid var(--wao-border-default);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--wao-surface-base);
+}
+
+.wao-account-modal__section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  cursor: pointer;
+  background: var(--wao-surface-base);
+  transition: background-color var(--wao-transition-fast);
+}
+
+.wao-account-modal__section-header:hover {
+  background: color-mix(in srgb, var(--wao-surface-hover) 48%, var(--wao-surface-base));
+}
+
+.wao-account-modal__section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wao-account-modal__section-title h4 {
+  margin: 0;
+  font-size: 16px;
+  color: var(--wao-text-primary);
+}
+
+.wao-account-modal__section-chevron {
+  width: 16px;
+  color: var(--wao-text-secondary);
+  font-size: 14px;
+  line-height: 1;
+}
+
+.wao-account-modal__section-content {
+  display: none;
+  padding: 0 16px 16px;
+  background: var(--wao-surface-base);
+}
+
+.wao-account-modal__section.is-expanded .wao-account-modal__section-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.wao-account-modal__field {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  align-items: start;
+  gap: 14px;
+  padding: 14px;
+  margin-top: 10px;
+  border-top: 0;
+  border-radius: var(--wao-radius-sm);
+  background: color-mix(in srgb, var(--wao-surface-muted) 55%, white);
+}
+
+.wao-account-modal__label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--wao-text-primary);
+}
+
+.wao-account-modal__field-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.wao-account-modal__desc {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--wao-text-secondary);
+}
+
+.wao-account-modal__input {
+  width: 100%;
+  border: 1px solid var(--wao-border-default);
+  border-radius: 6px;
+  background: var(--wao-surface-base);
+  padding: 8px 10px;
+  font: inherit;
+  color: var(--wao-text-primary);
+}
+
+.wao-account-modal__textarea {
+  width: 100%;
+  min-height: 110px;
+  border: 1px solid var(--wao-border-default);
+  border-radius: 6px;
+  background: var(--wao-surface-base);
+  padding: 8px 10px;
+  font: inherit;
+  resize: vertical;
+  color: var(--wao-text-primary);
+}
+
+.wao-account-modal__footer {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 0 30px 24px;
+}
+
+.wao-account-modal__confirm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 6px 0;
+}
+
+.wao-account-modal__confirm-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--wao-text-primary);
+}
+
+.wao-account-modal__confirm-desc {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--wao-text-secondary);
+}
+
+.wao-account-modal__cancel,
+.wao-account-modal__save {
+  padding: 8px 16px;
+  border-radius: 8px;
+}
+
+@media (max-width: 720px) {
+  .wao-settings-root {
+    padding: 14px;
+  }
+
+  .wao-settings-field-row,
+  .wao-settings-endpoint-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .wao-settings-field-row__control,
+  .wao-settings-endpoint-strip {
+    justify-content: flex-start;
+    justify-self: start;
+  }
+
+  .wao-settings-root .setting-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .wao-settings-root .setting-item-control {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .wao-settings-root .setting-item input[type="text"],
+  .wao-settings-root .setting-item input[type="number"],
+  .wao-settings-root .setting-item select,
+  .wao-settings-field-row__input {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .wao-account-modal__field {
+    grid-template-columns: 1fr;
+  }
+
+  .wao-settings-account-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .wao-settings-account-row__status {
+    justify-self: start;
+    padding-top: 0;
+  }
+}

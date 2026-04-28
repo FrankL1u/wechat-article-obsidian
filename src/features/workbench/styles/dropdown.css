@@ -1,0 +1,177 @@
+.wao-dropdown {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.wao-dropdown__trigger {
+  appearance: none;
+  -webkit-appearance: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  height: 36px;
+  min-width: 96px;
+  padding: 0 12px;
+  border: 1px solid var(--wao-border-default);
+  border-radius: 8px;
+  background: var(--wao-surface-base);
+  color: var(--wao-text-primary);
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+  box-shadow: none !important;
+  transition:
+    background-color var(--wao-transition-fast),
+    border-color var(--wao-transition-fast),
+    box-shadow var(--wao-transition-fast),
+    color var(--wao-transition-fast);
+  user-select: none;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.wao-dropdown__trigger:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+  background: var(--wao-surface-muted) !important;
+  color: var(--wao-text-disabled) !important;
+  border-color: var(--wao-border-default) !important;
+  box-shadow: none !important;
+}
+
+.wao-dropdown__trigger:hover:not(:disabled),
+.wao-dropdown__trigger[aria-expanded="true"] {
+  background: var(--wao-surface-hover);
+  border-color: var(--wao-border-strong);
+  box-shadow: none !important;
+}
+
+.wao-dropdown__trigger:active:not(:disabled) {
+  background: var(--wao-surface-active);
+}
+
+.wao-dropdown__trigger:focus-visible {
+  outline: none;
+  border-color: var(--wao-border-selected);
+  box-shadow: var(--wao-focus-ring);
+}
+
+.wao-dropdown__trigger-text {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.wao-dropdown__chevron {
+  color: var(--wao-text-secondary);
+  font-size: 12px;
+  margin-left: 4px;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.wao-dropdown__menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 100%;
+  max-height: min(360px, calc(100vh - 96px));
+  padding: 0;
+  border: 1px solid var(--wao-border-default);
+  border-radius: 8px;
+  background: var(--wao-surface-base);
+  box-shadow: var(--wao-shadow-md);
+  z-index: 10000;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.wao-dropdown__menu--portal {
+  position: fixed;
+  max-height: min(360px, calc(100vh - 48px));
+  border-radius: 12px;
+  border: 1px solid var(--wao-border-default);
+  box-shadow: var(--wao-shadow-md);
+  background: var(--wao-surface-base);
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.wao-dropdown--open-up .wao-dropdown__menu {
+  top: auto;
+  bottom: calc(100% + 4px);
+}
+
+.wao-dropdown__menu .wao-dropdown__option,
+.wao-dropdown__menu--portal .wao-dropdown__option {
+  appearance: none;
+  -webkit-appearance: none;
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 12px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--wao-text-primary);
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+  box-shadow: none;
+  text-align: left;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: background-color var(--wao-transition-fast), color var(--wao-transition-fast);
+}
+
+.wao-dropdown__menu--portal .wao-dropdown__option {
+  display: flex !important;
+  align-items: center !important;
+  padding: 18px 12px !important;
+  line-height: 1;
+}
+
+.wao-dropdown__menu--portal .wao-dropdown__option:first-child {
+  border-radius: 12px 12px 0 0;
+}
+
+.wao-dropdown__menu--portal .wao-dropdown__option:last-child {
+  border-radius: 0 0 12px 12px;
+}
+
+.wao-dropdown__menu--portal .wao-dropdown__option:only-child {
+  border-radius: 12px;
+}
+
+.wao-dropdown__option[aria-selected="true"] {
+  background: var(--wao-accent-muted);
+  color: var(--wao-accent-active);
+  font-weight: 500;
+}
+
+.wao-dropdown__option:hover {
+  background: var(--wao-surface-hover);
+}
+
+.wao-dropdown__option:focus-visible {
+  outline: none;
+  background: var(--wao-accent-muted);
+}
+
+.wao-control-field--preview {
+  min-width: 0;
+}
+
+.wao-control-field--preview .wao-dropdown__trigger {
+  min-width: 118px;
+}

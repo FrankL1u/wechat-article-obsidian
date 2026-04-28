@@ -1,0 +1,38 @@
+{
+  "name": "wechat-article-obsidian",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sync:styles": "node scripts/build-plugin-styles.mjs",
+    "build:plugin": "npm run sync:styles && node esbuild.config.mjs",
+    "build": "npm run build:plugin",
+    "obsidian:build": "node scripts/obsidian-plugin-dev.mjs build",
+    "obsidian:copy": "node scripts/obsidian-plugin-dev.mjs copy",
+    "obsidian:reload": "node scripts/obsidian-plugin-dev.mjs reload",
+    "obsidian:dev": "node scripts/obsidian-plugin-dev.mjs build-copy-reload",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "@types/markdown-it": "^14.1.2",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@types/node": "^22.15.3",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "cheerio": "^1.0.0",
+    "esbuild": "^0.25.2",
+    "highlight.js": "^11.11.1",
+    "jsdom": "^26.1.0",
+    "markdown-it": "^14.1.0",
+    "markdown-it-task-lists": "^2.1.1",
+    "mathjax-full": "^3.2.2",
+    "obsidian": "^1.8.10",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.2"
+  }
+}

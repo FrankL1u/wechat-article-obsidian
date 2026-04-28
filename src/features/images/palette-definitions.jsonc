@@ -1,0 +1,288 @@
+// 字段说明：
+// key：配色唯一标识，供程序匹配使用
+// zh：配色中文名称，供人工阅读
+// title：配色标题
+// description：配色的简短说明，可用于 prompt 注入
+// background：背景处理规则
+// colors：该配色包含的颜色角色、色值与用途
+// accent：强调色使用说明
+// semanticConstraint：该配色的语义约束
+// compatibleWith：适合搭配的风格列表（仅部分配色有）
+// notRecommendedWith：不建议搭配的风格列表（仅部分配色有）
+// bestFor：该配色更适合的内容类型
+{
+  "palettes": [
+    {
+      "key": "macaron",
+      "zh": "马卡龙柔和彩块",
+      "title": "macaron",
+      "description": "Soft macaron pastel color blocks on warm cream",
+      "background": {
+        "color": "Warm Cream (#F5F0E8)",
+        "texture": "Subtle warm paper grain"
+      },
+      "colors": [
+        {
+          "role": "Background",
+          "color": "Warm Cream",
+          "hex": "#F5F0E8",
+          "usage": "Primary background"
+        },
+        {
+          "role": "Primary Text",
+          "color": "Deep Charcoal",
+          "hex": "#2D2D2D",
+          "usage": "Headlines, main text, outlines"
+        },
+        {
+          "role": "Macaron Blue",
+          "color": "Sky Blue",
+          "hex": "#A8D8EA",
+          "usage": "Info block fill, cool-toned zones"
+        },
+        {
+          "role": "Macaron Mint",
+          "color": "Mint Green",
+          "hex": "#B5E5CF",
+          "usage": "Info block fill, growth/positive zones"
+        },
+        {
+          "role": "Macaron Lavender",
+          "color": "Lavender",
+          "hex": "#D5C6E0",
+          "usage": "Info block fill, abstract/concept zones"
+        },
+        {
+          "role": "Macaron Peach",
+          "color": "Peach",
+          "hex": "#FFD5C2",
+          "usage": "Info block fill, warm-toned zones"
+        },
+        {
+          "role": "Accent",
+          "color": "Coral Red",
+          "hex": "#E8655A",
+          "usage": "Key data, warnings, emphasis"
+        },
+        {
+          "role": "Muted Text",
+          "color": "Warm Gray",
+          "hex": "#6B6B6B",
+          "usage": "Secondary annotations, small labels"
+        }
+      ],
+      "accent": "Coral Red (#E8655A) for key data, warnings, and emphasis highlights. Use sparingly — one or two elements per illustration.",
+      "semanticConstraint": "Soft pastel macaron color palette. Use block colors as rounded card backgrounds for distinct information sections. Accent coral red sparingly for emphasis on key terms only. Do NOT render color names, hex codes, or role labels as visible text in the image.",
+      "bestFor": [
+        "Educational content",
+        "Knowledge sharing",
+        "Concept explainers",
+        "Tutorials",
+        "Tech summaries",
+        "Onboarding materials"
+      ]
+    },
+    {
+      "key": "mono-ink",
+      "zh": "黑白墨线点缀",
+      "title": "mono-ink",
+      "description": "Black ink on pure white with sparse semantic accent colors",
+      "background": {
+        "color": "Pure White (#FFFFFF)",
+        "texture": "Clean, no grain, no tint"
+      },
+      "colors": [
+        {
+          "role": "Background",
+          "color": "Pure White",
+          "hex": "#FFFFFF",
+          "usage": "Canvas"
+        },
+        {
+          "role": "Primary",
+          "color": "Near Black",
+          "hex": "#1A1A1A",
+          "usage": "All lines, text, figures, arrows"
+        },
+        {
+          "role": "Accent (risk/emphasis)",
+          "color": "Coral Red",
+          "hex": "#E8655A",
+          "usage": "Risk, problem, gap, key emphasis"
+        },
+        {
+          "role": "Accent (positive)",
+          "color": "Muted Teal",
+          "hex": "#5FA8A8",
+          "usage": "Positive, solution, \"after\" state"
+        },
+        {
+          "role": "Accent (neutral tag)",
+          "color": "Dusty Lavender",
+          "hex": "#9B8AB5",
+          "usage": "Neutral tags, category labels"
+        },
+        {
+          "role": "Soft Fill",
+          "color": "Pale Gray",
+          "hex": "#F0F0F0",
+          "usage": "Subtle zone backgrounds (optional)"
+        }
+      ],
+      "accent": "Use black ink for all structural elements — lines, text, figures. Accent colors appear only for semantic highlighting: coral red for risks/gaps/problems, muted teal for positive/solution/after-states, dusty lavender for neutral category tags. Total colored pixels must remain under 10% of canvas. Pale gray may back a subtle zone but must never dominate.",
+      "semanticConstraint": "Black ink on white canvas. Accent colors for semantic highlighting only — total colored pixels under 10% of canvas. Do NOT render color names, hex codes, or role labels as visible text in the image.",
+      "compatibleWith": [
+        "ink-notes",
+        "minimal",
+        "sketch"
+      ],
+      "notRecommendedWith": [
+        "sketch-notes",
+        "warm",
+        "elegant",
+        "watercolor",
+        "fantasy-animation"
+      ],
+      "bestFor": [
+        "Professional visual notes",
+        "Before/After essays",
+        "Tech manifestos",
+        "Framework analogies",
+        "Whiteboard-presentation explainers"
+      ]
+    },
+    {
+      "key": "neon",
+      "zh": "霓虹荧光暗底",
+      "title": "neon",
+      "description": "Vibrant neon colors on dark backgrounds",
+      "background": {
+        "color": "Deep Purple (#2D1B4E)",
+        "texture": "Subtle grid pattern or solid dark"
+      },
+      "colors": [
+        {
+          "role": "Background",
+          "color": "Deep Purple",
+          "hex": "#2D1B4E",
+          "usage": "Primary background"
+        },
+        {
+          "role": "Alt Background",
+          "color": "Dark Teal",
+          "hex": "#0F4C5C",
+          "usage": "Alternative sections"
+        },
+        {
+          "role": "Primary",
+          "color": "Hot Pink",
+          "hex": "#FF1493",
+          "usage": "Main accent"
+        },
+        {
+          "role": "Secondary",
+          "color": "Electric Cyan",
+          "hex": "#00FFFF",
+          "usage": "Supporting elements"
+        },
+        {
+          "role": "Tertiary",
+          "color": "Neon Yellow",
+          "hex": "#FFFF00",
+          "usage": "Highlights"
+        },
+        {
+          "role": "Accent 1",
+          "color": "Lime Green",
+          "hex": "#32CD32",
+          "usage": "Energy, success"
+        },
+        {
+          "role": "Accent 2",
+          "color": "Orange",
+          "hex": "#FF6B35",
+          "usage": "Warmth"
+        },
+        {
+          "role": "Text",
+          "color": "White",
+          "hex": "#FFFFFF",
+          "usage": "Text elements"
+        }
+      ],
+      "accent": "Hot Pink (#FF1493) for primary emphasis. High contrast neon-on-dark creates immediate visual impact.",
+      "semanticConstraint": "Vibrant neon-on-dark palette. High contrast, immediate visual impact. Do NOT render color names, hex codes, or role labels as visible text in the image.",
+      "bestFor": [
+        "Gaming",
+        "Retro tech",
+        "80s/90s nostalgic content",
+        "Bold editorial",
+        "Trend and pop culture"
+      ]
+    },
+    {
+      "key": "warm",
+      "zh": "暖调大地色",
+      "title": "warm",
+      "description": "Warm earth tones on soft peach, no cool colors",
+      "background": {
+        "color": "Soft Peach (#FFECD2)",
+        "texture": "Warm paper texture"
+      },
+      "colors": [
+        {
+          "role": "Background",
+          "color": "Soft Peach",
+          "hex": "#FFECD2",
+          "usage": "Primary background"
+        },
+        {
+          "role": "Outlines",
+          "color": "Deep Charcoal",
+          "hex": "#2D2D2D",
+          "usage": "All element outlines"
+        },
+        {
+          "role": "Primary",
+          "color": "Warm Orange",
+          "hex": "#ED8936",
+          "usage": "Main accent color"
+        },
+        {
+          "role": "Secondary",
+          "color": "Terracotta",
+          "hex": "#C05621",
+          "usage": "Warm depth"
+        },
+        {
+          "role": "Tertiary",
+          "color": "Golden Yellow",
+          "hex": "#F6AD55",
+          "usage": "Highlights, energy"
+        },
+        {
+          "role": "Accent",
+          "color": "Deep Brown",
+          "hex": "#744210",
+          "usage": "Grounding, anchoring"
+        },
+        {
+          "role": "Text",
+          "color": "Warm Charcoal",
+          "hex": "#4A4A4A",
+          "usage": "Text elements"
+        }
+      ],
+      "accent": "Warm Orange (#ED8936) for primary emphasis. Warm-only palette — no cool colors (no green, blue, purple). Modern-retro feel.",
+      "semanticConstraint": "Warm earth tone palette. Warm-only — no cool colors (no green, blue, purple). Do NOT render color names, hex codes, or role labels as visible text in the image.",
+      "bestFor": [
+        "Product showcases",
+        "Team introductions",
+        "Feature grids",
+        "Brand content",
+        "Personal growth",
+        "Lifestyle"
+      ]
+    }
+  ]
+}

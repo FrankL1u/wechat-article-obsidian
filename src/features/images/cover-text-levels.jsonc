@@ -1,0 +1,103 @@
+// Cover text level definitions aligned to baoyu-cover-image references/dimensions/text.md.
+{
+  "textLevels": [
+    {
+      "value": "none",
+      "title": false,
+      "subtitle": false,
+      "tags": false,
+      "visualArea": "100%",
+      "useCases": [
+        "Photography-focused covers",
+        "Abstract art pieces",
+        "Visual-only social sharing",
+        "When title added externally"
+      ],
+      "composition": [
+        "Full visual area available",
+        "No reserved text zones",
+        "Emphasis on visual metaphor"
+      ]
+    },
+    {
+      "value": "title-only",
+      "title": true,
+      "subtitle": false,
+      "tags": false,
+      "visualArea": "85%",
+      "useCases": [
+        "Most article covers (default)",
+        "Clear single message",
+        "Strong brand recognition"
+      ],
+      "composition": [
+        "Title: prominent placement",
+        "Reserved zone: top or bottom 15%",
+        "Visual supports title message"
+      ],
+      "titleGuidelines": [
+        "Use exact title from source content or user-provided title",
+        "Do NOT invent or modify titles",
+        "Match content language"
+      ]
+    },
+    {
+      "value": "title-subtitle",
+      "title": true,
+      "subtitle": true,
+      "tags": false,
+      "visualArea": "75%",
+      "useCases": [
+        "Technical articles needing clarification",
+        "Series with episode or part info",
+        "Content with dual messages"
+      ],
+      "composition": [
+        "Title: primary element",
+        "Subtitle: secondary element",
+        "Reserved zone: 25%",
+        "Clear hierarchy between title and subtitle"
+      ],
+      "titleGuidelines": [
+        "Use exact title from source content or user-provided title",
+        "Do NOT invent or modify titles"
+      ],
+      "subtitleGuidelines": [
+        "Clarify or contextualize title",
+        "Can include series name, author, date",
+        "Smaller, less prominent than title"
+      ]
+    },
+    {
+      "value": "text-rich",
+      "title": true,
+      "subtitle": true,
+      "tags": "2-4",
+      "visualArea": "60%",
+      "useCases": [
+        "Infographic-style covers",
+        "Event announcements with details",
+        "Promotional material with features",
+        "Content with multiple key points"
+      ],
+      "composition": [
+        "Title: primary focus",
+        "Subtitle: supporting info",
+        "Tags: 2-4 keyword labels",
+        "Reserved zone: 40%",
+        "Clear visual hierarchy"
+      ],
+      "titleGuidelines": [
+        "Use exact title from source content or user-provided title",
+        "Do NOT invent or modify titles"
+      ],
+      "tagGuidelines": [
+        "2-4 tags maximum",
+        "Short keywords (1-2 words each)",
+        "Positioned as badges or labels",
+        "Can highlight: category, date, author, key features"
+      ]
+    }
+  ],
+  "default": "title-only"
+}

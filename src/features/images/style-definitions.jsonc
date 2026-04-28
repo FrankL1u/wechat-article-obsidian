@@ -1,0 +1,2259 @@
+// 字段说明：
+// key：风格唯一标识，供程序匹配使用
+// zh：风格中文名称，供人工阅读
+// title：风格标题
+// description：风格的简短说明，可用于 prompt 注入
+// designAesthetic：该风格的整体视觉语言定义
+// background：背景处理规则
+// colorPalette：该风格推荐的颜色角色、色值与用途
+// visualElements：该风格常见的视觉元素
+// styleRules.do：该风格鼓励采用的表现方式
+// styleRules.dont：该风格应避免的表现方式
+// scenarios：该风格更适合的内容类型
+{
+  "styles": [
+    {
+      "key": "blueprint",
+      "zh": "技术蓝图风",
+      "title": "blueprint",
+      "description": "Precise technical blueprint style with engineering precision",
+      "designAesthetic": "Clean, structured visual metaphors using blueprints, diagrams, and schematics. Precise, analytical and aesthetically refined. Information presented in grid-based layouts with engineering precision. Technical drawing quality with professional polish.",
+      "background": {
+        "color": "Blueprint Off-White (#FAF8F5)",
+        "texture": "Subtle grid overlay, engineering paper feel"
+      },
+      "colorPalette": [
+        {
+          "role": "Background",
+          "color": "Blueprint Paper",
+          "hex": "#FAF8F5",
+          "usage": "Primary background"
+        },
+        {
+          "role": "Grid",
+          "color": "Light Gray",
+          "hex": "#E5E5E5",
+          "usage": "Background grid lines"
+        },
+        {
+          "role": "Primary Text",
+          "color": "Deep Slate",
+          "hex": "#334155",
+          "usage": "Headlines, body"
+        },
+        {
+          "role": "Primary Accent",
+          "color": "Engineering Blue",
+          "hex": "#2563EB",
+          "usage": "Key elements"
+        },
+        {
+          "role": "Secondary Accent",
+          "color": "Navy Blue",
+          "hex": "#1E3A5F",
+          "usage": "Supporting elements"
+        },
+        {
+          "role": "Tertiary",
+          "color": "Light Blue",
+          "hex": "#BFDBFE",
+          "usage": "Fills, backgrounds"
+        },
+        {
+          "role": "Warning",
+          "color": "Amber",
+          "hex": "#F59E0B",
+          "usage": "Warnings, emphasis"
+        }
+      ],
+      "visualElements": [
+        "Precise lines with consistent stroke weights",
+        "Technical schematics and clean vector graphics",
+        "Thin line work in technical drawing style",
+        "Connection lines: straight or 90-degree angles only",
+        "Data visualization with minimal charts",
+        "Dimension lines and measurement indicators",
+        "Cross-section style diagrams",
+        "Isometric or orthographic projections"
+      ],
+      "styleRules": {
+        "do": [
+          "Maintain consistent line weights",
+          "Use grid alignment for all elements",
+          "Keep color palette restrained",
+          "Create clear visual hierarchy through scale",
+          "Use geometric precision for all shapes"
+        ],
+        "dont": [
+          "Use hand-drawn or organic shapes",
+          "Add decorative flourishes",
+          "Use curved connection lines",
+          "Include photographic elements",
+          "Add unnecessary embellishments"
+        ]
+      },
+      "scenarios": [
+        "Technical architecture",
+        "system design",
+        "data analysis",
+        "engineering documentation",
+        "process flows",
+        "infrastructure articles"
+      ]
+    },
+    {
+      "key": "chalkboard",
+      "zh": "黑板手绘风",
+      "title": "chalkboard",
+      "description": "Black chalkboard background with colorful chalk drawing style",
+      "designAesthetic": "Classic classroom chalkboard aesthetic with hand-drawn chalk illustrations. Nostalgic educational feel with imperfect, sketchy lines that capture the warmth of traditional teaching. Colorful chalk creates visual hierarchy while maintaining the authentic chalkboard experience.",
+      "background": {
+        "color": "Chalkboard Black (#1A1A1A) or Dark Green-Black (#1C2B1C)",
+        "texture": "Realistic chalkboard texture with subtle scratches, dust particles, and faint eraser marks"
+      },
+      "colorPalette": [
+        {
+          "role": "Background",
+          "color": "Chalkboard Black",
+          "hex": "#1A1A1A",
+          "usage": "Primary background"
+        },
+        {
+          "role": "Alt Background",
+          "color": "Green-Black",
+          "hex": "#1C2B1C",
+          "usage": "Traditional green board"
+        },
+        {
+          "role": "Primary Text",
+          "color": "Chalk White",
+          "hex": "#F5F5F5",
+          "usage": "Main text, outlines"
+        },
+        {
+          "role": "Accent 1",
+          "color": "Chalk Yellow",
+          "hex": "#FFE566",
+          "usage": "Highlights, emphasis"
+        },
+        {
+          "role": "Accent 2",
+          "color": "Chalk Pink",
+          "hex": "#FF9999",
+          "usage": "Secondary highlights"
+        },
+        {
+          "role": "Accent 3",
+          "color": "Chalk Blue",
+          "hex": "#66B3FF",
+          "usage": "Diagrams, links"
+        },
+        {
+          "role": "Accent 4",
+          "color": "Chalk Green",
+          "hex": "#90EE90",
+          "usage": "Success, nature"
+        },
+        {
+          "role": "Accent 5",
+          "color": "Chalk Orange",
+          "hex": "#FFB366",
+          "usage": "Warnings, energy"
+        }
+      ],
+      "visualElements": [
+        "Hand-drawn chalk illustrations with sketchy, imperfect lines",
+        "Chalk dust effects around text and key elements",
+        "Doodles: stars, arrows, underlines, circles, checkmarks",
+        "Mathematical formulas and simple diagrams",
+        "Eraser smudges and chalk residue textures",
+        "Wooden frame border optional",
+        "Stick figures and simple icons",
+        "Connection lines with hand-drawn feel"
+      ],
+      "styleRules": {
+        "do": [
+          "Maintain authentic chalk texture on all elements",
+          "Use imperfect, hand-drawn quality throughout",
+          "Add subtle chalk dust and smudge effects",
+          "Create visual hierarchy with color variety",
+          "Include playful doodles and annotations"
+        ],
+        "dont": [
+          "Use perfect geometric shapes",
+          "Create clean digital-looking lines",
+          "Add photorealistic elements",
+          "Use gradients or glossy effects",
+          "Make it look computerized"
+        ]
+      },
+      "scenarios": [
+        "Educational articles",
+        "tutorials",
+        "teaching content",
+        "workshops",
+        "informal learning",
+        "knowledge sharing",
+        "how-to guides",
+        "classroom-style explanations"
+      ]
+    },
+    {
+      "key": "editorial",
+      "zh": "杂志信息图风",
+      "title": "editorial",
+      "description": "Magazine-style editorial infographic for professional content",
+      "designAesthetic": "High-quality magazine explainer aesthetic. Clear visual storytelling with structured layouts and professional typography. Think Wired, The Verge, or quality science publications. Complex information made digestible.",
+      "background": {
+        "color": "Pure White (#FFFFFF) or Light Gray (#F8F9FA)",
+        "texture": "None or subtle paper grain"
+      },
+      "colorPalette": [
+        {
+          "role": "Background",
+          "color": "Pure White",
+          "hex": "#FFFFFF",
+          "usage": "Primary background"
+        },
+        {
+          "role": "Alt Background",
+          "color": "Light Gray",
+          "hex": "#F8F9FA",
+          "usage": "Section backgrounds"
+        },
+        {
+          "role": "Primary Text",
+          "color": "Near Black",
+          "hex": "#1A1A1A",
+          "usage": "Headlines, body"
+        },
+        {
+          "role": "Secondary Text",
+          "color": "Dark Gray",
+          "hex": "#4A5568",
+          "usage": "Captions"
+        },
+        {
+          "role": "Accent 1",
+          "color": "Editorial Blue",
+          "hex": "#2563EB",
+          "usage": "Primary accent"
+        },
+        {
+          "role": "Accent 2",
+          "color": "Coral",
+          "hex": "#F97316",
+          "usage": "Secondary accent"
+        },
+        {
+          "role": "Accent 3",
+          "color": "Emerald",
+          "hex": "#10B981",
+          "usage": "Positive elements"
+        },
+        {
+          "role": "Accent 4",
+          "color": "Amber",
+          "hex": "#F59E0B",
+          "usage": "Attention points"
+        },
+        {
+          "role": "Dividers",
+          "color": "Medium Gray",
+          "hex": "#D1D5DB",
+          "usage": "Section dividers"
+        }
+      ],
+      "visualElements": [
+        "Clean flat illustrations",
+        "Structured multi-section layouts",
+        "Callout boxes for insights",
+        "Icon-based visualizations",
+        "Visual metaphors for concepts",
+        "Flow diagrams with hierarchy",
+        "Pull quotes and highlights",
+        "Clear section dividers"
+      ],
+      "styleRules": {
+        "do": [
+          "Create clear narrative flow",
+          "Use structured layouts",
+          "Include callout boxes",
+          "Design visual metaphors",
+          "Maintain magazine polish"
+        ],
+        "dont": [
+          "Use photographic imagery",
+          "Create cluttered layouts",
+          "Mix too many styles",
+          "Add purposeless decoration",
+          "Compromise clarity for style"
+        ]
+      },
+      "scenarios": [
+        "Technology explainers",
+        "science communication",
+        "research articles",
+        "policy analysis",
+        "investigative pieces",
+        "thought leadership",
+        "long-form journalism"
+      ]
+    },
+    {
+      "key": "elegant",
+      "zh": "优雅杂志风",
+      "title": "elegant",
+      "description": "Refined, sophisticated illustration style for professional content",
+      "designAesthetic": "Elegant and refined visual approach with sophisticated color palette. Professional polish with subtle artistic touches. Emphasizes clarity and thoughtful composition. Conveys authority and trustworthiness without being cold or clinical.",
+      "background": {
+        "color": "Warm Cream (#F5F0E6) or Soft Beige (#FAF6F0)",
+        "texture": "Subtle paper texture, very light grain"
+      },
+      "colorPalette": [
+        {
+          "role": "Background",
+          "color": "Warm Cream",
+          "hex": "#F5F0E6",
+          "usage": "Primary background"
+        },
+        {
+          "role": "Primary",
+          "color": "Soft Coral",
+          "hex": "#E8A598",
+          "usage": "Main accent color"
+        },
+        {
+          "role": "Secondary",
+          "color": "Muted Teal",
+          "hex": "#5B8A8A",
+          "usage": "Supporting elements"
+        },
+        {
+          "role": "Tertiary",
+          "color": "Dusty Rose",
+          "hex": "#D4A5A5",
+          "usage": "Subtle highlights"
+        },
+        {
+          "role": "Accent",
+          "color": "Gold",
+          "hex": "#C9A962",
+          "usage": "Premium touches"
+        },
+        {
+          "role": "Alt Accent",
+          "color": "Copper",
+          "hex": "#B87333",
+          "usage": "Warm metallic notes"
+        },
+        {
+          "role": "Text",
+          "color": "Charcoal",
+          "hex": "#3D3D3D",
+          "usage": "Text and outlines"
+        }
+      ],
+      "visualElements": [
+        "Delicate line work with refined strokes",
+        "Subtle icons with balanced weight",
+        "Graceful curves and flowing compositions",
+        "Soft gradients with smooth transitions",
+        "Balanced whitespace and breathing room",
+        "Thin borders and elegant dividers",
+        "Subtle drop shadows for depth"
+      ],
+      "styleRules": {
+        "do": [
+          "Use refined color combinations",
+          "Create balanced, harmonious compositions",
+          "Keep elements light and airy",
+          "Use subtle gradients sparingly",
+          "Maintain generous margins"
+        ],
+        "dont": [
+          "Use harsh contrasts",
+          "Overcrowd the composition",
+          "Add playful or casual elements",
+          "Use neon or overly bright colors",
+          "Create busy or cluttered layouts"
+        ]
+      },
+      "scenarios": [
+        "Professional articles",
+        "thought leadership pieces",
+        "business topics",
+        "executive communications",
+        "corporate blogs",
+        "strategy discussions",
+        "industry analysis"
+      ]
+    },
+    {
+      "key": "fantasy-animation",
+      "zh": "幻想动画风",
+      "title": "fantasy-animation",
+      "description": "Whimsical hand-drawn animation style inspired by Ghibli/Disney",
+      "designAesthetic": "Charming hand-drawn animation aesthetic reminiscent of classic Disney, Studio Ghibli, or European storybook illustration. Soft, painterly textures with warm, inviting colors. Friendly characters, magical elements, and storybook feel. Enchanting, nostalgic, and emotionally engaging.",
+      "background": {
+        "color": "Soft Sky Blue (#E8F4FC) or Warm Cream (#FFF8E7)",
+        "texture": "Subtle watercolor wash, soft brush strokes"
+      },
+      "colorPalette": [
+        {
+          "role": "Background",
+          "color": "Soft Sky Blue",
+          "hex": "#E8F4FC",
+          "usage": "Primary background"
+        },
+        {
+          "role": "Alt Background",
+          "color": "Warm Cream",
+          "hex": "#FFF8E7",
+          "usage": "Secondary areas"
+        },
+        {
+          "role": "Primary Text",
+          "color": "Deep Forest",
+          "hex": "#2D5A3D",
+          "usage": "Headlines"
+        },
+        {
+          "role": "Body Text",
+          "color": "Warm Brown",
+          "hex": "#5D4E37",
+          "usage": "Content"
+        },
+        {
+          "role": "Accent 1",
+          "color": "Golden Yellow",
+          "hex": "#F4D03F",
+          "usage": "Magic, highlights"
+        },
+        {
+          "role": "Accent 2",
+          "color": "Rose Pink",
+          "hex": "#E8A0BF",
+          "usage": "Warmth, charm"
+        },
+        {
+          "role": "Accent 3",
+          "color": "Sage Green",
+          "hex": "#87A96B",
+          "usage": "Nature elements"
+        },
+        {
+          "role": "Accent 4",
+          "color": "Sky Blue",
+          "hex": "#7EC8E3",
+          "usage": "Air, water, dreams"
+        },
+        {
+          "role": "Accent 5",
+          "color": "Coral",
+          "hex": "#F08080",
+          "usage": "Emphasis, life"
+        }
+      ],
+      "visualElements": [
+        "Central illustrated character (friendly, expressive)",
+        "Small companion creatures (animals, magical beings)",
+        "Storybook-style environment backgrounds",
+        "Magical floating objects (books, orbs, sparkles)",
+        "Decorative elements: stars, flowers, leaves",
+        "Soft shadows and gentle highlights",
+        "Layered depth with foreground/background"
+      ],
+      "styleRules": {
+        "do": [
+          "Create warm, inviting compositions",
+          "Use soft edges and painterly textures",
+          "Include charming character illustrations",
+          "Add magical decorative touches",
+          "Maintain storybook narrative feel"
+        ],
+        "dont": [
+          "Use harsh geometric shapes",
+          "Create dark or intimidating imagery",
+          "Add photorealistic elements",
+          "Use cold color palettes",
+          "Make it look digital/computerized"
+        ]
+      },
+      "scenarios": [
+        "Educational content",
+        "children's articles",
+        "storytelling",
+        "creative topics",
+        "fantasy/gaming",
+        "inspirational pieces",
+        "family-friendly content"
+      ]
+    },
+    {
+      "key": "flat-doodle",
+      "zh": "扁平涂鸦风",
+      "title": "flat-doodle",
+      "description": "Cute flat doodle illustration style with bold outlines",
+      "designAesthetic": "Cheerful and approachable visual style combining flat design with doodle charm. Features bold black outlines around simple shapes. Bright pastel colors with no gradients or shading. Cute rounded proportions that feel friendly. Clean white backgrounds create focus and clarity.",
+      "background": {
+        "color": "Clean White (#FFFFFF)",
+        "texture": "None - pure white isolated background"
+      },
+      "colorPalette": [
+        {
+          "role": "Background",
+          "color": "White",
+          "hex": "#FFFFFF",
+          "usage": "Primary background"
+        },
+        {
+          "role": "Primary",
+          "color": "Pastel Pink",
+          "hex": "#FFB6C1",
+          "usage": "Main elements"
+        },
+        {
+          "role": "Secondary",
+          "color": "Mint",
+          "hex": "#98D8C8",
+          "usage": "Supporting elements"
+        },
+        {
+          "role": "Tertiary",
+          "color": "Lavender",
+          "hex": "#C8A2C8",
+          "usage": "Accent elements"
+        },
+        {
+          "role": "Accent 1",
+          "color": "Butter Yellow",
+          "hex": "#FFFACD",
+          "usage": "Highlight pop"
+        },
+        {
+          "role": "Accent 2",
+          "color": "Sky Blue",
+          "hex": "#87CEEB",
+          "usage": "Cool accent"
+        },
+        {
+          "role": "Accent 3",
+          "color": "Soft Coral",
+          "hex": "#F88379",
+          "usage": "Warm accent"
+        },
+        {
+          "role": "Outline",
+          "color": "Bold Black",
+          "hex": "#000000",
+          "usage": "All outlines"
+        },
+        {
+          "role": "Text",
+          "color": "Black",
+          "hex": "#1A1A1A",
+          "usage": "Text elements"
+        }
+      ],
+      "visualElements": [
+        "Bold black outlines around all shapes",
+        "Simple flat color fills",
+        "Cute rounded proportions",
+        "Minimal geometric shapes",
+        "Productivity icons (laptops, calendars, checkmarks)",
+        "Isolated elements on white",
+        "No shading or gradients",
+        "Hand-drawn quality with clean edges"
+      ],
+      "styleRules": {
+        "do": [
+          "Use bold black outlines consistently",
+          "Keep shapes simple and rounded",
+          "Use bright pastel palette",
+          "Isolate elements on white background",
+          "Maintain cute proportions",
+          "Keep minimal shading"
+        ],
+        "dont": [
+          "Add shadows or depth effects",
+          "Use gradients or textures",
+          "Create complex detailed illustrations",
+          "Overlap too many elements",
+          "Use dark or moody backgrounds",
+          "Add realistic proportions"
+        ]
+      },
+      "scenarios": [
+        "Productivity articles",
+        "SaaS and app content",
+        "workflow tutorials",
+        "beginner guides",
+        "casual business content",
+        "tool introductions",
+        "lifestyle productivity"
+      ]
+    },
+    {
+      "key": "flat",
+      "zh": "现代扁平插画风",
+      "title": "flat",
+      "description": "Modern flat vector illustration style for contemporary content",
+      "designAesthetic": "Contemporary flat design aesthetic with bold shapes and limited depth. Clean geometric forms with no gradients or shadows. Modern, accessible, and highly readable. Optimized for digital consumption with scalable vector quality.",
+      "background": {
+        "color": "White (#FFFFFF) or Soft Gray (#F5F5F5)",
+        "texture": "None - clean solid backgrounds"
+      },
+      "colorPalette": [
+        {
+          "role": "Background",
+          "color": "White",
+          "hex": "#FFFFFF",
+          "usage": "Primary background"
+        },
+        {
+          "role": "Alt Background",
+          "color": "Soft Gray",
+          "hex": "#F5F5F5",
+          "usage": "Accent areas"
+        },
+        {
+          "role": "Primary",
+          "color": "Vibrant Blue",
+          "hex": "#3B82F6",
+          "usage": "Main elements"
+        },
+        {
+          "role": "Secondary",
+          "color": "Coral",
+          "hex": "#F97316",
+          "usage": "Supporting elements"
+        },
+        {
+          "role": "Tertiary",
+          "color": "Emerald",
+          "hex": "#10B981",
+          "usage": "Accent elements"
+        },
+        {
+          "role": "Accent 1",
+          "color": "Purple",
+          "hex": "#8B5CF6",
+          "usage": "Additional accent"
+        },
+        {
+          "role": "Accent 2",
+          "color": "Amber",
+          "hex": "#F59E0B",
+          "usage": "Highlight"
+        },
+        {
+          "role": "Text",
+          "color": "Dark Slate",
+          "hex": "#1E293B",
+          "usage": "Text elements"
+        },
+        {
+          "role": "Light",
+          "color": "Light Gray",
+          "hex": "#E5E7EB",
+          "usage": "Subtle elements"
+        }
+      ],
+      "visualElements": [
+        "Bold geometric shapes",
+        "Flat color fills with no gradients",
+        "Simple character illustrations",
+        "Clean icon designs",
+        "Minimal line work",
+        "Overlapping shape compositions",
+        "Abstract concept visualizations",
+        "Consistent stroke weights"
+      ],
+      "styleRules": {
+        "do": [
+          "Use flat solid colors",
+          "Create clean geometric shapes",
+          "Keep elements simple",
+          "Maintain consistent styling",
+          "Use bold color combinations"
+        ],
+        "dont": [
+          "Add shadows or depth",
+          "Use gradients or textures",
+          "Create realistic illustrations",
+          "Add unnecessary details",
+          "Use photographic elements"
+        ]
+      },
+      "scenarios": [
+        "Modern articles",
+        "app and product content",
+        "startup stories",
+        "digital topics",
+        "contemporary business",
+        "tech company blogs",
+        "social media content"
+      ]
+    },
+    {
+      "key": "ink-notes",
+      "zh": "墨迹笔记风",
+      "title": "ink-notes",
+      "description": "Professional black-ink visual notes on pure white, in the tradition of Mike Rohde's sketchnoting",
+      "designAesthetic": "Disciplined hand-drawn visual note. Confident black ink line work with slight wobble, hand-lettered typography, and sparse color accents used only for semantic emphasis. Feels like a skilled visual notetaker's whiteboard presentation — clean, structured, intentionally hand-drawn rather than decorative.",
+      "background": {
+        "color": "Pure White (#FFFFFF)",
+        "texture": "Clean, no grain, no tint"
+      },
+      "colorPalette": [
+        {
+          "role": "Background",
+          "color": "Pure White",
+          "hex": "#FFFFFF",
+          "usage": "Canvas"
+        },
+        {
+          "role": "Primary Ink",
+          "color": "Near Black",
+          "hex": "#1A1A1A",
+          "usage": "All lines, text, figures, arrows"
+        },
+        {
+          "role": "Accent Warm",
+          "color": "Coral Red",
+          "hex": "#E8655A",
+          "usage": "Risk, problem, gap, emphasis"
+        },
+        {
+          "role": "Accent Cool",
+          "color": "Muted Teal",
+          "hex": "#5FA8A8",
+          "usage": "Positive, solution, \"after\" state"
+        },
+        {
+          "role": "Accent Neutral",
+          "color": "Dusty Lavender",
+          "hex": "#9B8AB5",
+          "usage": "Neutral tags, category labels"
+        },
+        {
+          "role": "Soft Fill",
+          "color": "Pale Gray",
+          "hex": "#F0F0F0",
+          "usage": "Subtle zone backgrounds (optional)"
+        }
+      ],
+      "visualElements": [
+        "Black ink line work with intentional slight wobble on all strokes",
+        "Hand-lettered titles (bold, oversized) and handwritten body annotations",
+        "Simple stick-figure characters with expressive poses (pointing, thinking, walking)",
+        "Role labels above characters (e.g., \"Tech Lead\", \"Compliance Officer\")",
+        "Thought bubbles and speech bubbles with hand-drawn outlines",
+        "Rounded-rectangle frames for content groupings",
+        "Dashed-border rectangles for placeholder, \"coming next\", or empty states",
+        "Curvy hand-drawn arrows with small inline labels",
+        "Vertical or horizontal dividers between comparison zones (\"Before\" | \"After\")",
+        "\"Mindset shift\" curved arrow bridging two zones",
+        "Bottom tagline: single-line hand-lettered conclusion that points the takeaway",
+        "Stars, asterisks, underlines for emphasis — used sparingly"
+      ],
+      "styleRules": {
+        "do": [
+          "Keep background pure white with no texture or tint",
+          "Let black ink dominate outlines, text, and figures",
+          "Use accent colors only for semantic highlighting",
+          "Keep all type hand-lettered — no computer-generated fonts",
+          "Maintain confident line quality (wobble, not mess)",
+          "Include a bottom tagline summarizing the main takeaway",
+          "Structure content into clear zones with visible dividers",
+          "Use dashed boxes for future, empty, or placeholder states"
+        ],
+        "dont": [
+          "Use warm off-white or paper-textured backgrounds (that is sketch-notes' territory)",
+          "Fill large zones with color blocks",
+          "Use more than 3 accent colors per image",
+          "Use perfect geometric shapes — preserve hand-drawn wobble",
+          "Clutter with decorative doodles; every element must carry meaning",
+          "Use gradients, shadows, or computer-generated fonts"
+        ]
+      },
+      "scenarios": [
+        "Product and engineering essays",
+        "tech manifestos",
+        "framework introductions",
+        "Before/After narratives",
+        "OS-level comparisons",
+        "workforce and organizational analogies",
+        "visual summaries of talks",
+        "thought-leadership articles"
+      ]
+    },
+    {
+      "key": "intuition-machine",
+      "zh": "直觉机器风",
+      "title": "intuition-machine",
+      "description": "Technical briefing infographic style with aged paper and bilingual labels",
+      "designAesthetic": "Academic/technical briefing style with clean 2D or isometric technical illustrations. Information-dense but organized with clear visual hierarchy. Vintage blueprint aesthetic with modern clarity. Multiple explanatory elements with bilingual callouts.",
+      "background": {
+        "color": "Aged Cream (#F5F0E6)",
+        "texture": "Subtle paper texture with light creases, vintage technical print feel"
+      },
+      "colorPalette": [
+        {
+          "role": "Background",
+          "color": "Aged Cream",
+          "hex": "#F5F0E6",
+          "usage": "Primary background"
+        },
+        {
+          "role": "Paper Texture",
+          "color": "Warm White",
+          "hex": "#F5F0E1",
+          "usage": "Blueprint effect"
+        },
+        {
+          "role": "Primary Text",
+          "color": "Dark Maroon",
+          "hex": "#5D3A3A",
+          "usage": "Headlines, titles"
+        },
+        {
+          "role": "Body Text",
+          "color": "Near Black",
+          "hex": "#1A1A1A",
+          "usage": "Content text"
+        },
+        {
+          "role": "Accent 1",
+          "color": "Teal",
+          "hex": "#2F7373",
+          "usage": "Primary illustrations"
+        },
+        {
+          "role": "Accent 2",
+          "color": "Warm Brown",
+          "hex": "#8B7355",
+          "usage": "Secondary elements"
+        },
+        {
+          "role": "Accent 3",
+          "color": "Maroon",
+          "hex": "#722F37",
+          "usage": "Emphasis"
+        },
+        {
+          "role": "Outline",
+          "color": "Deep Charcoal",
+          "hex": "#2D2D2D",
+          "usage": "Element outlines"
+        }
+      ],
+      "visualElements": [
+        "Isometric 3D or flat 2D technical diagrams",
+        "Explanatory text boxes with labeled content",
+        "Bilingual callout labels (English + Chinese)",
+        "Faded thematic background patterns",
+        "Clean black outlines on elements",
+        "Split or triptych layouts",
+        "Key insight boxes"
+      ],
+      "styleRules": {
+        "do": [
+          "Include multiple text boxes with content",
+          "Use bilingual labels for key elements",
+          "Add faded thematic background patterns",
+          "Maintain aged paper texture",
+          "Create clear visual hierarchy"
+        ],
+        "dont": [
+          "Create photorealistic 3D renders",
+          "Leave illustrations without explanatory text",
+          "Add stamps or watermarks in corners",
+          "Use gradients or glossy effects",
+          "Make it look too modern/digital"
+        ]
+      },
+      "scenarios": [
+        "Technical explanations",
+        "concept breakdowns",
+        "academic content",
+        "research summaries",
+        "bilingual audiences",
+        "knowledge documentation"
+      ]
+    },
+    {
+      "key": "minimal",
+      "zh": "极简留白风",
+      "title": "minimal",
+      "description": "Ultra-clean, zen-like illustration style for focused content",
+      "designAesthetic": "Maximum simplicity with purposeful restraint. Every element serves a function. Zen-like calm and focus through extensive negative space. Single focal point approach that guides attention naturally. Quiet elegance through reduction.",
+      "background": {
+        "color": "Pure White (#FFFFFF) or Off-White (#FAFAFA)",
+        "texture": "None - clean solid backgrounds"
+      },
+      "colorPalette": [
+        {
+          "role": "Background",
+          "color": "White",
+          "hex": "#FFFFFF",
+          "usage": "Primary background"
+        },
+        {
+          "role": "Alt Background",
+          "color": "Off-White",
+          "hex": "#FAFAFA",
+          "usage": "Subtle variation"
+        },
+        {
+          "role": "Primary",
+          "color": "Pure Black",
+          "hex": "#000000",
+          "usage": "Main elements"
+        },
+        {
+          "role": "Accent",
+          "color": "Content-Derived",
+          "hex": "varies",
+          "usage": "Single accent color"
+        },
+        {
+          "role": "Text",
+          "color": "Black",
+          "hex": "#000000",
+          "usage": "Text elements"
+        },
+        {
+          "role": "Alt Text",
+          "color": "Medium Gray",
+          "hex": "#6B6B6B",
+          "usage": "Secondary text"
+        }
+      ],
+      "visualElements": [
+        "Single focal element per illustration",
+        "Maximum negative space",
+        "Thin, precise lines",
+        "Simple geometric forms",
+        "Subtle shadows if any",
+        "Typography as primary element",
+        "Strategic use of single accent",
+        "Clean, uncluttered compositions"
+      ],
+      "styleRules": {
+        "do": [
+          "Embrace empty space",
+          "Use single focal points",
+          "Keep lines thin and precise",
+          "Let content breathe",
+          "Question every element"
+        ],
+        "dont": [
+          "Add decorative elements",
+          "Use multiple accent colors",
+          "Fill available space",
+          "Add textures or patterns",
+          "Create visual complexity"
+        ]
+      },
+      "scenarios": [
+        "Philosophy articles",
+        "minimalism content",
+        "focused explanations",
+        "meditation and mindfulness",
+        "essential concepts",
+        "clarity-focused writing"
+      ]
+    },
+    {
+      "key": "nature",
+      "zh": "自然生态风",
+      "title": "nature",
+      "description": "Organic, earthy illustration style for environmental and wellness content",
+      "designAesthetic": "Natural and organic visual approach inspired by the outdoors. Earth tones and natural textures that evoke calm and connection to nature. Flowing lines and organic shapes. Creates a sense of tranquility and environmental awareness.",
+      "background": {
+        "color": "Sand Beige (#F5E6D3) or Sky Blue wash (#E0F2FE)",
+        "texture": "Natural paper texture with organic feel"
+      },
+      "colorPalette": [
+        {
+          "role": "Background",
+          "color": "Sand Beige",
+          "hex": "#F5E6D3",
+          "usage": "Primary background"
+        },
+        {
+          "role": "Alt Background",
+          "color": "Sky Blue",
+          "hex": "#E0F2FE",
+          "usage": "Alternative canvas"
+        },
+        {
+          "role": "Primary",
+          "color": "Forest Green",
+          "hex": "#276749",
+          "usage": "Main natural color"
+        },
+        {
+          "role": "Secondary",
+          "color": "Sage",
+          "hex": "#9AE6B4",
+          "usage": "Supporting green"
+        },
+        {
+          "role": "Tertiary",
+          "color": "Earth Brown",
+          "hex": "#744210",
+          "usage": "Grounding element"
+        },
+        {
+          "role": "Accent 1",
+          "color": "Sunset Orange",
+          "hex": "#ED8936",
+          "usage": "Warm accent"
+        },
+        {
+          "role": "Accent 2",
+          "color": "Water Blue",
+          "hex": "#63B3ED",
+          "usage": "Cool accent"
+        },
+        {
+          "role": "Text",
+          "color": "Deep Brown",
+          "hex": "#5D4E3C",
+          "usage": "Text elements"
+        }
+      ],
+      "visualElements": [
+        "Leaf and plant motifs",
+        "Tree and branch silhouettes",
+        "Mountain and landscape shapes",
+        "Organic flowing lines",
+        "Natural textures (wood grain, stone)",
+        "Water and wave patterns",
+        "Animal silhouettes",
+        "Sun and moon symbols"
+      ],
+      "styleRules": {
+        "do": [
+          "Use earth-inspired colors",
+          "Create organic, flowing shapes",
+          "Include nature elements",
+          "Evoke outdoor atmosphere",
+          "Maintain calm and balance"
+        ],
+        "dont": [
+          "Use synthetic or neon colors",
+          "Create rigid geometric shapes",
+          "Add tech or digital elements",
+          "Use stark contrasts",
+          "Overcomplicate compositions"
+        ]
+      },
+      "scenarios": [
+        "Sustainability articles",
+        "wellness content",
+        "outdoor topics",
+        "slow living",
+        "environmental issues",
+        "health and fitness",
+        "gardening",
+        "travel nature pieces"
+      ]
+    },
+    {
+      "key": "notion",
+      "zh": "极简手绘线条风",
+      "title": "notion",
+      "description": "Minimalist hand-drawn line art style for knowledge content (Default)",
+      "designAesthetic": "Clean, minimalist hand-drawn line art with intellectual feel. Simple doodle-style illustrations with intentional wobble. Maximum whitespace with single concept focus. Notion-like aesthetic that feels thoughtful and organized.",
+      "background": {
+        "color": "Pure White (#FFFFFF) or Off-White (#FAFAFA)",
+        "texture": "None - clean solid backgrounds"
+      },
+      "colorPalette": [
+        {
+          "role": "Background",
+          "color": "White",
+          "hex": "#FFFFFF",
+          "usage": "Primary background"
+        },
+        {
+          "role": "Alt Background",
+          "color": "Off-White",
+          "hex": "#FAFAFA",
+          "usage": "Subtle variation"
+        },
+        {
+          "role": "Primary",
+          "color": "Black",
+          "hex": "#1A1A1A",
+          "usage": "Main outlines"
+        },
+        {
+          "role": "Secondary",
+          "color": "Dark Gray",
+          "hex": "#4A4A4A",
+          "usage": "Supporting lines"
+        },
+        {
+          "role": "Accent 1",
+          "color": "Pastel Blue",
+          "hex": "#A8D4F0",
+          "usage": "Soft highlight"
+        },
+        {
+          "role": "Accent 2",
+          "color": "Pastel Yellow",
+          "hex": "#F9E79F",
+          "usage": "Warm highlight"
+        },
+        {
+          "role": "Accent 3",
+          "color": "Pastel Pink",
+          "hex": "#FADBD8",
+          "usage": "Gentle accent"
+        },
+        {
+          "role": "Text",
+          "color": "Near Black",
+          "hex": "#1A1A1A",
+          "usage": "Text elements"
+        }
+      ],
+      "visualElements": [
+        "Simple line doodles",
+        "Hand-drawn wobble effect",
+        "Basic geometric shapes",
+        "Stick figures for people",
+        "Conceptual icons",
+        "Clean hand-drawn lettering",
+        "Minimal decorative elements",
+        "Single-weight line work"
+      ],
+      "styleRules": {
+        "do": [
+          "Use maximum whitespace",
+          "Keep illustrations simple",
+          "Add slight hand-drawn wobble",
+          "Focus on single concepts",
+          "Use pastel accents sparingly"
+        ],
+        "dont": [
+          "Create complex illustrations",
+          "Use many colors at once",
+          "Add detailed textures",
+          "Make precise geometric shapes",
+          "Overcrowd the composition"
+        ]
+      },
+      "scenarios": [
+        "Knowledge sharing",
+        "concept explanations",
+        "SaaS content",
+        "productivity articles",
+        "educational posts",
+        "how-to guides",
+        "professional blogs"
+      ]
+    },
+    {
+      "key": "pixel-art",
+      "zh": "像素插画风",
+      "title": "pixel-art",
+      "description": "Retro 8-bit pixel art aesthetic with nostalgic gaming style",
+      "designAesthetic": "Pixelated retro aesthetic reminiscent of classic 8-bit and 16-bit era games. Chunky pixels, limited color palettes, and nostalgic gaming references. Simple geometric shapes rendered in blocky pixel form. Fun, playful, and immediately recognizable retro tech aesthetic.",
+      "background": {
+        "color": "Light Blue (#87CEEB) or Soft Lavender (#E6E6FA)",
+        "texture": "Subtle pixel grid pattern, optional CRT scanline effect"
+      },
+      "colorPalette": [
+        {
+          "role": "Background",
+          "color": "Light Blue",
+          "hex": "#87CEEB",
+          "usage": "Primary background"
+        },
+        {
+          "role": "Alt Background",
+          "color": "Soft Lavender",
+          "hex": "#E6E6FA",
+          "usage": "Secondary backgrounds"
+        },
+        {
+          "role": "Primary Text",
+          "color": "Dark Navy",
+          "hex": "#1A1A2E",
+          "usage": "Main elements"
+        },
+        {
+          "role": "Accent 1",
+          "color": "Pixel Green",
+          "hex": "#00FF00",
+          "usage": "Success, highlights"
+        },
+        {
+          "role": "Accent 2",
+          "color": "Pixel Red",
+          "hex": "#FF0000",
+          "usage": "Alerts, emphasis"
+        },
+        {
+          "role": "Accent 3",
+          "color": "Pixel Yellow",
+          "hex": "#FFFF00",
+          "usage": "Warnings, energy"
+        },
+        {
+          "role": "Accent 4",
+          "color": "Pixel Cyan",
+          "hex": "#00FFFF",
+          "usage": "Info, tech elements"
+        },
+        {
+          "role": "Accent 5",
+          "color": "Pixel Magenta",
+          "hex": "#FF00FF",
+          "usage": "Special elements"
+        }
+      ],
+      "visualElements": [
+        "All elements rendered with visible pixel structure",
+        "Simple iconography: notepad, checkboxes, gears, rockets",
+        "Text bubbles with pixel borders",
+        "8-bit decorations: stars, hearts, arrows",
+        "Progress bars with chunky pixel segments",
+        "Dithering patterns for color transitions",
+        "Limited 16-32 color palette"
+      ],
+      "styleRules": {
+        "do": [
+          "Maintain consistent pixel grid throughout",
+          "Use limited color palette (16-32 colors max)",
+          "Create blocky, geometric shapes",
+          "Add nostalgic gaming references",
+          "Use dithering for color transitions"
+        ],
+        "dont": [
+          "Use smooth gradients or anti-aliasing",
+          "Create photorealistic elements",
+          "Use thin lines or fine details",
+          "Add modern glossy effects",
+          "Break the pixel grid alignment"
+        ]
+      },
+      "scenarios": [
+        "Gaming articles",
+        "tech tutorials",
+        "nostalgic content",
+        "developer topics",
+        "retro-themed pieces",
+        "creative tech content"
+      ]
+    },
+    {
+      "key": "playful",
+      "zh": "活泼趣味风",
+      "title": "playful",
+      "description": "Fun, creative illustration style for casual and educational content",
+      "designAesthetic": "Whimsical and entertaining visual approach that sparks joy. Pastel colors with bright pops of energy. Doodle-like quality that feels approachable and fun. Creates a sense of play and discovery. Encourages engagement through visual delight.",
+      "background": {
+        "color": "Light Cream (#FFFBEB) or Soft White (#FFF)",
+        "texture": "Subtle, playful pattern or clean"
+      },
+      "colorPalette": [
+        {
+          "role": "Background",
+          "color": "Light Cream",
+          "hex": "#FFFBEB",
+          "usage": "Primary background"
+        },
+        {
+          "role": "Primary",
+          "color": "Pastel Pink",
+          "hex": "#FED7E2",
+          "usage": "Soft warmth"
+        },
+        {
+          "role": "Secondary",
+          "color": "Mint",
+          "hex": "#C6F6D5",
+          "usage": "Fresh energy"
+        },
+        {
+          "role": "Tertiary",
+          "color": "Lavender",
+          "hex": "#E9D8FD",
+          "usage": "Dreamy touch"
+        },
+        {
+          "role": "Accent 1",
+          "color": "Sky Blue",
+          "hex": "#BEE3F8",
+          "usage": "Calm brightness"
+        },
+        {
+          "role": "Accent 2",
+          "color": "Bright Yellow",
+          "hex": "#FBBF24",
+          "usage": "Energy pop"
+        },
+        {
+          "role": "Accent 3",
+          "color": "Coral",
+          "hex": "#F6AD55",
+          "usage": "Warm pop"
+        },
+        {
+          "role": "Accent 4",
+          "color": "Turquoise",
+          "hex": "#38B2AC",
+          "usage": "Cool pop"
+        },
+        {
+          "role": "Text",
+          "color": "Soft Charcoal",
+          "hex": "#4A4A4A",
+          "usage": "Text elements"
+        }
+      ],
+      "visualElements": [
+        "Doodles and sketchy lines",
+        "Star and sparkle decorations",
+        "Swirls and curvy elements",
+        "Cute character illustrations",
+        "Speech bubbles and callouts",
+        "Emoji-style icons",
+        "Confetti and celebration marks",
+        "Playful hand-lettering"
+      ],
+      "styleRules": {
+        "do": [
+          "Use varied pastel palette",
+          "Add whimsical decorations",
+          "Create friendly characters",
+          "Include playful details",
+          "Keep energy high and positive"
+        ],
+        "dont": [
+          "Use dark or moody colors",
+          "Create serious compositions",
+          "Add corporate elements",
+          "Use rigid geometric shapes",
+          "Make it feel professional"
+        ]
+      },
+      "scenarios": [
+        "Tutorials and guides",
+        "beginner-friendly content",
+        "casual articles",
+        "fun topics",
+        "children's content",
+        "hobby-related posts",
+        "entertaining explanations"
+      ]
+    },
+    {
+      "key": "retro",
+      "zh": "复古印刷风",
+      "title": "retro",
+      "description": "80s/90s nostalgic aesthetic with vibrant colors and geometric patterns",
+      "designAesthetic": "Nostalgic retro aesthetic inspired by 80s and 90s design trends. Vibrant neon colors, geometric patterns, and Memphis design influence. Energetic, fun, and unapologetically bold. Perfect for content that embraces nostalgia or playful energy.",
+      "background": {
+        "color": "Deep Purple (#2D1B4E) or Dark Teal (#0F4C5C)",
+        "texture": "Subtle grid patterns or geometric shapes"
+      },
+      "colorPalette": [
+        {
+          "role": "Background",
+          "color": "Deep Purple",
+          "hex": "#2D1B4E",
+          "usage": "Primary background"
+        },
+        {
+          "role": "Alt Background",
+          "color": "Dark Teal",
+          "hex": "#0F4C5C",
+          "usage": "Alternative"
+        },
+        {
+          "role": "Primary",
+          "color": "Hot Pink",
+          "hex": "#FF1493",
+          "usage": "Main accent"
+        },
+        {
+          "role": "Secondary",
+          "color": "Electric Cyan",
+          "hex": "#00FFFF",
+          "usage": "Supporting"
+        },
+        {
+          "role": "Tertiary",
+          "color": "Neon Yellow",
+          "hex": "#FFFF00",
+          "usage": "Highlights"
+        },
+        {
+          "role": "Accent 1",
+          "color": "Lime Green",
+          "hex": "#32CD32",
+          "usage": "Energy"
+        },
+        {
+          "role": "Accent 2",
+          "color": "Orange",
+          "hex": "#FF6B35",
+          "usage": "Warmth"
+        },
+        {
+          "role": "Text",
+          "color": "White",
+          "hex": "#FFFFFF",
+          "usage": "Text elements"
+        },
+        {
+          "role": "Grid",
+          "color": "Light Purple",
+          "hex": "#9D8EC0",
+          "usage": "Grid lines"
+        }
+      ],
+      "visualElements": [
+        "Geometric patterns (triangles, circles)",
+        "Grid backgrounds and lines",
+        "Neon glow effects",
+        "Memphis design shapes",
+        "Zigzag and wavy patterns",
+        "Retro computer graphics",
+        "Bold outline strokes",
+        "Gradient sunsets"
+      ],
+      "styleRules": {
+        "do": [
+          "Use bold neon colors",
+          "Create geometric patterns",
+          "Add retro typography",
+          "Include Memphis-style shapes",
+          "Embrace maximalism"
+        ],
+        "dont": [
+          "Use muted or subtle colors",
+          "Create minimal compositions",
+          "Add modern flat design",
+          "Make it look contemporary",
+          "Use understated elements"
+        ]
+      },
+      "scenarios": [
+        "Pop culture articles",
+        "gaming content",
+        "music and entertainment",
+        "nostalgia pieces",
+        "youth-focused content",
+        "creative industry",
+        "party and event content"
+      ]
+    },
+    {
+      "key": "scientific",
+      "zh": "学术精确图表风",
+      "title": "scientific",
+      "description": "Academic scientific illustration style for technical diagrams and processes",
+      "designAesthetic": "Academic scientific illustration aesthetic for biological, chemical, and technical diagrams. Clean, precise diagrams with proper labeling and clear visual flow. Educational clarity with professional polish. Textbook quality illustrations.",
+      "background": {
+        "color": "Off-White (#FAFAFA) or Light Blue-Gray (#F0F4F8)",
+        "texture": "None or subtle paper grain"
+      },
+      "colorPalette": [
+        {
+          "role": "Background",
+          "color": "Off-White",
+          "hex": "#FAFAFA",
+          "usage": "Primary background"
+        },
+        {
+          "role": "Primary Text",
+          "color": "Dark Slate",
+          "hex": "#1E293B",
+          "usage": "Labels, headers"
+        },
+        {
+          "role": "Label Text",
+          "color": "Medium Gray",
+          "hex": "#475569",
+          "usage": "Annotations"
+        },
+        {
+          "role": "Pathway 1",
+          "color": "Teal",
+          "hex": "#0D9488",
+          "usage": "Primary pathway"
+        },
+        {
+          "role": "Pathway 2",
+          "color": "Blue",
+          "hex": "#3B82F6",
+          "usage": "Secondary pathway"
+        },
+        {
+          "role": "Pathway 3",
+          "color": "Purple",
+          "hex": "#8B5CF6",
+          "usage": "Tertiary pathway"
+        },
+        {
+          "role": "Structure",
+          "color": "Amber",
+          "hex": "#F59E0B",
+          "usage": "Membranes, structures"
+        },
+        {
+          "role": "Alert",
+          "color": "Red",
+          "hex": "#EF4444",
+          "usage": "Key elements"
+        },
+        {
+          "role": "Positive",
+          "color": "Green",
+          "hex": "#22C55E",
+          "usage": "Products, outputs"
+        }
+      ],
+      "visualElements": [
+        "Precise labeled diagrams",
+        "Flow arrows showing direction",
+        "Modular components with colors",
+        "Chemical formulas and notation",
+        "Cross-section views",
+        "Numbered step sequences",
+        "Molecule and cell representations",
+        "Process summary boxes"
+      ],
+      "styleRules": {
+        "do": [
+          "Use precise consistent lines",
+          "Label all components clearly",
+          "Show directional flow",
+          "Include technical notation",
+          "Create clear numbered sequences"
+        ],
+        "dont": [
+          "Use decorative elements",
+          "Create imprecise diagrams",
+          "Omit important labels",
+          "Use inconsistent styling",
+          "Add artistic flourishes"
+        ]
+      },
+      "scenarios": [
+        "Biology articles",
+        "chemistry explanations",
+        "medical content",
+        "research summaries",
+        "academic writing",
+        "technical documentation",
+        "process explanations"
+      ]
+    },
+    {
+      "key": "screen-print",
+      "zh": "丝网印刷风",
+      "title": "screen-print",
+      "description": "Bold poster art with limited colors, halftone textures, and symbolic storytelling",
+      "designAesthetic": "Screen print / silkscreen aesthetic inspired by Mondo limited-edition posters and vintage concert prints. Flat color blocks, halftone dot patterns, bold silhouettes, and deliberate print imperfections. Conceptual and symbolic rather than literal — one iconic image tells the whole story. Perfect for opinion pieces, cultural commentary, and editorial content.",
+      "background": {
+        "color": "Off-Black (#121212) or Warm Cream (#F5E6D0)",
+        "texture": "Paper grain with subtle halftone dot overlay"
+      },
+      "colorPalette": [
+        {
+          "role": "Background",
+          "color": "Off-Black",
+          "hex": "#121212",
+          "usage": "Dark compositions"
+        },
+        {
+          "role": "Background Alt",
+          "color": "Warm Cream",
+          "hex": "#F5E6D0",
+          "usage": "Light compositions"
+        },
+        {
+          "role": "Primary",
+          "color": "Burnt Orange",
+          "hex": "#E8751A",
+          "usage": "Main accent"
+        },
+        {
+          "role": "Secondary",
+          "color": "Deep Teal",
+          "hex": "#0A6E6E",
+          "usage": "Contrast accent"
+        },
+        {
+          "role": "Tertiary",
+          "color": "Crimson",
+          "hex": "#C0392B",
+          "usage": "Bold emphasis"
+        },
+        {
+          "role": "Highlight",
+          "color": "Amber",
+          "hex": "#F4A623",
+          "usage": "Small accents"
+        },
+        {
+          "role": "Text",
+          "color": "Cream White",
+          "hex": "#FAF3E0",
+          "usage": "On dark backgrounds"
+        },
+        {
+          "role": "Pair",
+          "color": "Color A",
+          "hex": "Color B",
+          "usage": "Feel"
+        },
+        {
+          "role": "Orange + Teal",
+          "color": "#E8751A",
+          "hex": "#0A6E6E",
+          "usage": "Cinematic, action"
+        },
+        {
+          "role": "Red + Cream",
+          "color": "#C0392B",
+          "hex": "#F5E6D0",
+          "usage": "Bold, classic"
+        },
+        {
+          "role": "Blue + Gold",
+          "color": "#1A3A5C",
+          "hex": "#D4A843",
+          "usage": "Prestigious, premium"
+        },
+        {
+          "role": "Crimson + Navy",
+          "color": "#DC143C",
+          "hex": "#0D1B2A",
+          "usage": "Dramatic, noir"
+        }
+      ],
+      "visualElements": [
+        "Bold silhouettes and symbolic shapes",
+        "Halftone dot patterns within color fills",
+        "Slight color layer misregistration (print offset effect)",
+        "Geometric framing (circles, arches, triangles)",
+        "Figure-ground inversion (negative space forms secondary image)",
+        "Stencil-cut edges, no outlines — shapes defined by color boundaries",
+        "Typography integrated as design element, not overlay",
+        "Vintage poster border treatments"
+      ],
+      "styleRules": {
+        "do": [
+          "Limit to 2-5 flat colors",
+          "Use bold silhouettes over detailed rendering",
+          "Let negative space tell part of the story",
+          "Add halftone texture for authenticity",
+          "Use geometric composition (centered, symmetrical)",
+          "Reference vintage decades (60s/70s/80s) for era feel"
+        ],
+        "dont": [
+          "Use photorealistic rendering or gradients",
+          "Add complex facial details (silhouettes preferred)",
+          "Mix too many visual elements (one focal point)",
+          "Use modern digital aesthetic",
+          "Create busy or cluttered compositions",
+          "Use more than 5 colors"
+        ]
+      },
+      "scenarios": [
+        "Opinion/editorial articles",
+        "cultural commentary",
+        "philosophy and strategy",
+        "dramatic narratives",
+        "cinematic storytelling",
+        "music and entertainment",
+        "event announcements",
+        "bold branding content"
+      ]
+    },
+    {
+      "key": "sketch-notes",
+      "zh": "手绘笔记风",
+      "title": "sketch-notes",
+      "description": "Soft hand-drawn illustration style with warm, educational feel",
+      "designAesthetic": "Hand-drawn feel with soft, relaxed brush strokes. Fresh, refined style with minimalist editorial approach. Emphasis on precision, clarity and intelligent elegance while prioritizing warmth, approachability and friendliness.",
+      "background": {
+        "color": "Warm Off-White (#FAF8F0)",
+        "texture": "Subtle paper grain, warm tone"
+      },
+      "colorPalette": [
+        {
+          "role": "Background",
+          "color": "Warm Off-White",
+          "hex": "#FAF8F0",
+          "usage": "Primary background"
+        },
+        {
+          "role": "Primary Text",
+          "color": "Deep Charcoal",
+          "hex": "#2C3E50",
+          "usage": "Main elements"
+        },
+        {
+          "role": "Alt Text",
+          "color": "Deep Brown",
+          "hex": "#4A4A4A",
+          "usage": "Secondary elements"
+        },
+        {
+          "role": "Accent 1",
+          "color": "Soft Orange",
+          "hex": "#F4A261",
+          "usage": "Highlights, emphasis"
+        },
+        {
+          "role": "Accent 2",
+          "color": "Mustard Yellow",
+          "hex": "#E9C46A",
+          "usage": "Secondary highlights"
+        },
+        {
+          "role": "Accent 3",
+          "color": "Sage Green",
+          "hex": "#87A96B",
+          "usage": "Nature, growth concepts"
+        },
+        {
+          "role": "Accent 4",
+          "color": "Light Blue",
+          "hex": "#7EC8E3",
+          "usage": "Tech, digital elements"
+        },
+        {
+          "role": "Accent 5",
+          "color": "Red Brown",
+          "hex": "#A0522D",
+          "usage": "Earthy elements"
+        }
+      ],
+      "visualElements": [
+        "Connection lines with hand-drawn wavy feel",
+        "Conceptual abstract icons illustrating ideas",
+        "Color fills don't completely fill outlines (hand-painted feel)",
+        "Simple geometric shapes with rounded corners",
+        "Arrows and pointers with sketchy style",
+        "Doodle decorations: stars, spirals, underlines"
+      ],
+      "styleRules": {
+        "do": [
+          "Keep layouts open and well-structured",
+          "Emphasize information hierarchy",
+          "Use hand-drawn quality for all elements",
+          "Allow imperfection (slight wobbles add character)",
+          "Layer elements with subtle overlaps"
+        ],
+        "dont": [
+          "Use perfect geometric shapes",
+          "Create photorealistic elements",
+          "Overcrowd with too many elements",
+          "Use pure white backgrounds",
+          "Make it look computer-generated"
+        ]
+      },
+      "scenarios": [
+        "Educational content",
+        "knowledge sharing",
+        "technical explanations",
+        "tutorials",
+        "onboarding materials",
+        "friendly articles"
+      ]
+    },
+    {
+      "key": "sketch",
+      "zh": "草图速写风",
+      "title": "sketch",
+      "description": "Raw, authentic notebook-style illustration for ideas and processes",
+      "designAesthetic": "Hand-drawn sketch aesthetic that feels authentic and in-progress. Pencil-on-paper quality with intentional imperfection. Suggests thinking, brainstorming, and creative exploration. Raw and honest visual approach that invites collaboration.",
+      "background": {
+        "color": "Off-White Paper (#F7FAFC) or Cream (#FAFAFA)",
+        "texture": "Paper texture with visible grain"
+      },
+      "colorPalette": [
+        {
+          "role": "Background",
+          "color": "Paper White",
+          "hex": "#F7FAFC",
+          "usage": "Primary background"
+        },
+        {
+          "role": "Primary",
+          "color": "Pencil Gray",
+          "hex": "#4A5568",
+          "usage": "Main sketch lines"
+        },
+        {
+          "role": "Secondary",
+          "color": "Light Gray",
+          "hex": "#A0AEC0",
+          "usage": "Shading, soft marks"
+        },
+        {
+          "role": "Highlight Blue",
+          "color": "Note Blue",
+          "hex": "#3182CE",
+          "usage": "Highlight color"
+        },
+        {
+          "role": "Highlight Red",
+          "color": "Mark Red",
+          "hex": "#E53E3E",
+          "usage": "Emphasis color"
+        },
+        {
+          "role": "Highlight Yellow",
+          "color": "Marker Yellow",
+          "hex": "#F6E05E",
+          "usage": "Highlighter effect"
+        },
+        {
+          "role": "Text",
+          "color": "Charcoal",
+          "hex": "#2D3748",
+          "usage": "Text elements"
+        }
+      ],
+      "visualElements": [
+        "Rough sketch lines with natural variation",
+        "Arrows and directional pointers",
+        "Handwritten labels and notes",
+        "Crossed-out marks and corrections",
+        "Underlines and emphasis marks",
+        "Simple diagram shapes",
+        "Margin notes style",
+        "Quick icon sketches"
+      ],
+      "styleRules": {
+        "do": [
+          "Use pencil-like line quality",
+          "Include natural imperfections",
+          "Add handwritten annotations",
+          "Create diagram-style layouts",
+          "Show thinking process"
+        ],
+        "dont": [
+          "Use perfect geometric shapes",
+          "Add polished or refined elements",
+          "Create colorful compositions",
+          "Use digital effects",
+          "Make it look finished"
+        ]
+      },
+      "scenarios": [
+        "Ideas in progress",
+        "brainstorming articles",
+        "thought processes",
+        "concept exploration",
+        "draft-stage thinking",
+        "planning content",
+        "problem-solving pieces"
+      ]
+    },
+    {
+      "key": "vector-illustration",
+      "zh": "矢量插画风",
+      "title": "vector-illustration",
+      "description": "Flat vector illustration style with clear black outlines and retro soft colors",
+      "designAesthetic": "Flat vector illustration with no gradients or 3D effects. Clear, uniform-thickness black outlines on all elements. Geometric simplification reducing complex objects to basic shapes. Toy model aesthetic that's cute, playful, and approachable. Coloring book style with closed outlines.",
+      "background": {
+        "color": "Cream Off-White (#F5F0E6)",
+        "texture": "Subtle paper texture, warm nostalgic feel"
+      },
+      "colorPalette": [
+        {
+          "role": "Background",
+          "color": "Cream Off-White",
+          "hex": "#F5F0E6",
+          "usage": "Primary background"
+        },
+        {
+          "role": "Outlines",
+          "color": "Deep Charcoal",
+          "hex": "#2D2D2D",
+          "usage": "All element outlines"
+        },
+        {
+          "role": "Primary",
+          "color": "Coral Red",
+          "hex": "#E07A5F",
+          "usage": "Primary accent, warmth"
+        },
+        {
+          "role": "Secondary",
+          "color": "Mint Green",
+          "hex": "#81B29A",
+          "usage": "Nature, growth"
+        },
+        {
+          "role": "Tertiary",
+          "color": "Mustard Yellow",
+          "hex": "#F2CC8F",
+          "usage": "Highlights, energy"
+        },
+        {
+          "role": "Accent 1",
+          "color": "Burnt Orange",
+          "hex": "#D4764A",
+          "usage": "Warm accents"
+        },
+        {
+          "role": "Accent 2",
+          "color": "Rock Blue",
+          "hex": "#577590",
+          "usage": "Cool balance"
+        },
+        {
+          "role": "Text",
+          "color": "Black",
+          "hex": "#1A1A1A",
+          "usage": "Text elements"
+        }
+      ],
+      "visualElements": [
+        "All objects have closed black outlines (coloring book style)",
+        "Rounded line endings, avoid sharp corners",
+        "Trees simplified to lollipop or triangle shapes",
+        "Buildings as rectangular blocks with grid windows",
+        "Depth through layering and overlap",
+        "Decorative elements: sunbursts, pill-shaped clouds, dots, stars",
+        "People as simple geometric figures"
+      ],
+      "styleRules": {
+        "do": [
+          "Maintain consistent outline thickness",
+          "Use soft, vintage color palette",
+          "Simplify objects to basic geometric shapes",
+          "Create depth through layering",
+          "Add playful decorative elements"
+        ],
+        "dont": [
+          "Use gradients or realistic shading",
+          "Create photorealistic elements",
+          "Use thin or varying line weights",
+          "Include complex detailed illustrations",
+          "Add textures inside shapes"
+        ]
+      },
+      "scenarios": [
+        "Educational content",
+        "creative articles",
+        "children's content",
+        "brand showcases",
+        "explainer pieces",
+        "warm approachable topics"
+      ]
+    },
+    {
+      "key": "vintage",
+      "zh": "复古质感风",
+      "title": "vintage",
+      "description": "Nostalgic aged-paper aesthetic for historical and heritage content",
+      "designAesthetic": "Nostalgic vintage aesthetic with aged paper textures and historical document styling. Explorer's journal and antique map quality. Rich warm tones with weathered textures. Evokes discovery, heritage, and timeless knowledge.",
+      "background": {
+        "color": "Aged Parchment (#F5E6D3) or Sepia Cream (#FFF8DC)",
+        "texture": "Heavy aged paper texture with subtle stains and worn edges"
+      },
+      "colorPalette": [
+        {
+          "role": "Background",
+          "color": "Aged Parchment",
+          "hex": "#F5E6D3",
+          "usage": "Primary background"
+        },
+        {
+          "role": "Alt Background",
+          "color": "Sepia Cream",
+          "hex": "#FFF8DC",
+          "usage": "Secondary areas"
+        },
+        {
+          "role": "Primary Text",
+          "color": "Dark Brown",
+          "hex": "#3D2914",
+          "usage": "Main elements"
+        },
+        {
+          "role": "Secondary",
+          "color": "Medium Brown",
+          "hex": "#6B4423",
+          "usage": "Supporting details"
+        },
+        {
+          "role": "Accent 1",
+          "color": "Forest Green",
+          "hex": "#2D5A3D",
+          "usage": "Nature, maps"
+        },
+        {
+          "role": "Accent 2",
+          "color": "Navy Blue",
+          "hex": "#1E3A5F",
+          "usage": "Ocean, lines"
+        },
+        {
+          "role": "Accent 3",
+          "color": "Burgundy",
+          "hex": "#722F37",
+          "usage": "Emphasis"
+        },
+        {
+          "role": "Accent 4",
+          "color": "Gold",
+          "hex": "#C9A227",
+          "usage": "Highlights"
+        },
+        {
+          "role": "Ink",
+          "color": "Sepia Black",
+          "hex": "#3D3D3D",
+          "usage": "Fine details"
+        }
+      ],
+      "visualElements": [
+        "Antique map styling with route lines",
+        "Compass roses and navigation elements",
+        "Specimen-style drawings",
+        "Handwritten annotations",
+        "Rope, leather, brass decorative motifs",
+        "Vintage photograph frames",
+        "Aged paper edge effects",
+        "Historical document styling"
+      ],
+      "styleRules": {
+        "do": [
+          "Apply consistent aged texture",
+          "Use period-appropriate styling",
+          "Include map and journey elements",
+          "Create layered compositions",
+          "Maintain warm sepia tones"
+        ],
+        "dont": [
+          "Use modern digital styling",
+          "Create crisp clean edges",
+          "Use cold or bright colors",
+          "Add contemporary elements",
+          "Make it look new or fresh"
+        ]
+      },
+      "scenarios": [
+        "Historical articles",
+        "travel and exploration",
+        "biography pieces",
+        "heritage stories",
+        "scientific discovery narratives",
+        "museum-style content",
+        "classic literature references"
+      ]
+    },
+    {
+      "key": "warm",
+      "zh": "温暖亲和风",
+      "title": "warm",
+      "description": "Friendly, approachable illustration style for human-centered content",
+      "designAesthetic": "Warm and inviting visual approach that feels personal and approachable. Soft, friendly colors that evoke comfort and connection. Emphasizes human elements and emotional resonance. Creates an atmosphere of trust and openness.",
+      "background": {
+        "color": "Cream (#FFFAF0) or Soft Peach (#FED7AA)",
+        "texture": "Soft paper texture with warm undertones"
+      },
+      "colorPalette": [
+        {
+          "role": "Background",
+          "color": "Cream",
+          "hex": "#FFFAF0",
+          "usage": "Primary background"
+        },
+        {
+          "role": "Alt Background",
+          "color": "Soft Peach",
+          "hex": "#FED7AA",
+          "usage": "Accent sections"
+        },
+        {
+          "role": "Primary",
+          "color": "Warm Orange",
+          "hex": "#ED8936",
+          "usage": "Main accent color"
+        },
+        {
+          "role": "Secondary",
+          "color": "Golden Yellow",
+          "hex": "#F6AD55",
+          "usage": "Supporting warmth"
+        },
+        {
+          "role": "Tertiary",
+          "color": "Terracotta",
+          "hex": "#C05621",
+          "usage": "Earthy depth"
+        },
+        {
+          "role": "Accent",
+          "color": "Deep Brown",
+          "hex": "#744210",
+          "usage": "Grounding elements"
+        },
+        {
+          "role": "Alt Accent",
+          "color": "Soft Red",
+          "hex": "#E53E3E",
+          "usage": "Emotional touches"
+        },
+        {
+          "role": "Text",
+          "color": "Warm Charcoal",
+          "hex": "#4A4A4A",
+          "usage": "Text elements"
+        }
+      ],
+      "visualElements": [
+        "Rounded shapes and soft corners",
+        "Friendly character illustrations",
+        "Sun rays and warm light motifs",
+        "Heart symbols and care icons",
+        "Cozy lighting effects",
+        "Gentle gradients with warmth",
+        "Soft shadows without harsh edges",
+        "Hand-drawn quality touches"
+      ],
+      "styleRules": {
+        "do": [
+          "Use warm, inviting colors",
+          "Create rounded, friendly shapes",
+          "Include human-centered elements",
+          "Evoke feelings of comfort",
+          "Maintain soft, gentle contrasts"
+        ],
+        "dont": [
+          "Use cold or stark colors",
+          "Create sharp, aggressive shapes",
+          "Add technical or clinical elements",
+          "Use dark, moody backgrounds",
+          "Create sterile compositions"
+        ]
+      },
+      "scenarios": [
+        "Personal growth articles",
+        "lifestyle content",
+        "education",
+        "human interest stories",
+        "wellness topics",
+        "relationship advice",
+        "self-help content",
+        "community building"
+      ]
+    },
+    {
+      "key": "watercolor",
+      "zh": "水彩柔和风",
+      "title": "watercolor",
+      "description": "Soft, artistic watercolor illustration style with natural warmth",
+      "designAesthetic": "Gentle watercolor aesthetic with visible brush strokes and natural color bleeding. Hand-painted feel with soft edges and organic shapes. Warm, approachable, and artistically refined. Combines artistic expression with clear visual communication.",
+      "background": {
+        "color": "Warm Off-White (#FAF8F0) or Soft Cream (#FFF9E6)",
+        "texture": "Subtle watercolor paper texture with visible grain"
+      },
+      "colorPalette": [
+        {
+          "role": "Background",
+          "color": "Warm Off-White",
+          "hex": "#FAF8F0",
+          "usage": "Primary background"
+        },
+        {
+          "role": "Primary",
+          "color": "Soft Coral",
+          "hex": "#F4A261",
+          "usage": "Primary warmth"
+        },
+        {
+          "role": "Secondary",
+          "color": "Dusty Rose",
+          "hex": "#E8A0A0",
+          "usage": "Secondary warmth"
+        },
+        {
+          "role": "Tertiary",
+          "color": "Sage Green",
+          "hex": "#87A96B",
+          "usage": "Nature, growth"
+        },
+        {
+          "role": "Accent 1",
+          "color": "Sky Blue",
+          "hex": "#7EC8E3",
+          "usage": "Water, calm"
+        },
+        {
+          "role": "Accent 2",
+          "color": "Soft Lavender",
+          "hex": "#C5B4E3",
+          "usage": "Accent, creativity"
+        },
+        {
+          "role": "Wash",
+          "color": "Pale Yellow",
+          "hex": "#FFF3C4",
+          "usage": "Background washes"
+        },
+        {
+          "role": "Text",
+          "color": "Warm Charcoal",
+          "hex": "#3D3D3D",
+          "usage": "Text elements"
+        }
+      ],
+      "visualElements": [
+        "Watercolor washes as backgrounds",
+        "Illustrated elements with visible brush strokes",
+        "Natural elements: leaves, flowers, bubbles",
+        "Color bleeds and soft edges",
+        "Hand-drawn arrows and lines",
+        "Layered wash effects",
+        "Soft gradients through water",
+        "Expressive character illustrations"
+      ],
+      "styleRules": {
+        "do": [
+          "Allow color to bleed beyond edges",
+          "Use visible brush stroke textures",
+          "Create soft, organic shapes",
+          "Include hand-drawn quality",
+          "Maintain warm color palette"
+        ],
+        "dont": [
+          "Use sharp geometric shapes",
+          "Create hard digital edges",
+          "Use cold or stark colors",
+          "Add photographic elements",
+          "Create overly precise illustrations"
+        ]
+      },
+      "scenarios": [
+        "Lifestyle articles",
+        "wellness content",
+        "travel pieces",
+        "food and cooking",
+        "personal stories",
+        "creative topics",
+        "artistic portfolios",
+        "warm educational content"
+      ]
+    }
+  ]
+}

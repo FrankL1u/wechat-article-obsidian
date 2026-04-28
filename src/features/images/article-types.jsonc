@@ -1,0 +1,129 @@
+// 字段说明：
+// type：文章类型唯一标识，供模型返回标准化 articleType
+// name：文章类型中文名，供人工阅读
+// signals：帮助模型判断该类型的关键词信号
+// scenarios：该类型典型适用场景，用于后续匹配封面维度
+{
+  "article_types": [
+    {
+      "type": "Technical",
+      "name": "技术",
+      "signals": "API, metrics, data, numbers, tech, AI, programming, development, code",
+      "scenarios": [
+        "Technical architecture",
+        "Code analysis",
+        "System optimization"
+      ]
+    },
+    {
+      "type": "Tutorial",
+      "name": "教程",
+      "signals": "how-to, steps, workflow, process, tutorial, learning, guide",
+      "scenarios": [
+        "Step-by-step guides",
+        "Setup tutorials",
+        "Deployment walkthroughs"
+      ]
+    },
+    {
+      "type": "Methodology",
+      "name": "方法论",
+      "signals": "framework, model, architecture, principles, system design",
+      "scenarios": [
+        "Methodology frameworks",
+        "System design",
+        "Model analysis"
+      ]
+    },
+    {
+      "type": "Data / Metrics",
+      "name": "数据/指标",
+      "signals": "data, metrics, numbers, comparison, report, analysis, dashboard",
+      "scenarios": [
+        "Data reports",
+        "Performance benchmarks",
+        "Statistical analysis"
+      ]
+    },
+    {
+      "type": "Comparison",
+      "name": "对比",
+      "signals": "vs, pros/cons, before/after, alternatives, review",
+      "scenarios": [
+        "Solution comparison",
+        "Before/After analysis",
+        "Product reviews"
+      ]
+    },
+    {
+      "type": "Manifesto",
+      "name": "宣言",
+      "signals": "manifesto, mindset shift, workforce, OS, whiteboard",
+      "scenarios": [
+        "Industry manifestos",
+        "Mindset shifts",
+        "Deep reflections"
+      ]
+    },
+    {
+      "type": "Narrative",
+      "name": "叙事",
+      "signals": "story, emotion, journey, experience, personal",
+      "scenarios": [
+        "Personal stories",
+        "Growth journeys",
+        "Emotional reflections"
+      ]
+    },
+    {
+      "type": "Opinion",
+      "name": "观点",
+      "signals": "opinion, editorial, culture, philosophy, cinematic",
+      "scenarios": [
+        "Opinion pieces",
+        "Cultural commentary",
+        "Editorials"
+      ]
+    },
+    {
+      "type": "Historical",
+      "name": "历史",
+      "signals": "history, timeline, progress, evolution, milestones",
+      "scenarios": [
+        "Tech history",
+        "Product evolution",
+        "Milestones"
+      ]
+    },
+    {
+      "type": "Academic",
+      "name": "学术",
+      "signals": "biology, chemistry, medical, scientific, research",
+      "scenarios": [
+        "Academic research",
+        "Scientific principles",
+        "Medical studies"
+      ]
+    },
+    {
+      "type": "SaaS / Product",
+      "name": "SaaS/产品",
+      "signals": "productivity, SaaS, tool, app, software, launch",
+      "scenarios": [
+        "Software guides",
+        "Product launches",
+        "Productivity tools"
+      ]
+    },
+    {
+      "type": "Education",
+      "name": "教育",
+      "signals": "knowledge, concept, tutorial, learning, guide, explainer",
+      "scenarios": [
+        "Concept explainers",
+        "Knowledge sharing",
+        "General education"
+      ]
+    }
+  ]
+}

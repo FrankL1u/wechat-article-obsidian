@@ -1,0 +1,65 @@
+// Cover type definitions aligned to baoyu-cover-image references/types.md.
+{
+  "types": [
+    {
+      "type": "hero",
+      "description": "Large visual impact, title overlay",
+      "bestFor": [
+        "Product launch",
+        "Brand promotion",
+        "Major announcements"
+      ],
+      "compositionGuideline": "Large focal visual (60-70% area), title overlay on visual, dramatic composition"
+    },
+    {
+      "type": "conceptual",
+      "description": "Concept visualization, abstract core ideas",
+      "bestFor": [
+        "Technical articles",
+        "Methodology",
+        "Architecture design"
+      ],
+      "compositionGuideline": "Abstract shapes representing core concepts, information hierarchy, clean zones"
+    },
+    {
+      "type": "typography",
+      "description": "Text-focused layout, prominent title",
+      "bestFor": [
+        "Opinion pieces",
+        "Quotes",
+        "Insights"
+      ],
+      "compositionGuideline": "Title as primary element (40%+ area), minimal supporting visuals, strong hierarchy"
+    },
+    {
+      "type": "metaphor",
+      "description": "Visual metaphor, concrete expressing abstract",
+      "bestFor": [
+        "Philosophy",
+        "Growth",
+        "Personal development"
+      ],
+      "compositionGuideline": "Concrete object or scene representing abstract idea, symbolic elements, emotional resonance"
+    },
+    {
+      "type": "scene",
+      "description": "Atmospheric scene, narrative feel",
+      "bestFor": [
+        "Stories",
+        "Travel",
+        "Lifestyle"
+      ],
+      "compositionGuideline": "Atmospheric environment, narrative elements, mood-setting lighting and colors"
+    },
+    {
+      "type": "minimal",
+      "description": "Minimalist composition, generous whitespace",
+      "bestFor": [
+        "Zen",
+        "Focus",
+        "Core concepts"
+      ],
+      "compositionGuideline": "Single focal element, generous whitespace (60%+), essential shapes only"
+    }
+  ]
+}

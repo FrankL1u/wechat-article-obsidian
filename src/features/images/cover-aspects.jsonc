@@ -1,0 +1,18 @@
+// Cover aspect definitions aligned to baoyu-cover-image preferences-schema.
+{
+  "aspects": [
+    {
+      "value": "2.35:1",
+      "description": "Cinematic widescreen"
+    },
+    {
+      "value": "16:9",
+      "description": "Standard widescreen"
+    },
+    {
+      "value": "1:1",
+      "description": "Square"
+    }
+  ],
+  "default": "2.35:1"
+}

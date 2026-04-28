@@ -1,0 +1,110 @@
+// Cover font definitions aligned to baoyu-cover-image references/dimensions/font.md.
+{
+  "fonts": [
+    {
+      "font": "clean",
+      "visualStyle": "Geometric sans-serif",
+      "lineQuality": "Sharp, uniform",
+      "character": "Modern, precise, neutral",
+      "characteristics": [
+        "Geometric sans-serif letterforms",
+        "Sharp, uniform line weight",
+        "Clean edges, no flourishes",
+        "High readability at all sizes",
+        "Minimal personality, maximum clarity"
+      ],
+      "useCases": [
+        "Technical documentation",
+        "Professional/corporate content",
+        "Minimal design approaches",
+        "Data-driven articles",
+        "Modern brand aesthetics"
+      ],
+      "promptHints": [
+        "Use clean geometric sans-serif typography",
+        "Modern, minimal letterforms",
+        "Sharp edges, uniform stroke weight",
+        "High contrast against background"
+      ]
+    },
+    {
+      "font": "handwritten",
+      "visualStyle": "Hand-lettered, brush",
+      "lineQuality": "Organic, varied",
+      "character": "Warm, personal, friendly",
+      "characteristics": [
+        "Hand-lettered or brush style",
+        "Organic, varied line weight",
+        "Natural imperfections",
+        "Approachable, human feel",
+        "Casual yet intentional"
+      ],
+      "useCases": [
+        "Personal stories",
+        "Lifestyle content",
+        "Wellness and self-improvement",
+        "Creative tutorials",
+        "Friendly brand voices"
+      ],
+      "promptHints": [
+        "Use warm hand-lettered typography with organic brush strokes",
+        "Friendly, personal feel",
+        "Natural variation in stroke weight",
+        "Approachable, human character"
+      ]
+    },
+    {
+      "font": "serif",
+      "visualStyle": "Classic serifs, elegant",
+      "lineQuality": "Refined, structured",
+      "character": "Editorial, authoritative",
+      "characteristics": [
+        "Traditional serif letterforms",
+        "Refined, structured strokes",
+        "Elegant proportions",
+        "Timeless sophistication",
+        "Formal, trustworthy feel"
+      ],
+      "useCases": [
+        "Editorial content",
+        "Academic articles",
+        "Luxury brand content",
+        "Historical topics",
+        "Literary pieces"
+      ],
+      "promptHints": [
+        "Use elegant serif typography with refined letterforms",
+        "Classic, editorial character",
+        "Structured, proportional spacing",
+        "Authoritative, sophisticated feel"
+      ]
+    },
+    {
+      "font": "display",
+      "visualStyle": "Bold, decorative",
+      "lineQuality": "Heavy, expressive",
+      "character": "Attention-grabbing, playful",
+      "characteristics": [
+        "Heavy, expressive letterforms",
+        "Decorative elements",
+        "Strong visual presence",
+        "Playful or dramatic character",
+        "Designed for headlines"
+      ],
+      "useCases": [
+        "Announcements",
+        "Entertainment content",
+        "Promotional materials",
+        "Event marketing",
+        "Gaming topics"
+      ],
+      "promptHints": [
+        "Use bold decorative display typography",
+        "Heavy, expressive headlines",
+        "Strong visual impact",
+        "Attention-grabbing character"
+      ]
+    }
+  ],
+  "default": "clean"
+}
