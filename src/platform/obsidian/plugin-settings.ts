@@ -67,6 +67,11 @@ export const DEFAULT_SETTINGS: PluginSettings = {
 
 export function normalizePluginSettings(raw: LegacyPluginSettings | null | undefined): PluginSettings {
   const input = raw ?? {};
+  const clients = normalizeClientProfiles(input.clients ?? DEFAULT_SETTINGS.clients);
+  const lastSelectedClientId =
+    typeof input.lastSelectedClientId === "string" && clients.some((client) => client.id === input.lastSelectedClientId)
+      ? input.lastSelectedClientId
+      : clients[0]?.id ?? null;
 
   return {
     imageProvider: typeof input.imageProvider === "string" ? input.imageProvider : DEFAULT_SETTINGS.imageProvider,
@@ -106,8 +111,8 @@ export function normalizePluginSettings(raw: LegacyPluginSettings | null | undef
     defaultStyle: typeof input.defaultStyle === "string" ? input.defaultStyle : DEFAULT_SETTINGS.defaultStyle,
     outputDirEnabled: typeof input.outputDirEnabled === "boolean" ? input.outputDirEnabled : DEFAULT_SETTINGS.outputDirEnabled,
     outputDirPath: typeof input.outputDirPath === "string" ? input.outputDirPath : DEFAULT_SETTINGS.outputDirPath,
-    clients: normalizeClientProfiles(input.clients ?? []),
-    lastSelectedClientId: typeof input.lastSelectedClientId === "string" ? input.lastSelectedClientId : null,
+    clients,
+    lastSelectedClientId,
   };
 }
 

@@ -9,7 +9,7 @@ const projectRoot = path.resolve(__dirname, "..");
 const manifest = JSON.parse(readFileSync(path.join(projectRoot, "manifest.json"), "utf8"));
 
 const DEFAULT_VAULT_PATH =
-  "/Users/frank/Library/Mobile Documents/iCloud~md~obsidian/Documents/liusir2035-KB";
+  "/Users/frank/Library/Mobile Documents/iCloud~md~obsidian/Documents/frank-vault";
 const vaultPath = process.env.WAO_VAULT_PATH ?? DEFAULT_VAULT_PATH;
 const pluginId = manifest.id;
 const pluginDir =

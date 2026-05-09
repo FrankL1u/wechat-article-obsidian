@@ -542,6 +542,7 @@ abstract class BaseSettingsModal<T> extends Modal {
     value: string,
     onChange: (value: string) => void,
     isSecret = false,
+    placeholder = "",
   ): void {
     const fieldEl = containerEl.createDiv({ cls: "wao-account-modal__field" });
     const metaEl = fieldEl.createDiv({ cls: "wao-account-modal__field-meta" });
@@ -549,6 +550,7 @@ abstract class BaseSettingsModal<T> extends Modal {
     metaEl.createEl("div", { text: description, cls: "wao-account-modal__desc" });
     const inputEl = fieldEl.createEl("input", { cls: "wao-input wao-account-modal__input" });
     inputEl.type = isSecret ? "password" : "text";
+    inputEl.placeholder = placeholder;
     inputEl.value = value;
     inputEl.addEventListener("input", () => onChange(inputEl.value));
   }
@@ -611,15 +613,39 @@ class BasicAccountModal extends BaseSettingsModal<ClientProfile> {
 
   override onOpen(): void {
     const { formEl, footerEl } = this.renderShell(this.draft.author ? "编辑账户" : "新建账户");
-    this.renderInputField(formEl, "名称", "用于顶部选择显示和发布作者名称。", this.draft.author, (value) => {
-      this.draft.author = value;
-    });
-    this.renderInputField(formEl, "行业", "描述该账户主要覆盖的行业或内容领域。", this.draft.industry, (value) => {
-      this.draft.industry = value;
-    });
-    this.renderInputField(formEl, "目标受众", "描述文章的主要读者群体。", this.draft.targetAudience, (value) => {
-      this.draft.targetAudience = value;
-    });
+    this.renderInputField(
+      formEl,
+      "名称",
+      "用于顶部选择显示和发布作者名称。",
+      this.draft.author,
+      (value) => {
+        this.draft.author = value;
+      },
+      false,
+      "例如：刘Sir.2035",
+    );
+    this.renderInputField(
+      formEl,
+      "行业",
+      "描述该账户主要覆盖的行业或内容领域。",
+      this.draft.industry,
+      (value) => {
+        this.draft.industry = value;
+      },
+      false,
+      "例如：AI 技术 / 开发者工具 / 智能体",
+    );
+    this.renderInputField(
+      formEl,
+      "目标受众",
+      "描述文章的主要读者群体。",
+      this.draft.targetAudience,
+      (value) => {
+        this.draft.targetAudience = value;
+      },
+      false,
+      "例如：技术从业者、开发者、AI Agent 关注者",
+    );
     this.renderFooterActions(footerEl, () => {
       if (!this.draft.author.trim()) {
         new Notice("请先填写名称");

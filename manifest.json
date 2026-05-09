@@ -1,7 +1,7 @@
 {
   "id": "wechat-article-obsidian",
   "name": "公众号编排智能体",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "minAppVersion": "1.6.0",
   "description": "基于当前笔记预览公众号样式、生成配图并输出新的 Markdown 文章。",
   "author": "Frank",

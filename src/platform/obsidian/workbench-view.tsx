@@ -55,6 +55,7 @@ import { renderPreviewDocument } from "../../features/preview/render-preview";
 import { App as WorkbenchApp } from "../../features/workbench/app";
 import type { RegenerateImageOptions } from "../../features/workbench/app";
 import { renderAuthorMarkdown } from "../../features/workbench/author-content";
+import { resolveEmbeddedAuthorAsset } from "../../features/workbench/embedded-author-assets";
 import type { AppState, ImageCard } from "../../features/workbench/types";
 import type WechatArticlePlugin from "../../main";
 import { captureActiveMarkdownContext, captureMarkdownContext } from "./active-note-bridge";
@@ -127,7 +128,10 @@ const EMPTY_PREVIEW_HTML = `<!DOCTYPE html>
   <body>未加载内容，请选择文档</body>
 </html>`;
 
-const AUTHOR_NOTE_PATH = "关于作者文案.md";
+const AUTHOR_NOTE_PATHS = [
+  "work/dev/wechat-article-obsidian/关于作者文案.md",
+  "关于作者文案.md",
+];
 
 function buildRegeneratedImageId(imageId: string): string {
   return createHash("sha1")
@@ -199,13 +203,18 @@ function findVaultFileByBasename(app: App, target: string): TFile | null {
 
 function buildAuthorHtml(app: App): string {
   const vaultBasePath = getVaultBasePath(app);
-  const absolutePath = path.join(vaultBasePath, AUTHOR_NOTE_PATH);
-  if (!existsSync(absolutePath)) {
+  const absolutePath = AUTHOR_NOTE_PATHS
+    .map((notePath) => path.join(vaultBasePath, notePath))
+    .find((candidatePath) => existsSync(candidatePath));
+  if (!absolutePath) {
     return "<p>未找到关于作者文案。</p>";
   }
 
   const markdown = readFileSync(absolutePath, "utf8");
   return renderAuthorMarkdown(markdown, (target) => {
+    const embeddedAsset = resolveEmbeddedAuthorAsset(target);
+    if (embeddedAsset) return embeddedAsset;
+
     const file = findVaultFileByBasename(app, target);
     return file ? app.vault.getResourcePath(file) : target;
   });

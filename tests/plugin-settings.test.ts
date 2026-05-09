@@ -11,6 +11,13 @@ describe("plugin settings", () => {
     expect(DEFAULT_SETTINGS.imageTimeoutSeconds).toBe(60);
   });
 
+  it("hydrates missing client settings without injecting a default account", () => {
+    const normalized = normalizePluginSettings(null);
+
+    expect(normalized.clients).toEqual([]);
+    expect(normalized.lastSelectedClientId).toBeNull();
+  });
+
   it("migrates legacy planning model fields into llm fields", () => {
     const normalized = normalizePluginSettings({
       planningEnabled: false,

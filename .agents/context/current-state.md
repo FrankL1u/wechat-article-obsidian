@@ -103,12 +103,14 @@
   - 封面生成失败不会阻断正文图生成，会提示“封面生成失败，已继续生成正文图”
 - 微信发布入口当前会调用微信草稿箱接口：
   - 使用选中的本地客户配置作为作者和微信凭据
+  - 默认不创建发布账户；账户列表为空时需要用户手动新增账户
+  - 新建 / 编辑账户基础信息弹窗的名称、行业、目标受众输入框会显示示例占位文案，引导用户填写账号定位
   - 通过 Obsidian `requestUrl` 访问微信 API，避免宿主 `fetch` 兼容问题
   - 草稿标题从 Markdown 真源标题提取，不再从预览 HTML fallback 为“未命名文章”
   - 草稿正文会移除预览外壳、正文 H1 和已上传为 `thumb_media_id` 的封面图片，避免正文顶部出现“封面图”
   - 发布失败时在 workbench 状态和 Obsidian Notice 中显示微信接口错误
 - 顶部作者区当前显示头像图标 + 作者名，无边框，作者名使用主色；当 Markdown frontmatter 包含发布时间时，会在作者后展示发布时间、阅读数、点赞数，未发布文章不展示该组数据。
-- 底部“关于作者”入口当前打开 workbench 级覆盖层，不进入预览 iframe；内容从当前 vault 根目录的 `关于作者文案.md` 读取并渲染，支持文档内 Obsidian 图片嵌入。
+- 底部“关于作者”入口当前打开 workbench 级覆盖层，不进入预览 iframe；内容优先从当前 vault 内 `work/dev/wechat-article-obsidian/关于作者文案.md` 读取，找不到时回退到 vault 根目录的 `关于作者文案.md`。固定作者图片已作为 base64 data URI 内嵌到插件代码中，`![[tip-notebook-cover.png]]` 和 `![[扫码_搜索联合传播样式-标准色版.png]]` 不依赖用户本地 vault 图片；其他 Obsidian 图片嵌入仍按 vault 文件解析。
 - 底部帮助入口当前展示简版使用指南，按“核心用法 / 排版风格 / 封面处理 / 正文图处理 / 草稿发布 / AI 支持”分类；分类标题加粗，正文换行与标题后的内容起点对齐。
 - 模型设置页支持 LLM / 图片生成超时配置，默认均为 60 秒。
 - 模型设置页支持 LLM API 端点标签切换，选项为 OpenAI 兼容和 Anthropic 兼容；OpenAI 兼容走 `<base>/chat/completions`，Anthropic 兼容走 `<base>/v1/messages`。

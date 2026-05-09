@@ -173,6 +173,9 @@ describe("WechatArticleSettingTab", () => {
     expect(document.body.textContent).toContain("名称");
     expect(document.body.textContent).toContain("行业");
     expect(document.body.textContent).toContain("目标受众");
+    expect(document.body.querySelector<HTMLInputElement>('input[placeholder="例如：刘Sir.2035"]')).toBeTruthy();
+    expect(document.body.querySelector<HTMLInputElement>('input[placeholder="例如：AI 技术 / 开发者工具 / 智能体"]')).toBeTruthy();
+    expect(document.body.querySelector<HTMLInputElement>('input[placeholder="例如：技术从业者、开发者、AI Agent 关注者"]')).toBeTruthy();
     expect(document.body.textContent).not.toContain("公众号账号");
     expect(document.body.textContent).not.toContain("选题方向");
   });

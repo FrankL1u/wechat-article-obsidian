@@ -57,9 +57,9 @@
 ## 5. Obsidian 插件开发相关信息
 
 - 默认开发知识库：
-  - `/Users/frank/Library/Mobile Documents/iCloud~md~obsidian/Documents/liusir2035-KB`
+  - `/Users/frank/Library/Mobile Documents/iCloud~md~obsidian/Documents/frank-vault`
 - 默认插件目录：
-  - `/Users/frank/Library/Mobile Documents/iCloud~md~obsidian/Documents/liusir2035-KB/.obsidian/plugins/wechat-article-obsidian`
+  - `/Users/frank/Library/Mobile Documents/iCloud~md~obsidian/Documents/frank-vault/.obsidian/plugins/wechat-article-obsidian`
 - 优先使用统一脚本：
   - `npm run obsidian:build`
   - `npm run obsidian:copy`

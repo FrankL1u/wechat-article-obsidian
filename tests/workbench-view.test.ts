@@ -1,4 +1,4 @@
-import { mkdtempSync } from "node:fs";
+import { mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -137,6 +137,53 @@ describe("workbench-view render context", () => {
     const appNode = renderSpy.mock.calls.at(-1)?.[0] as { props: { state: { selectedClientId: string | null; availableClients: Array<{ id: string; author: string }> } } };
     expect(appNode.props.state.selectedClientId).toBe("liu");
     expect(appNode.props.state.availableClients).toEqual([{ id: "liu", author: "刘Sir.2035" }]);
+  });
+
+  it("uses the project author note as the author overlay content", () => {
+    const leaf = new WorkspaceLeaf();
+    const renderSpy = vi.fn();
+    const plugin = createPlugin({});
+    const vaultBasePath = plugin.app.vault.adapter.getBasePath();
+    const authorNotePath = path.join(vaultBasePath, "work/dev/wechat-article-obsidian/关于作者文案.md");
+    mkdirSync(path.dirname(authorNotePath), { recursive: true });
+    writeFileSync(authorNotePath, "# 关于作者\n\n来自项目文档的作者介绍。\n\n![[tip-notebook-cover.png]]", "utf8");
+
+    const view = new WechatArticleWorkbenchView(leaf, plugin as never) as unknown as {
+      app: unknown;
+      root: { render: (node: unknown) => void; unmount: () => void };
+      render: (entry: ViewCacheEntry) => void;
+    };
+
+    view.app = plugin.app;
+    view.root = { render: renderSpy, unmount: vi.fn() };
+    view.render(createEntry());
+
+    const appNode = renderSpy.mock.calls.at(-1)?.[0] as { props: { state: { authorHtml?: string } } };
+    expect(appNode.props.state.authorHtml).toContain("来自项目文档的作者介绍。");
+    expect(appNode.props.state.authorHtml).toContain('src="data:image/png;base64,');
+  });
+
+  it("resolves built-in author assets as embedded data uris", () => {
+    const leaf = new WorkspaceLeaf();
+    const renderSpy = vi.fn();
+    const plugin = createPlugin({});
+    const vaultBasePath = plugin.app.vault.adapter.getBasePath();
+    const authorNotePath = path.join(vaultBasePath, "work/dev/wechat-article-obsidian/关于作者文案.md");
+    mkdirSync(path.dirname(authorNotePath), { recursive: true });
+    writeFileSync(authorNotePath, "# 关于作者\n\n![[tip-notebook-cover.png]]", "utf8");
+
+    const view = new WechatArticleWorkbenchView(leaf, plugin as never) as unknown as {
+      app: unknown;
+      root: { render: (node: unknown) => void; unmount: () => void };
+      render: (entry: ViewCacheEntry) => void;
+    };
+
+    view.app = plugin.app;
+    view.root = { render: renderSpy, unmount: vi.fn() };
+    view.render(createEntry());
+
+    const appNode = renderSpy.mock.calls.at(-1)?.[0] as { props: { state: { authorHtml?: string } } };
+    expect(appNode.props.state.authorHtml).toContain('src="data:image/png;base64,');
   });
 
   it("forwards the current preview html and selected client to the publish service", async () => {
@@ -692,6 +739,9 @@ function createPlugin(overrides: Partial<typeof DEFAULT_SETTINGS>, vaultOverride
     settings: {
       ...DEFAULT_SETTINGS,
       ...overrides,
+    },
+    manifest: {
+      id: "wechat-article-obsidian",
     },
     consumeLaunchContext: () => null,
   };
