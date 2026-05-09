@@ -3,6 +3,8 @@
 
 > 一个面向微信公众号创作者的 Obsidian 插件：根据文章内容完成公众号排版预览、封面与正文配图生成，并发布到公众号草稿箱。
 > 
+![wechat-article-obsidian 宣传图](screen/wechat-article-obsidian-promo-info-v2.png)
+
 ![公众号编排智能体界面](screen/ScreenShot_2026-05-08_202036_640.png)
 ## 功能特点
 
@@ -205,4 +207,3 @@
 | prompt 记录 | 图片生成使用的最终 prompt JSON |
 | 过程记录 | 文章分析、配图规划和图像生成过程中的结构化记录 |
 | 文章副本 | 用于测试或回写验证的文章副本 |
-
