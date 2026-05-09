@@ -7,3 +7,5 @@ tmp-*
 main.js
 styles.css
 .agents/log/
+.agents/context/
+docs/superpowers/
