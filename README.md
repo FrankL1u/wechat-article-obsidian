@@ -66,7 +66,7 @@
    - `main.js`
    - `styles.css`
 3. 在你的 Obsidian vault 中创建插件目录：
-   - `.obsidian/plugins/wechat-article-obsidian/`
+   - `.obsidian/plugins/wechat-article/`
 4. 将 `manifest.json`、`main.js`、`styles.css` 放入该目录。
 5. 重启 Obsidian，或在 Obsidian 设置中重新加载社区插件。
 6. 在 Obsidian 设置中启用「公众号编排智能体」。
