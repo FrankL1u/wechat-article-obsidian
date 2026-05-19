@@ -71,14 +71,14 @@ function extractSectionBlocks(content: string): SectionTargetBlock[] {
     if (!trimmed) continue;
 
     if (/^#{2,3}\s+/.test(trimmed)) {
-      const level = trimmed.startsWith("###") ? 3 : 2;
+      const level: 2 | 3 = trimmed.startsWith("###") ? 3 : 2;
       const sectionTitle = trimmed.replace(/^#{2,3}\s+/, "").trim();
       if (!sectionTitle || isFilteredHeading(sectionTitle)) continue;
 
       headings.push({
         kind: "section",
-        blockKey: buildSectionBlockKey(sectionTitle, level as 2 | 3, blockOrder),
-        level: level as 2 | 3,
+        blockKey: buildSectionBlockKey(sectionTitle, level, blockOrder),
+        level,
         sectionTitle,
         content: sectionTitle,
       });

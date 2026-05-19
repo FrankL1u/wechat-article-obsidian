@@ -11,7 +11,7 @@
  * 代码块渲染增强工具
  */
 
-import type * as cheerio from 'cheerio';
+import type * as cheerio from 'cheerio/slim';
 
 // --- hljs class -> 内联样式映射 (Atom One Dark 配色，适配 #282c34 深色背景) ---
 

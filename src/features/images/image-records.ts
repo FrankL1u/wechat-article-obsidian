@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, unlinkSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { createHash } from "node:crypto";
 import { buildArticleAssetId } from "./article-asset-id";
@@ -95,6 +95,23 @@ function findLatestImageRecordPath(articleDirAbsolutePath: string, imageId: stri
     return matches[0] ?? null;
   } catch {
     return null;
+  }
+}
+
+export function removeImageRecords(articleDirAbsolutePath: string, imageId: string): void {
+  if (!existsSync(articleDirAbsolutePath)) {
+    return;
+  }
+
+  try {
+    const matches = readdirSync(articleDirAbsolutePath)
+      .filter((name) => name.endsWith(`-image-record-${imageId}.json`))
+      .map((name) => path.join(articleDirAbsolutePath, name));
+    for (const recordPath of matches) {
+      unlinkSync(recordPath);
+    }
+  } catch {
+    // Best-effort cleanup only.
   }
 }
 

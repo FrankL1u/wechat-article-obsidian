@@ -86,10 +86,7 @@ describe("WechatArticleSettingTab", () => {
     expect(tab.containerEl.textContent).not.toContain("测试 LLM 配置");
     expect(tab.containerEl.textContent).not.toContain("测试图片配置");
     expect(tab.containerEl.querySelectorAll(".wao-settings-test-icon-btn")).toHaveLength(2);
-    expect(tab.containerEl.querySelectorAll(".wao-settings-test-icon-btn svg")).toHaveLength(2);
-    expect(tab.containerEl.querySelector(".wao-settings-test-icon-btn path")?.getAttribute("d")).toBe(
-      "M531.2 305.6V272H576v-40h-128V272h44.8v33.6c-124.8 9.6-224 115.2-224 243.2 0 134.4 108.8 243.2 243.2 243.2 134.4 0 243.2-108.8 243.2-243.2 0-128-97.6-233.6-224-243.2zM512 752c-112 0-204.8-91.2-204.8-204.8S400 344 512 344s204.8 91.2 204.8 204.8S624 752 512 752z",
-    );
+    expect(tab.containerEl.querySelectorAll('.wao-settings-test-icon-btn[data-icon="timer"]')).toHaveLength(2);
     expect(Array.from(tab.containerEl.querySelectorAll<HTMLButtonElement>(".wao-settings-test-icon-btn")).every((button) =>
       button.textContent?.trim() === "",
     )).toBe(true);

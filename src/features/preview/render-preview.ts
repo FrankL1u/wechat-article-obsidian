@@ -1,6 +1,8 @@
-import * as cheerio from "cheerio";
-import type { AnyNode } from "domhandler";
+import * as cheerio from "cheerio/slim";
+import { isTag, isText, type AnyNode } from "domhandler";
 import { previewHtml, WeChatConverter } from "./converter";
+
+const CHEERIO_OPTIONS = { xml: { decodeEntities: false, xmlMode: false } } as const;
 
 function escapeHtml(text: string): string {
   return text
@@ -12,14 +14,14 @@ function escapeHtml(text: string): string {
 }
 
 function injectTitle(bodyHtml: string, titleHtml: string): string {
-  const $ = cheerio.load(`<div id="wao-preview-root">${bodyHtml}</div>`, null, false);
+  const $ = cheerio.load(`<div id="wao-preview-root">${bodyHtml}</div>`, CHEERIO_OPTIONS, false);
   const root = $("#wao-preview-root");
   const bodyContainer = root.children("section").first();
   const target = bodyContainer.length ? bodyContainer : root;
   let lastLeadImageNode: AnyNode | null = null;
 
   for (const node of target.contents().toArray()) {
-    if (node.type === "text" && !$(node).text().trim()) {
+    if (isText(node) && !$(node).text().trim()) {
       continue;
     }
 
@@ -40,7 +42,7 @@ function injectTitle(bodyHtml: string, titleHtml: string): string {
 }
 
 function isLeadImageNode($: cheerio.CheerioAPI, node: AnyNode): boolean {
-  if (node.type !== "tag") {
+  if (!isTag(node)) {
     return false;
   }
 
@@ -55,9 +57,10 @@ function isLeadImageNode($: cheerio.CheerioAPI, node: AnyNode): boolean {
   const meaningfulChildren = $(node)
     .contents()
     .toArray()
-    .filter((child) => child.type !== "text" || $(child).text().trim());
+    .filter((child) => !isText(child) || $(child).text().trim());
 
-  return meaningfulChildren.length === 1 && meaningfulChildren[0]?.type === "tag" && meaningfulChildren[0].tagName === "img";
+  const child = meaningfulChildren[0];
+  return meaningfulChildren.length === 1 && Boolean(child && isTag(child) && child.tagName === "img");
 }
 
 function buildCenteredTitleStyle(baseStyle: string): string {
@@ -123,7 +126,7 @@ export function renderPreviewDocument(input: RenderPreviewInput): string {
     return withTheme;
   }
 
-  const $ = cheerio.load(withTheme, null, false);
+  const $ = cheerio.load(withTheme, CHEERIO_OPTIONS, false);
   $("img").each((_, element) => {
     const src = $(element).attr("src");
     if (!src) return;

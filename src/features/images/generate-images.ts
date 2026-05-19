@@ -1,5 +1,3 @@
-import path from "node:path";
-
 type ProviderName = "openai" | "gemini" | "doubao" | "qwen";
 
 interface GenerateImageOptions {
@@ -95,21 +93,13 @@ async function httpRequest(url: string, init: RequestInit, timeoutMs: number): P
     return {
       ok: response.status >= 200 && response.status < 300,
       status: response.status,
-      text: async () => response.text,
-      json: async () => response.json,
-      arrayBuffer: async () => response.arrayBuffer,
+      text: () => Promise.resolve(response.text),
+      json: () => Promise.resolve(response.json),
+      arrayBuffer: () => Promise.resolve(response.arrayBuffer),
     };
   }
 
-  const response = await fetch(url, { ...init, signal: AbortSignal.timeout(timeoutMs) });
-
-  return {
-    ok: response.ok,
-    status: response.status,
-    text: async () => response.text(),
-    json: async () => response.json(),
-    arrayBuffer: async () => response.arrayBuffer(),
-  };
+  throw new Error("Obsidian requestUrl is not available");
 }
 
 async function httpRetry(url: string, init: RequestInit, retries = 3, timeoutMs = 120_000): Promise<HttpResponseLike> {
@@ -130,19 +120,173 @@ async function httpRetry(url: string, init: RequestInit, retries = 3, timeoutMs 
   throw new Error("unreachable");
 }
 
+function resolveReturnedImageUrl(imageUrl: string, requestBaseUrl: string): string {
+  if (imageUrl.startsWith("data:image/")) {
+    return imageUrl;
+  }
+  return new URL(imageUrl, requestBaseUrl.endsWith("/") ? requestBaseUrl : `${requestBaseUrl}/`).toString();
+}
+
+function decodeDataImageUrl(imageUrl: string): Buffer | null {
+  const match = /^data:image\/[^;]+;base64,(.+)$/i.exec(imageUrl);
+  return match ? Buffer.from(match[1], "base64") : null;
+}
+
+async function downloadImageUrl(imageUrl: string, requestBaseUrl: string, timeoutMs = 60_000): Promise<Buffer> {
+  const resolvedUrl = resolveReturnedImageUrl(imageUrl, requestBaseUrl);
+  const dataImage = decodeDataImageUrl(resolvedUrl);
+  if (dataImage) {
+    return dataImage;
+  }
+  const imageResponse = await httpRetry(resolvedUrl, {}, 1, timeoutMs);
+  return Buffer.from(await imageResponse.arrayBuffer());
+}
+
+function readString(value: unknown): string {
+  return typeof value === "string" ? value.trim() : "";
+}
+
+function readStringArray(value: unknown): string[] {
+  return Array.isArray(value) ? value.map(readString).filter(Boolean) : [];
+}
+
+function truncateText(value: string, maxLength: number): string {
+  return value.length > maxLength ? `${value.slice(0, maxLength).trimEnd()}...` : value;
+}
+
+function summarizePromptForPlaceholder(prompt: string, errorMessage?: string): string[] {
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(prompt);
+  } catch {
+    const normalized = prompt.replace(/\s+/g, " ").trim();
+    return [
+      errorMessage ? `失败原因：${errorMessage}` : "",
+      normalized ? `画面意图：${truncateText(normalized, 120)}` : "画面意图：根据当前文章内容生成配图",
+    ].filter(Boolean);
+  }
+
+  if (!parsed || typeof parsed !== "object") {
+    return [errorMessage ? `失败原因：${errorMessage}` : "画面意图：根据当前文章内容生成配图"].filter(Boolean);
+  }
+
+  const data = parsed as Record<string, unknown>;
+  const frontmatter = data.frontmatter && typeof data.frontmatter === "object"
+    ? data.frontmatter as Record<string, unknown>
+    : {};
+  const typeSpecific = data.typeSpecific && typeof data.typeSpecific === "object"
+    ? data.typeSpecific as Record<string, unknown>
+    : {};
+  const visualDesign = data.visualDesign && typeof data.visualDesign === "object"
+    ? data.visualDesign as Record<string, unknown>
+    : {};
+  const contentContext = data.contentContext && typeof data.contentContext === "object"
+    ? data.contentContext as Record<string, unknown>
+    : {};
+
+  const title = readString(typeSpecific.title)
+    || readString(visualDesign.title)
+    || readString(contentContext.articleTitle)
+    || "当前文章配图";
+  const imageType = readString(frontmatter.type) || readString(visualDesign.type) || readString(data.type) || "illustration";
+  const layout = readString(typeSpecific.layout)
+    || readString(typeSpecific.structure)
+    || readString(typeSpecific.direction)
+    || readString(visualDesign.composition);
+  const labels = readString(typeSpecific.labels) || readString(visualDesign.text);
+  const zones = readStringArray(typeSpecific.zones);
+  const steps = readStringArray(typeSpecific.steps);
+  const nodes = readStringArray(typeSpecific.nodes);
+  const leftSide = readStringArray(typeSpecific.leftSide);
+  const rightSide = readStringArray(typeSpecific.rightSide);
+  const events = readStringArray(typeSpecific.events);
+  const focalPoint = readString(typeSpecific.focalPoint);
+
+  return [
+    errorMessage ? `失败原因：${errorMessage}` : "",
+    `画面主题：${truncateText(title, 80)}`,
+    `图片类型：${imageType}`,
+    layout ? `画面结构：${truncateText(layout, 110)}` : "",
+    focalPoint ? `视觉焦点：${truncateText(focalPoint, 100)}` : "",
+    zones.length ? `主要分区：${truncateText(zones.join(" / "), 130)}` : "",
+    steps.length ? `流程步骤：${truncateText(steps.join(" → "), 130)}` : "",
+    nodes.length ? `核心节点：${truncateText(nodes.join(" / "), 130)}` : "",
+    leftSide.length || rightSide.length ? `对比内容：${truncateText([...leftSide, ...rightSide].join(" / "), 130)}` : "",
+    events.length ? `时间线：${truncateText(events.join(" → "), 130)}` : "",
+    labels ? `可见标签：${truncateText(labels, 110)}` : "",
+  ].filter(Boolean);
+}
+
+function compactStructuredImagePrompt(prompt: string): string {
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(prompt);
+  } catch {
+    return prompt;
+  }
+
+  if (!parsed || typeof parsed !== "object") {
+    return prompt;
+  }
+
+  const data = parsed as Record<string, unknown>;
+  const frontmatter = data.frontmatter && typeof data.frontmatter === "object"
+    ? data.frontmatter as Record<string, unknown>
+    : {};
+  const typeSpecific = data.typeSpecific && typeof data.typeSpecific === "object"
+    ? data.typeSpecific as Record<string, unknown>
+    : {};
+  const style = data.style && typeof data.style === "object"
+    ? data.style as Record<string, unknown>
+    : {};
+  const visualDesign = data.visualDesign && typeof data.visualDesign === "object"
+    ? data.visualDesign as Record<string, unknown>
+    : {};
+  const renderingRules = data.renderingRules && typeof data.renderingRules === "object"
+    ? data.renderingRules as Record<string, unknown>
+    : {};
+
+  const promptType = readString(data.type) || readString(frontmatter.type) || readString(visualDesign.type) || "illustration";
+  const title = readString(typeSpecific.title) || readString(data.title) || readString(visualDesign.title);
+  const layout = readString(typeSpecific.layout) || readString(visualDesign.composition) || readString(renderingRules.typeNotes);
+  const zones = readStringArray(typeSpecific.zones);
+  const labels = readString(typeSpecific.labels) || readString(visualDesign.text);
+  const styleDescription = readString(style.description)
+    || readString(style.designAesthetic)
+    || readString(renderingRules.styleNotes);
+  const colorNotes = readString(renderingRules.colorScheme) || readString(renderingRules.paletteNotes);
+  const visualElements = readString(visualDesign.visualElements);
+
+  const lines = [
+    `Create a WeChat article image. Type: ${promptType}.`,
+    title ? `Title or concept: ${title}.` : "",
+    layout ? `Main composition: ${layout}.` : "",
+    zones.length ? `Content zones: ${zones.join(" / ")}.` : "",
+    labels ? `Allowed visible text labels: ${labels}.` : "",
+    visualElements ? `Key visual elements: ${visualElements}.` : "",
+    styleDescription ? `Style: ${styleDescription}.` : "",
+    colorNotes ? `Color direction: ${colorNotes}.` : "",
+    "Use a clean composition with generous white space. Do not show color names, hex codes, UI controls, watermarks, brand logos, or extra explanatory text.",
+  ].filter(Boolean);
+
+  const compacted = truncateText(lines.join("\n"), 1200);
+  return compacted.length < prompt.length ? compacted : prompt;
+}
+
 async function generateGemini(prompt: string, apiKey: string, aspectRatio: string, model = "imagen-3.0-generate-002", timeoutMs = 60_000): Promise<Buffer> {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:predict?key=${apiKey}`;
+  const imagePrompt = compactStructuredImagePrompt(prompt);
   const response = await httpRetry(
     url,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        instances: [{ prompt }],
+        instances: [{ prompt: imagePrompt }],
         parameters: { sampleCount: 1, aspectRatio },
       }),
     },
-    3,
+    1,
     timeoutMs,
   );
 
@@ -161,17 +305,19 @@ async function generateOpenAI(
   baseUrl = "https://api.openai.com/v1",
   timeoutMs = 60_000,
 ): Promise<Buffer> {
+  const requestUrl = `${baseUrl}/images/generations`;
+  const imagePrompt = compactStructuredImagePrompt(prompt);
   const response = await httpRetry(
-    `${baseUrl}/images/generations`,
+    requestUrl,
     {
       method: "POST",
       headers: {
         Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ model, prompt, size, n: 1, quality: "medium" }),
+      body: JSON.stringify({ model, prompt: imagePrompt, size, n: 1, quality: "medium" }),
     },
-    3,
+    1,
     timeoutMs,
   );
 
@@ -180,8 +326,7 @@ async function generateOpenAI(
   if (!items.length) throw new Error(`OpenAI API 无返回: ${JSON.stringify(data).slice(0, 200)}`);
   if (items[0].b64_json) return Buffer.from(items[0].b64_json, "base64");
   if (items[0].url) {
-    const imageResponse = await httpRetry(items[0].url, {}, 1, 30_000);
-    return Buffer.from(await imageResponse.arrayBuffer());
+    return downloadImageUrl(items[0].url, requestUrl, 60_000);
   }
   throw new Error("OpenAI API 未返回图片数据");
 }
@@ -194,17 +339,19 @@ async function generateDoubao(
   baseUrl = "https://ark.cn-beijing.volces.com/api/v3",
   timeoutMs = 60_000,
 ): Promise<Buffer> {
+  const requestUrl = `${baseUrl}/images/generations`;
+  const imagePrompt = compactStructuredImagePrompt(prompt);
   const response = await httpRetry(
-    `${baseUrl}/images/generations`,
+    requestUrl,
     {
       method: "POST",
       headers: {
         Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ model, prompt, size, n: 1, response_format: "b64_json" }),
+      body: JSON.stringify({ model, prompt: imagePrompt, size, n: 1, response_format: "b64_json" }),
     },
-    3,
+    1,
     timeoutMs,
   );
 
@@ -212,9 +359,8 @@ async function generateDoubao(
   const items = (data.data ?? []) as Record<string, string>[];
   if (!items.length) throw new Error(`豆包 API 无返回: ${JSON.stringify(data).slice(0, 200)}`);
   if (items[0].b64_json) return Buffer.from(items[0].b64_json, "base64");
-  if (items[0].url?.startsWith("http")) {
-    const imageResponse = await httpRetry(items[0].url, {}, 1, 30_000);
-    return Buffer.from(await imageResponse.arrayBuffer());
+  if (items[0].url) {
+    return downloadImageUrl(items[0].url, requestUrl, 60_000);
   }
   throw new Error("豆包 API 未返回图片数据");
 }
@@ -227,8 +373,10 @@ async function generateQwen(
   baseUrl = "https://dashscope.aliyuncs.com/api/v1",
   timeoutMs = 60_000,
 ): Promise<Buffer> {
+  const requestUrl = `${baseUrl}/services/aigc/multimodal-generation/generation`;
+  const imagePrompt = compactStructuredImagePrompt(prompt);
   const response = await httpRetry(
-    `${baseUrl}/services/aigc/multimodal-generation/generation`,
+    requestUrl,
     {
       method: "POST",
       headers: {
@@ -241,7 +389,7 @@ async function generateQwen(
           messages: [
             {
               role: "user",
-              content: [{ text: prompt }],
+              content: [{ text: imagePrompt }],
             },
           ],
         },
@@ -253,7 +401,7 @@ async function generateQwen(
         },
       }),
     },
-    3,
+    1,
     timeoutMs,
   );
 
@@ -268,8 +416,7 @@ async function generateQwen(
   };
   const imageUrl = data.output?.choices?.[0]?.message?.content?.find((item) => item.image)?.image;
   if (!imageUrl) throw new Error(`Qwen API 无返回图片 URL: ${JSON.stringify(data).slice(0, 300)}`);
-  const imageResponse = await httpRetry(imageUrl, {}, 1, 60_000);
-  return Buffer.from(await imageResponse.arrayBuffer());
+  return downloadImageUrl(imageUrl, requestUrl, 60_000);
 }
 
 async function generateBuffer(options: GenerateImageOptions): Promise<Buffer> {
@@ -291,9 +438,8 @@ async function generateBuffer(options: GenerateImageOptions): Promise<Buffer> {
   }
 }
 
-function buildPlaceholderSvg(prompt: string): string {
-  const wrappedLines = prompt
-    .split(/\r?\n/)
+function buildPlaceholderSvg(prompt: string, errorMessage?: string): string {
+  const wrappedLines = summarizePromptForPlaceholder(prompt, errorMessage)
     .flatMap((line) => {
       const normalized = line.trim();
       if (!normalized) return [""];
@@ -303,7 +449,7 @@ function buildPlaceholderSvg(prompt: string): string {
       }
       return chunks;
     })
-    .slice(0, 12);
+    .slice(0, 13);
   const bodyText = wrappedLines
     .map((line, index) => {
       const y = 232 + index * 44;
@@ -316,21 +462,22 @@ function buildPlaceholderSvg(prompt: string): string {
     .join("\n  ");
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
-  <rect width="1600" height="900" fill="#f4f4f5" />
-  <rect x="48" y="48" width="1504" height="804" rx="24" fill="#ffffff" stroke="#d4d4d8" stroke-width="4" />
-  <text x="80" y="140" font-size="42" font-family="Arial, sans-serif" fill="#18181b">图片生成失败，已使用占位图</text>
+  <rect width="1600" height="900" fill="#f8fafc" />
+  <rect x="48" y="48" width="1504" height="804" rx="24" fill="#ffffff" stroke="#cbd5e1" stroke-width="4" />
+  <rect x="84" y="84" width="1432" height="86" rx="18" fill="#eff6ff" />
+  <text x="120" y="140" font-size="42" font-family="Arial, sans-serif" fill="#1e293b">图片生成失败，已使用语义占位图</text>
+  <text x="120" y="184" font-size="22" font-family="Arial, sans-serif" fill="#64748b">下方展示原计划图片内容，不展示生成 prompt 或 JSON。</text>
   ${bodyText}
 </svg>`;
 }
 
 export async function generateImageAsset(options: GenerateImageOptions): Promise<{ buffer: Buffer; relativeFilename: string }> {
-  const normalizedProvider = options.provider.trim().toLowerCase();
   if (!options.apiKey.trim()) {
     if (options.fallbackOnError === false) {
       throw new Error("missing_image_api_key");
     }
     const relativeFilename = `${options.fileStem}.svg`;
-    return { buffer: Buffer.from(buildPlaceholderSvg(options.prompt), "utf8"), relativeFilename };
+    return { buffer: Buffer.from(buildPlaceholderSvg(options.prompt, "缺少图片 API Key"), "utf8"), relativeFilename };
   }
 
   try {
@@ -342,6 +489,6 @@ export async function generateImageAsset(options: GenerateImageOptions): Promise
     }
     const message = error instanceof Error ? error.message : String(error);
     const relativeFilename = `${options.fileStem}.svg`;
-    return { buffer: Buffer.from(buildPlaceholderSvg(`${options.prompt}\n\n${message}`), "utf8"), relativeFilename };
+    return { buffer: Buffer.from(buildPlaceholderSvg(options.prompt, message), "utf8"), relativeFilename };
   }
 }

@@ -86,18 +86,12 @@ async function httpRequest(url: string, init: RequestInit, timeoutMs: number): P
     return {
       ok: response.status >= 200 && response.status < 300,
       status: response.status,
-      json: async () => response.json,
-      text: async () => response.text,
+      json: () => Promise.resolve(response.json),
+      text: () => Promise.resolve(response.text),
     };
   }
 
-  const response = await fetch(url, { ...init, signal: AbortSignal.timeout(timeoutMs) });
-  return {
-    ok: response.ok,
-    status: response.status,
-    json: async () => response.json(),
-    text: async () => response.text(),
-  };
+  throw new Error("Obsidian requestUrl is not available");
 }
 
 export async function requestLlmJsonContent(

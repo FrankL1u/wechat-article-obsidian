@@ -1,18 +1,13 @@
 import path from "node:path";
 import { pathToFileURL } from "node:url";
-import type { App, TFile } from "obsidian";
+import { TFile, type App } from "obsidian";
 
 function isFileSystemAdapter(adapter: unknown): adapter is { getBasePath: () => string } {
   return typeof adapter === "object" && adapter !== null && "getBasePath" in adapter && typeof (adapter as { getBasePath: unknown }).getBasePath === "function";
 }
 
-function isVaultFile(file: unknown): file is { path: string; basename: string; extension: string; stat: unknown } {
-  return typeof file === "object"
-    && file !== null
-    && "path" in file
-    && "basename" in file
-    && "extension" in file
-    && "stat" in file;
+function isVaultFile(file: unknown): file is TFile {
+  return file instanceof TFile;
 }
 
 export function getVaultBasePath(app: App): string {
@@ -57,7 +52,7 @@ export function resolvePreviewAssetUrl(app: App, sourcePath: string, markdownPat
   if (typeof app.vault.getAbstractFileByPath === "function" && typeof app.vault.getResourcePath === "function") {
     const file = app.vault.getAbstractFileByPath(normalized);
     if (isVaultFile(file)) {
-      return app.vault.getResourcePath(file as TFile);
+      return app.vault.getResourcePath(file);
     }
   }
 

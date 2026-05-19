@@ -13,7 +13,7 @@ import { existsSync, mkdtempSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
-import type * as cheerio from 'cheerio';
+import type * as cheerio from 'cheerio/slim';
 
 let mermaidAvailable: boolean | undefined;
 

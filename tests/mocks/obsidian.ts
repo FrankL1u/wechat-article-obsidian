@@ -22,6 +22,8 @@ export class WorkspaceLeaf {
   async loadIfDeferred(): Promise<void> {}
 }
 
+export class MarkdownView {}
+
 export class ItemView {
   leaf: WorkspaceLeaf;
   contentEl: HTMLDivElement;
@@ -103,6 +105,11 @@ export class Setting {
     const nameEl = document.createElement("div");
     nameEl.textContent = value;
     this.settingEl.appendChild(nameEl);
+    return this;
+  }
+
+  setHeading(): this {
+    this.settingEl.classList.add("setting-item-heading");
     return this;
   }
 
@@ -210,6 +217,10 @@ export class Setting {
 }
 
 export function addIcon(): void {}
+
+export function setIcon(element: HTMLElement, iconId: string): void {
+  element.dataset.icon = iconId;
+}
 
 export async function requestUrl(): Promise<never> {
   throw new Error("requestUrl not mocked");

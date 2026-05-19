@@ -42,6 +42,7 @@ describe("image style presets", () => {
       "nature",
       "notion",
       "pixel-art",
+      "multi-panel-manga",
       "playful",
       "retro",
       "scientific",
@@ -57,7 +58,7 @@ describe("image style presets", () => {
 
   it("maps removed plugin-only styles to the closest baoyu style keys", () => {
     expect(normalizeStyle("lofi-doodle")).toBe("flat-doodle");
-    expect(normalizeStyle("multi-panel-manga")).toBe("playful");
+    expect(normalizeStyle("multi-panel-manga")).toBe("multi-panel-manga");
     expect(normalizeStyle("notebook-sketch")).toBe("sketch-notes");
     expect(normalizeStyle("claymation")).toBe("playful");
   });

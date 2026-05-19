@@ -83,6 +83,7 @@ describe("active-note-bridge", () => {
       activeLeaf: {
         view: markdownView,
       },
+      getActiveViewOfType: () => markdownView,
       getMostRecentLeaf: () => null,
       getLeavesOfType: () => [],
     };

@@ -43,21 +43,13 @@ describe("publishWechatDraft", () => {
     writeFileSync(inlinePath, Buffer.from("inline"));
     writeFileSync(coverPath, Buffer.from("cover"));
 
-    const fetchMock = vi.fn()
-      .mockResolvedValueOnce({
-        json: async () => ({ access_token: "token", expires_in: 7200 }),
-      })
-      .mockResolvedValueOnce({
-        json: async () => ({ url: "https://cdn.example.com/inline.png" }),
-      })
-      .mockResolvedValueOnce({
-        json: async () => ({ media_id: "thumb-123" }),
-      })
-      .mockResolvedValueOnce({
-        json: async () => ({ media_id: "draft-456" }),
-      });
+    const requestUrlMock = vi.fn()
+      .mockResolvedValueOnce({ status: 200, headers: {}, arrayBuffer: new ArrayBuffer(0), text: "", json: { access_token: "token", expires_in: 7200 } })
+      .mockResolvedValueOnce({ status: 200, headers: {}, arrayBuffer: new ArrayBuffer(0), text: "", json: { url: "https://cdn.example.com/inline.png" } })
+      .mockResolvedValueOnce({ status: 200, headers: {}, arrayBuffer: new ArrayBuffer(0), text: "", json: { media_id: "thumb-123" } })
+      .mockResolvedValueOnce({ status: 200, headers: {}, arrayBuffer: new ArrayBuffer(0), text: "", json: { media_id: "draft-456" } });
 
-    vi.stubGlobal("fetch", fetchMock);
+    (globalThis as typeof globalThis & { __waoRequestUrl?: typeof requestUrlMock }).__waoRequestUrl = requestUrlMock;
 
     const result = await publishWechatDraft({
       html: '<h1>标题</h1><p>第一段摘要。</p><p><img src="inline-local.png" /></p>',
@@ -86,10 +78,10 @@ describe("publishWechatDraft", () => {
     });
 
     expect(result.mediaId).toBe("draft-456");
-    expect(fetchMock).toHaveBeenCalledTimes(4);
+    expect(requestUrlMock).toHaveBeenCalledTimes(4);
 
-    const draftCall = fetchMock.mock.calls[3];
-    const draftBody = JSON.parse(String(draftCall?.[1]?.body));
+    const draftCall = requestUrlMock.mock.calls[3];
+    const draftBody = JSON.parse(String(draftCall?.[0]?.body));
     expect(draftBody.articles[0].author).toBe("刘Sir.2035");
     expect(draftBody.articles[0].title).toBe("标题");
     expect(draftBody.articles[0].thumb_media_id).toBe("thumb-123");
@@ -101,18 +93,12 @@ describe("publishWechatDraft", () => {
     const coverPath = path.join(tempDir, "cover.png");
     writeFileSync(coverPath, Buffer.from("cover"));
 
-    const fetchMock = vi.fn()
-      .mockResolvedValueOnce({
-        json: async () => ({ access_token: "token", expires_in: 7200 }),
-      })
-      .mockResolvedValueOnce({
-        json: async () => ({ media_id: "thumb-123" }),
-      })
-      .mockResolvedValueOnce({
-        json: async () => ({ media_id: "draft-456" }),
-      });
+    const requestUrlMock = vi.fn()
+      .mockResolvedValueOnce({ status: 200, headers: {}, arrayBuffer: new ArrayBuffer(0), text: "", json: { access_token: "token", expires_in: 7200 } })
+      .mockResolvedValueOnce({ status: 200, headers: {}, arrayBuffer: new ArrayBuffer(0), text: "", json: { media_id: "thumb-123" } })
+      .mockResolvedValueOnce({ status: 200, headers: {}, arrayBuffer: new ArrayBuffer(0), text: "", json: { media_id: "draft-456" } });
 
-    vi.stubGlobal("fetch", fetchMock);
+    (globalThis as typeof globalThis & { __waoRequestUrl?: typeof requestUrlMock }).__waoRequestUrl = requestUrlMock;
 
     await publishWechatDraft({
       html: `
@@ -153,8 +139,8 @@ describe("publishWechatDraft", () => {
       },
     });
 
-    const draftCall = fetchMock.mock.calls[2];
-    const draftBody = JSON.parse(String(draftCall?.[1]?.body));
+    const draftCall = requestUrlMock.mock.calls[2];
+    const draftBody = JSON.parse(String(draftCall?.[0]?.body));
     expect(draftBody.articles[0].title).toBe("LLM Wiki");
     expect(draftBody.articles[0].content).not.toContain("封面图");
     expect(draftBody.articles[0].content).not.toContain("<h1");

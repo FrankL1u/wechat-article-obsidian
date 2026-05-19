@@ -66,7 +66,10 @@ describe("generateCoverImageAsset", () => {
 
     const absolutePath = path.join(vaultBasePath, result.relativePath);
     expect(existsSync(absolutePath)).toBe(true);
-    expect(readFileSync(absolutePath, "utf8")).toContain("图片生成失败，已使用占位图");
+    const placeholderSvg = readFileSync(absolutePath, "utf8");
+    expect(placeholderSvg).toContain("图片生成失败，已使用语义占位图");
+    expect(placeholderSvg).toContain("画面主题：LLM Wiki：一种新的知识库方法");
+    expect(placeholderSvg).not.toContain("frontmatter");
 
     const record = readImageRecord(path.dirname(absolutePath), result.imageId);
     expect(record?.kind).toBe("cover");

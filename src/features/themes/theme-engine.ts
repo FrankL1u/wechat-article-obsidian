@@ -162,7 +162,7 @@ const THEMES: Record<ThemeKey, Theme> = Object.fromEntries(
 
 export function generateTheme(options: ThemeOptions = {}): Theme {
   const key = options.themeKey && options.themeKey in THEMES ? options.themeKey : DEFAULT_THEME;
-  return THEMES[key as ThemeKey];
+  return THEMES[key];
 }
 
 export function listThemes(): Array<{ key: ThemeKey; name: string; description: string }> {

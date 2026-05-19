@@ -1,5 +1,4 @@
 import { addIcon, Plugin, requestUrl } from "obsidian";
-import styles from "../styles.css";
 import { DEFAULT_SETTINGS, normalizePluginSettings, type PluginSettings } from "./platform/obsidian/plugin-settings";
 import { WechatArticleSettingTab } from "./platform/obsidian/settings-tab";
 import { captureMarkdownContext, type MarkdownContext } from "./platform/obsidian/active-note-bridge";
@@ -10,13 +9,10 @@ export default class WechatArticlePlugin extends Plugin {
   static readonly RIBBON_ICON_ID = "wechat-article-agent-v2";
   static readonly RIBBON_LABEL = "打开公众号编排智能体";
   private launchContext: MarkdownContext | null = null;
-  private styleElement: HTMLStyleElement | null = null;
 
   async onload(): Promise<void> {
     (globalThis as typeof globalThis & { __waoRequestUrl?: typeof requestUrl }).__waoRequestUrl = requestUrl;
     await this.loadSettings();
-
-    this.injectStyles();
 
     addIcon(
       WechatArticlePlugin.RIBBON_ICON_ID,
@@ -37,26 +33,13 @@ export default class WechatArticlePlugin extends Plugin {
 
       const view = leaf.view;
       if (view instanceof WechatArticleWorkbenchView) {
-        await view.activateFromRibbon();
+        view.activateFromRibbon();
       }
     });
   }
 
   onunload(): void {
-    this.styleElement?.remove();
-    this.styleElement = null;
-  }
-
-  private injectStyles(): void {
-    const styleId = "wao-styles";
-    let el = document.getElementById(styleId) as HTMLStyleElement | null;
-    if (!el) {
-      el = document.createElement("style");
-      el.id = styleId;
-      document.head.appendChild(el);
-    }
-    el.textContent = styles;
-    this.styleElement = el;
+    delete (globalThis as typeof globalThis & { __waoRequestUrl?: typeof requestUrl }).__waoRequestUrl;
   }
 
   async loadSettings(): Promise<void> {

@@ -1,16 +1,10 @@
-import { App, Modal, Notice, PluginSettingTab, Setting } from "obsidian";
-import {
-} from "../../features/images/presets";
+import { App, Modal, Notice, PluginSettingTab, Setting, setIcon } from "obsidian";
 import type WechatArticlePlugin from "../../main";
 import { createEmptyClientProfile, resolveSelectedClientId } from "./client-profiles";
 import { testImageConfig, testLlmConfig } from "./model-config-test";
 import type { ClientProfile } from "./plugin-settings";
 
 type SettingsTabKey = "accounts" | "models";
-
-const EDIT_SVG = `<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 1 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>`;
-const DELETE_SVG = `<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>`;
-const TEST_SVG = `<svg viewBox="0 0 1024 1024" width="18" height="18" aria-hidden="true"><path d="M531.2 305.6V272H576v-40h-128V272h44.8v33.6c-124.8 9.6-224 115.2-224 243.2 0 134.4 108.8 243.2 243.2 243.2 134.4 0 243.2-108.8 243.2-243.2 0-128-97.6-233.6-224-243.2zM512 752c-112 0-204.8-91.2-204.8-204.8S400 344 512 344s204.8 91.2 204.8 204.8S624 752 512 752z" fill="currentColor"></path><path d="M497.6 533.76l132.608-136.64 28.704 27.84-132.592 136.64z" fill="currentColor"></path></svg>`;
 
 export class WechatArticleSettingTab extends PluginSettingTab {
   private activeTab: SettingsTabKey = "accounts";
@@ -27,7 +21,7 @@ export class WechatArticleSettingTab extends PluginSettingTab {
     containerEl.classList.add("wao-settings-root");
     this.ensureEditingClientId();
 
-    containerEl.createEl("h2", { text: "公众号工作台设置" });
+    new Setting(containerEl).setName("公众号工作台设置").setHeading();
 
     const tabsEl = containerEl.createDiv({ cls: "wao-settings-tabs" });
     this.renderTabButton(tabsEl, "accounts", "账户");
@@ -89,25 +83,25 @@ export class WechatArticleSettingTab extends PluginSettingTab {
       this.renderEndpointTypeTabs(sectionEl);
 
       new Setting(sectionEl)
-      .setName("LLM Base URL")
+      .setName("LLM base URL")
       .addText((text) =>
-        text.setPlaceholder("http://host:port/v1").setValue(settings.llmBaseUrl).onChange(async (value) => {
+        text.setPlaceholder("HTTP://host:port/v1").setValue(settings.llmBaseUrl).onChange(async (value) => {
           this.plugin.settings.llmBaseUrl = value.trim();
           await this.plugin.saveSettings();
         }),
       );
 
       new Setting(sectionEl)
-      .setName("LLM API Key")
+      .setName("LLM API key")
       .addText((text) =>
-        text.setPlaceholder("Bearer Token").setValue(settings.llmApiKey).onChange(async (value) => {
+        text.setPlaceholder("Bearer token").setValue(settings.llmApiKey).onChange(async (value) => {
           this.plugin.settings.llmApiKey = value.trim();
           await this.plugin.saveSettings();
         }),
       );
 
       new Setting(sectionEl)
-      .setName("LLM Model")
+      .setName("LLM model")
       .addText((text) =>
         text.setPlaceholder("可选，不填则禁用远程 LLM 规划").setValue(settings.llmModel).onChange(async (value) => {
           this.plugin.settings.llmModel = value.trim();
@@ -146,16 +140,16 @@ export class WechatArticleSettingTab extends PluginSettingTab {
       );
 
       new Setting(sectionEl)
-      .setName("图片 API Key")
+      .setName("图片 API key")
       .addText((text) =>
-        text.setPlaceholder("请输入 API Key").setValue(settings.apiKey).onChange(async (value) => {
+        text.setPlaceholder("请输入 API key").setValue(settings.apiKey).onChange(async (value) => {
           this.plugin.settings.apiKey = value.trim();
             await this.plugin.saveSettings();
           }),
       );
 
       new Setting(sectionEl)
-      .setName("图片 Base URL")
+      .setName("图片 base URL")
       .addText((text) =>
         text.setPlaceholder("可选").setValue(settings.baseUrl).onChange(async (value) => {
           this.plugin.settings.baseUrl = value.trim();
@@ -164,7 +158,7 @@ export class WechatArticleSettingTab extends PluginSettingTab {
       );
 
       new Setting(sectionEl)
-      .setName("图片 Model")
+      .setName("图片 model")
       .addText((text) =>
         text.setPlaceholder("可选").setValue(settings.model).onChange(async (value) => {
           this.plugin.settings.model = value.trim();
@@ -197,7 +191,7 @@ export class WechatArticleSettingTab extends PluginSettingTab {
       if (settings.outputDirEnabled) {
         new Setting(sectionEl)
         .setName("输出目录路径")
-        .setDesc("支持 Vault 相对路径或指向 Vault 内部的绝对路径")
+        .setDesc("支持 vault 相对路径或指向 vault 内部的绝对路径")
         .addText((text) =>
           text.setValue(settings.outputDirPath).onChange(async (value) => {
             this.plugin.settings.outputDirPath = value.trim();
@@ -213,7 +207,7 @@ export class WechatArticleSettingTab extends PluginSettingTab {
     buttonEl.ariaLabel = label;
     buttonEl.title = label;
     buttonEl.className = "wao-settings-test-icon-btn";
-    buttonEl.innerHTML = TEST_SVG;
+    setIcon(buttonEl, "timer");
     buttonEl.addEventListener("click", (event) => {
       event.stopPropagation();
       void onClick();
@@ -234,11 +228,13 @@ export class WechatArticleSettingTab extends PluginSettingTab {
       button.type = "button";
       button.ariaPressed = this.plugin.settings.llmEndpointType === option.value ? "true" : "false";
       button.classList.toggle("is-active", this.plugin.settings.llmEndpointType === option.value);
-      button.addEventListener("click", async () => {
+      button.addEventListener("click", () => {
+        void (async () => {
         this.plugin.settings.llmEndpointType = option.value;
         this.plugin.settings.llmBaseUrl = this.resolveEndpointBaseUrl(option.value, this.plugin.settings.llmBaseUrl);
         await this.plugin.saveSettings();
         this.display();
+        })();
       });
     }
   }
@@ -345,7 +341,7 @@ export class WechatArticleSettingTab extends PluginSettingTab {
       text: this.expandedSections.has(key) ? "⌄" : "›",
       cls: "wao-settings-section__chevron",
     });
-    titleEl.createEl("h3", { text: title });
+    titleEl.createDiv({ text: title, cls: "wao-settings-section__heading" });
     if (renderAction) {
       const actionButton = headerEl.createEl("button", { cls: "wao-settings-test-icon-btn" });
       renderAction(actionButton);
@@ -385,7 +381,7 @@ export class WechatArticleSettingTab extends PluginSettingTab {
     const editButton = topActionsEl.createEl("button", { cls: "wao-btn wao-btn--ghost wao-settings-icon-btn" });
     editButton.type = "button";
     editButton.ariaLabel = "编辑";
-    editButton.innerHTML = EDIT_SVG;
+    setIcon(editButton, "pencil");
     editButton.addEventListener("click", (event) => {
       event.stopPropagation();
       void this.openBasicAccountModal(client);
@@ -393,7 +389,7 @@ export class WechatArticleSettingTab extends PluginSettingTab {
     const deleteButton = topActionsEl.createEl("button", { cls: "wao-btn wao-btn--ghost wao-settings-icon-btn wao-settings-icon-btn--danger" });
     deleteButton.type = "button";
     deleteButton.ariaLabel = "删除";
-    deleteButton.innerHTML = DELETE_SVG;
+    setIcon(deleteButton, "trash-2");
     deleteButton.addEventListener("click", (event) => {
       event.stopPropagation();
       void this.confirmDeleteClient(client);

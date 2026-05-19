@@ -1,4 +1,4 @@
-import type { App, TFile } from "obsidian";
+import { MarkdownView, TFile, type App } from "obsidian";
 
 interface MarkdownLikeView {
   getViewType?: () => string;
@@ -13,7 +13,7 @@ function isMarkdownView(view: MarkdownLikeView | null | undefined): view is Mark
 }
 
 export function resolveActiveMarkdownView(app: App): MarkdownLikeView | null {
-  const activeView = app.workspace.activeLeaf?.view as MarkdownLikeView | undefined;
+  const activeView = app.workspace.getActiveViewOfType?.(MarkdownView) as MarkdownLikeView | null | undefined;
   return isMarkdownView(activeView) ? activeView : null;
 }
 
@@ -42,7 +42,8 @@ export function getActiveMarkdownView(app: App): MarkdownLikeView | null {
 }
 
 export function getActiveFile(app: App): TFile | null {
-  return (resolveMarkdownView(app)?.file as TFile | null | undefined) ?? null;
+  const file = resolveMarkdownView(app)?.file;
+  return file instanceof TFile ? file : null;
 }
 
 export function getLiveMarkdown(app: App): string {
@@ -56,9 +57,9 @@ export interface MarkdownContext {
 
 export function captureMarkdownContext(app: App): MarkdownContext | null {
   const view = resolveMarkdownView(app);
-  const file = (view?.file as TFile | null | undefined) ?? null;
+  const file = view?.file;
   const markdown = view?.editor?.getValue() ?? "";
-  if (!file?.path) return null;
+  if (!isTFileLike(file)) return null;
 
   return {
     path: file.path,
@@ -68,12 +69,16 @@ export function captureMarkdownContext(app: App): MarkdownContext | null {
 
 export function captureActiveMarkdownContext(app: App): MarkdownContext | null {
   const view = resolveActiveMarkdownView(app);
-  const file = (view?.file as TFile | null | undefined) ?? null;
+  const file = view?.file;
   const markdown = view?.editor?.getValue() ?? "";
-  if (!file?.path) return null;
+  if (!isTFileLike(file)) return null;
 
   return {
     path: file.path,
     markdown,
   };
+}
+
+function isTFileLike(file: MarkdownLikeView["file"]): file is TFile {
+  return Boolean(file?.path);
 }

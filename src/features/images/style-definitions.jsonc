@@ -1356,6 +1356,76 @@
       ]
     },
     {
+      "key": "multi-panel-manga",
+      "zh": "多格漫画风",
+      "title": "multi-panel-manga",
+      "description": "Multi-panel manga explainer style for structured article illustrations",
+      "designAesthetic": "Black-and-white or lightly accented manga explainer aesthetic. Uses clear panels, comic screentones, expressive stylized figures, speech bubbles, arrows, and sequential storytelling to explain a concept step by step. The result should feel like an editorial explainer comic, not generic cute doodles.",
+      "background": {
+        "color": "White (#FFFFFF) or Warm Paper (#FAF7F0)",
+        "texture": "Subtle paper grain with manga screentone areas"
+      },
+      "colorPalette": [
+        {
+          "role": "Background",
+          "color": "White",
+          "hex": "#FFFFFF",
+          "usage": "Primary canvas"
+        },
+        {
+          "role": "Ink",
+          "color": "Near Black",
+          "hex": "#111111",
+          "usage": "Panel borders, line art, primary text"
+        },
+        {
+          "role": "Screentone",
+          "color": "Soft Gray",
+          "hex": "#D9D9D9",
+          "usage": "Shading and depth"
+        },
+        {
+          "role": "Accent",
+          "color": "Signal Blue",
+          "hex": "#3B82F6",
+          "usage": "Key arrows, highlights, and emphasis"
+        }
+      ],
+      "visualElements": [
+        "Two to four clear comic panels",
+        "Bold panel borders and manga screentones",
+        "Stylized non-realistic manga figures when useful",
+        "Speech bubbles and short labels",
+        "Arrows showing cause, sequence, or contrast",
+        "Impact marks, motion lines, and emphasis bursts",
+        "Simple props that represent business, software, or AI systems"
+      ],
+      "styleRules": {
+        "do": [
+          "Use multiple panels to show progression or comparison",
+          "Keep each panel readable on mobile",
+          "Use black ink line art with restrained accent color",
+          "Use short Chinese labels only when they clarify the structure",
+          "Make the sequence of ideas easy to follow"
+        ],
+        "dont": [
+          "Create a single generic cartoon scene",
+          "Use photorealistic faces or realistic hands",
+          "Overload the image with long paragraphs of text",
+          "Use glossy 3D rendering or corporate stock illustration",
+          "Let decorative manga effects obscure the explanation"
+        ]
+      },
+      "scenarios": [
+        "Step-by-step explanations",
+        "process breakdowns",
+        "before-after comparisons",
+        "strategy and business model analysis",
+        "developer workflow stories",
+        "AI product and tool explainers"
+      ]
+    },
+    {
       "key": "retro",
       "zh": "复古印刷风",
       "title": "retro",

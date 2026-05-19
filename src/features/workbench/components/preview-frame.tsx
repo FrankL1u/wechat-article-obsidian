@@ -85,7 +85,6 @@ export function PreviewFrame({
           className="wao-preview-frame"
           title="公众号预览"
           tabIndex={0}
-          scrolling="yes"
           srcDoc={html}
           onLoad={() => {
             syncPreviewRuntimeImages(iframeRef.current?.contentDocument ?? null, images, onDeleteImage, onRegenerateImage);
@@ -245,7 +244,7 @@ function wrapExistingImage(
   deleteButton.className = "wao-image-tools__button wao-image-tools__button--delete";
   deleteButton.setAttribute("aria-label", "删除图片");
   deleteButton.setAttribute("title", "删除图片");
-  deleteButton.innerHTML = DELETE_SVG;
+  appendDeleteIcon(deleteButton);
   deleteButton.addEventListener("click", (event) => {
     event.preventDefault();
     event.stopPropagation();
@@ -257,7 +256,7 @@ function wrapExistingImage(
   regenerateButton.className = "wao-image-tools__button wao-image-tools__button--regenerate";
   regenerateButton.setAttribute("aria-label", "重新生成图片");
   regenerateButton.setAttribute("title", "重新生成图片");
-  regenerateButton.innerHTML = REGENERATE_SVG;
+  appendRegenerateIcon(regenerateButton);
   regenerateButton.disabled = !onRegenerateImage;
   regenerateButton.addEventListener("click", (event) => {
     event.preventDefault();
@@ -299,7 +298,10 @@ function syncWrapperState(wrapper: HTMLElement, image: ImageCard): void {
     if (!overlay) {
       overlay = wrapper.ownerDocument.createElement("div");
       overlay.className = "wao-image-overlay";
-      overlay.innerHTML = `<span class="wao-image-overlay__spinner" aria-hidden="true"></span>`;
+      const spinner = wrapper.ownerDocument.createElement("span");
+      spinner.className = "wao-image-overlay__spinner";
+      spinner.setAttribute("aria-hidden", "true");
+      overlay.appendChild(spinner);
       wrapper.appendChild(overlay);
     }
   } else if (overlay) {
@@ -349,10 +351,7 @@ function bindFrameCloseListener(doc: Document): void {
 }
 
 function getPreviewScrollRoot(doc: Document): HTMLElement | null {
-  if (typeof doc.querySelector !== "function") {
-    return null;
-  }
-  return doc.querySelector<HTMLElement>(".preview-scroll-root");
+  return (doc.getElementsByClassName("preview-scroll-root")[0] as HTMLElement | undefined) ?? null;
 }
 
 function bindPreviewScrollListeners(doc: Document): void {
@@ -432,7 +431,7 @@ function nudgePreviewScrollRoot(doc: Document | null): void {
 
 function ensureFrameStyle(doc: Document): void {
   if (doc.getElementById(FRAME_STYLE_ID)) return;
-  const host = doc.head ?? doc.querySelector("head") ?? doc.documentElement;
+  const host = doc.head ?? doc.documentElement;
   if (!host) return;
 
   const style = doc.createElement("style");
@@ -538,5 +537,40 @@ function ensureFrameStyle(doc: Document): void {
   host.appendChild(style);
 }
 
-const DELETE_SVG = `<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>`;
-const REGENERATE_SVG = `<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><polyline points="21 3 21 9 15 9"/></svg>`;
+function createSvgIcon(doc: Document): SVGSVGElement {
+  const svg = doc.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.setAttribute("viewBox", "0 0 24 24");
+  svg.setAttribute("width", "14");
+  svg.setAttribute("height", "14");
+  svg.setAttribute("fill", "none");
+  svg.setAttribute("stroke", "currentColor");
+  svg.setAttribute("stroke-width", "2");
+  svg.setAttribute("stroke-linecap", "round");
+  svg.setAttribute("stroke-linejoin", "round");
+  svg.setAttribute("aria-hidden", "true");
+  return svg;
+}
+
+function appendSvgPath(svg: SVGSVGElement, tagName: "path" | "polyline" | "line", attributes: Record<string, string>): void {
+  const element = svg.ownerDocument.createElementNS("http://www.w3.org/2000/svg", tagName);
+  for (const [name, value] of Object.entries(attributes)) {
+    element.setAttribute(name, value);
+  }
+  svg.appendChild(element);
+}
+
+function appendDeleteIcon(button: HTMLButtonElement): void {
+  const svg = createSvgIcon(button.ownerDocument);
+  appendSvgPath(svg, "polyline", { points: "3 6 5 6 21 6" });
+  appendSvgPath(svg, "path", { d: "M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" });
+  appendSvgPath(svg, "line", { x1: "10", y1: "11", x2: "10", y2: "17" });
+  appendSvgPath(svg, "line", { x1: "14", y1: "11", x2: "14", y2: "17" });
+  button.appendChild(svg);
+}
+
+function appendRegenerateIcon(button: HTMLButtonElement): void {
+  const svg = createSvgIcon(button.ownerDocument);
+  appendSvgPath(svg, "path", { d: "M21 12a9 9 0 1 1-2.64-6.36" });
+  appendSvgPath(svg, "polyline", { points: "21 3 21 9 15 9" });
+  button.appendChild(svg);
+}

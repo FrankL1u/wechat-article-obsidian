@@ -1,4 +1,4 @@
-import { mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -160,7 +160,7 @@ describe("workbench-view render context", () => {
 
     const appNode = renderSpy.mock.calls.at(-1)?.[0] as { props: { state: { authorHtml?: string } } };
     expect(appNode.props.state.authorHtml).toContain("来自项目文档的作者介绍。");
-    expect(appNode.props.state.authorHtml).toContain('src="data:image/png;base64,');
+    expect(appNode.props.state.authorHtml).toContain('src="data:image/svg+xml;charset=utf-8,');
   });
 
   it("resolves built-in author assets as embedded data uris", () => {
@@ -183,7 +183,7 @@ describe("workbench-view render context", () => {
     view.render(createEntry());
 
     const appNode = renderSpy.mock.calls.at(-1)?.[0] as { props: { state: { authorHtml?: string } } };
-    expect(appNode.props.state.authorHtml).toContain('src="data:image/png;base64,');
+    expect(appNode.props.state.authorHtml).toContain('src="data:image/svg+xml;charset=utf-8,');
   });
 
   it("forwards the current preview html and selected client to the publish service", async () => {
@@ -464,16 +464,19 @@ describe("workbench-view render context", () => {
     const modify = vi.fn().mockResolvedValue(undefined);
     const createBinary = vi.fn().mockResolvedValue(undefined);
     const modifyBinary = vi.fn().mockResolvedValue(undefined);
+    const deleteFile = vi.fn().mockResolvedValue(undefined);
     const plugin = createPlugin({
       defaultCoverType: "conceptual",
       defaultStyle: "editorial",
       apiKey: "",
-    }, { modify, createBinary, modifyBinary });
+    }, { modify, createBinary, modifyBinary, delete: deleteFile });
     const vaultBasePath = plugin.app.vault.adapter.getBasePath();
     const sourcePath = "Inbox/原文.md";
     const imageId = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
     const assetDir = getImageAssetDirectory(vaultBasePath, sourcePath);
     const oldRelativePath = `${assetDir.relativeDir}/wao-cover-2026-4-27-${imageId}.svg`;
+    mkdirSync(path.join(vaultBasePath, assetDir.relativeDir), { recursive: true });
+    writeFileSync(path.join(vaultBasePath, oldRelativePath), "<svg />", "utf8");
     writeImageRecord(assetDir.absoluteDir, imageId, {
       imageId,
       kind: "cover",
@@ -561,6 +564,8 @@ describe("workbench-view render context", () => {
     expect(nextMarkdown).not.toContain(`wao-cover-2026-4-27-${imageId}.svg`);
     expect(nextMarkdown).toContain("正文第一段");
     expect(createBinary.mock.calls.length + modifyBinary.mock.calls.length).toBeGreaterThan(0);
+    expect(deleteFile).toHaveBeenCalledWith(expect.objectContaining({ path: oldRelativePath }));
+    expect(existsSync(path.join(assetDir.absoluteDir, `2026-4-27-image-record-${imageId}.json`))).toBe(false);
   });
 
   it("regenerates an unmanaged markdown image as an inline image and replaces only that path", async () => {

@@ -93,7 +93,7 @@ export function processMathInHtml(html: string): string {
   });
 
   // 恢复被保护的块
-  result = result.replace(/\x00MATH_PROTECTED_(\d+)\x00/g, (_, i: string) => protectedBlocks[parseInt(i)]);
+  result = result.replace(new RegExp(`${String.fromCharCode(0)}MATH_PROTECTED_(\\d+)${String.fromCharCode(0)}`, 'g'), (_, i: string) => protectedBlocks[parseInt(i, 10)]);
 
   return result;
 }

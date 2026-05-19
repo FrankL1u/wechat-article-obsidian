@@ -12,6 +12,7 @@ import {
   hashMarkdown,
   hashPrompt,
   readImageRecord,
+  removeImageRecords,
   touchImageRecord,
   writeImageRecord,
   getImageAssetDirectory,
@@ -139,6 +140,22 @@ function buildRegeneratedImageId(imageId: string): string {
     .digest("hex");
 }
 
+async function deleteVaultFileIfExists(app: App, relativePath: string): Promise<void> {
+  const file = app.vault.getAbstractFileByPath(relativePath);
+  if (file instanceof TFile) {
+    await app.vault.delete(file);
+  }
+}
+
+async function cleanupReplacedPlaceholderImage(app: App, assetDirAbsolutePath: string, record: ImageRecord): Promise<void> {
+  if (path.extname(record.relativePath).toLowerCase() !== ".svg") {
+    return;
+  }
+
+  await deleteVaultFileIfExists(app, record.relativePath);
+  removeImageRecords(assetDirAbsolutePath, record.imageId);
+}
+
 function rebuildInlinePromptForRegeneration(prompt: string, style: string, palette: string): string {
   const parsed = JSON.parse(prompt) as FinalPromptItem;
   const frontmatter = parsed.frontmatter;
@@ -252,7 +269,7 @@ export class WechatArticleWorkbenchView extends ItemView {
     return WORKBENCH_DISPLAY_TEXT;
   }
 
-  async onOpen(): Promise<void> {
+  onOpen(): Promise<void> {
     const contentEl = this.contentEl;
     if (!(contentEl instanceof HTMLElement)) {
       throw new Error("公众号编排智能体容器不可用");
@@ -263,17 +280,19 @@ export class WechatArticleWorkbenchView extends ItemView {
     this.render();
     this.registerEvent(this.app.workspace.on("active-leaf-change", () => void this.refreshFromActiveNote()));
     this.registerEvent(this.app.workspace.on("editor-change", () => void this.refreshFromActiveNote()));
-    await this.refreshFromActiveNote();
+    this.refreshFromActiveNote();
+    return Promise.resolve();
   }
 
-  async onClose(): Promise<void> {
+  onClose(): Promise<void> {
     this.root?.unmount();
     this.root = null;
+    return Promise.resolve();
   }
 
-  async activateFromRibbon(): Promise<void> {
+  activateFromRibbon(): void {
     this.render();
-    await this.refreshFromActiveNote();
+    this.refreshFromActiveNote();
   }
 
   private ensureCache(sourcePath: string, sourceMarkdown: string): ViewCacheEntry {
@@ -508,7 +527,7 @@ export class WechatArticleWorkbenchView extends ItemView {
     );
   }
 
-  private async refreshFromActiveNote(): Promise<void> {
+  private refreshFromActiveNote(): void {
     const activeContext = captureActiveMarkdownContext(this.app);
     const context = selectRefreshContext(
       this.getCurrentContext(),
@@ -986,6 +1005,7 @@ export class WechatArticleWorkbenchView extends ItemView {
       const nextMarkdown = replaceImagePathInMarkdown(entry.sourceMarkdown, image.blockIndex, image.label, nextMarkdownPath);
 
       await this.persistMarkdown(entry, nextMarkdown);
+      await cleanupReplacedPlaceholderImage(this.app, assetDir.absoluteDir, record);
       entry.regeneratingImageIds = entry.regeneratingImageIds.filter((id) => id !== image.id);
       entry.status = "success";
       this.render(entry);

@@ -5,8 +5,20 @@
  * Much better HTML processing than Python's BeautifulSoup.
  */
 
-import * as cheerio from 'cheerio';
-import hljs from 'highlight.js';
+import * as cheerio from 'cheerio/slim';
+import type { Element } from 'domhandler';
+import hljs from 'highlight.js/lib/core';
+import bash from 'highlight.js/lib/languages/bash';
+import css from 'highlight.js/lib/languages/css';
+import javascript from 'highlight.js/lib/languages/javascript';
+import json from 'highlight.js/lib/languages/json';
+import markdown from 'highlight.js/lib/languages/markdown';
+import python from 'highlight.js/lib/languages/python';
+import shell from 'highlight.js/lib/languages/shell';
+import sql from 'highlight.js/lib/languages/sql';
+import typescript from 'highlight.js/lib/languages/typescript';
+import xml from 'highlight.js/lib/languages/xml';
+import yaml from 'highlight.js/lib/languages/yaml';
 import MarkdownIt from 'markdown-it';
 import taskLists from 'markdown-it-task-lists';
 import { readFileSync } from 'node:fs';
@@ -17,14 +29,24 @@ import { enhanceCodeBlocks } from './code-block-processor.js';
 import { processMathInHtml } from './math-processor.js';
 import { processMermaidBlocks } from './mermaid-processor.js';
 import {
-  type FontFamily,
-  type HeadingSize,
-  type ParagraphSpacing,
   type Theme,
-  type ThemeKey,
   type ThemeOptions,
   generateTheme,
 } from '../themes/theme-engine.js';
+
+const CHEERIO_OPTIONS = { xml: { decodeEntities: false, xmlMode: false } } as const;
+
+hljs.registerLanguage('bash', bash);
+hljs.registerLanguage('css', css);
+hljs.registerLanguage('javascript', javascript);
+hljs.registerLanguage('json', json);
+hljs.registerLanguage('markdown', markdown);
+hljs.registerLanguage('python', python);
+hljs.registerLanguage('shell', shell);
+hljs.registerLanguage('sql', sql);
+hljs.registerLanguage('typescript', typescript);
+hljs.registerLanguage('xml', xml);
+hljs.registerLanguage('yaml', yaml);
 
 export interface ConvertResult {
   html: string;
@@ -85,7 +107,7 @@ export class WeChatConverter {
     // 数学公式: 将 $...$ 和 $$...$$ 转换为 SVG（在 cheerio 之前处理纯文本更可靠）
     html = processMathInHtml(html);
 
-    const $ = cheerio.load(html);
+    const $ = cheerio.load(html, CHEERIO_OPTIONS, false);
 
     // Mermaid 图表: 将 ```mermaid 代码块渲染为 PNG 图片
     processMermaidBlocks($);
@@ -105,7 +127,7 @@ export class WeChatConverter {
       this.addLogo($);
     }
 
-    html = $('body').html() || '';
+    html = $('body').html() || $.root().html() || '';
     html = `<section style="${this.escapeAttribute(this.theme.styles.container)}">${html}</section>`;
     const digest = this.generateDigest(html);
 
@@ -332,8 +354,8 @@ export class WeChatConverter {
     }
   }
 
-  private normalizeListItemHtml($: cheerio.CheerioAPI, item: unknown): string {
-    const clone = $(item as any).clone();
+  private normalizeListItemHtml($: cheerio.CheerioAPI, item: Element): string {
+    const clone = $(item).clone();
     let html = clone.html() || '';
 
     html = html
@@ -358,7 +380,7 @@ export class WeChatConverter {
   }
 
   private generateDigest(html: string, maxBytes = 120): string {
-    const $ = cheerio.load(html);
+    const $ = cheerio.load(html, CHEERIO_OPTIONS, false);
     let text = $.text().replace(/\s+/g, ' ').trim();
 
     const ellipsis = '...';

@@ -1,8 +1,10 @@
 import { readFile } from "node:fs/promises";
 import { basename } from "node:path";
-import * as cheerio from "cheerio";
-import type { AnyNode, Element } from "domhandler";
+import * as cheerio from "cheerio/slim";
+import { isText, type AnyNode, type Element } from "domhandler";
 import type { ClientProfile } from "./plugin-settings";
+
+const CHEERIO_OPTIONS = { xml: { decodeEntities: false, xmlMode: false } } as const;
 
 interface PublishImageInput {
   path: string;
@@ -40,10 +42,6 @@ type ObsidianRequestUrl = (request: {
   throw?: boolean;
 }) => Promise<RequestUrlResponseLike>;
 
-interface JsonResponseLike {
-  json(): Promise<unknown>;
-}
-
 function getRequestUrlImpl(): ObsidianRequestUrl | undefined {
   return (globalThis as typeof globalThis & { __waoRequestUrl?: ObsidianRequestUrl }).__waoRequestUrl;
 }
@@ -61,31 +59,30 @@ async function requestJson(url: string, init: {
   body?: string | ArrayBuffer;
 } = {}): Promise<Record<string, unknown>> {
   const requestUrlImpl = getRequestUrlImpl();
-  let response: JsonResponseLike;
-
-  if (requestUrlImpl) {
-    const result = await requestUrlImpl({
-      url,
-      method: init.method,
-      headers: init.headers,
-      contentType: init.contentType ?? init.headers?.["Content-Type"] ?? init.headers?.["content-type"],
-      body: init.body,
-      throw: false,
-    });
-    response = { json: async () => result.json };
-  } else {
-    response = await fetch(url, {
-      method: init.method,
-      headers: init.headers,
-      body: typeof init.body === "string" ? init.body : init.body ? (init.body as BodyInit) : undefined,
-    });
+  if (!requestUrlImpl) {
+    throw new Error("Obsidian requestUrl is not available");
   }
 
-  return await response.json() as Record<string, unknown>;
+  const result = await requestUrlImpl({
+    url,
+    method: init.method,
+    headers: init.headers,
+    contentType: init.contentType ?? init.headers?.["Content-Type"] ?? init.headers?.["content-type"],
+    body: init.body,
+    throw: false,
+  });
+  return result.json as Record<string, unknown>;
+}
+
+function stringifyWechatValue(value: unknown): string {
+  if (typeof value === "string" || typeof value === "number" || typeof value === "boolean") {
+    return String(value);
+  }
+  return "unknown";
 }
 
 function buildWechatError(scope: string, data: Record<string, unknown>): Error {
-  return new Error(`WeChat ${scope} error: errcode=${data.errcode ?? "unknown"}, errmsg=${data.errmsg ?? "unknown"}`);
+  return new Error(`WeChat ${scope} error: errcode=${stringifyWechatValue(data.errcode)}, errmsg=${stringifyWechatValue(data.errmsg)}`);
 }
 
 export async function publishWechatDraft(input: PublishWechatDraftInput): Promise<PublishWechatDraftResult> {
@@ -131,31 +128,31 @@ async function getAccessToken(appid: string, secret: string): Promise<string> {
 
   const data = await requestJson(url.toString());
 
-  if (!data.access_token) {
+  if (typeof data.access_token !== "string") {
     throw buildWechatError("API", data);
   }
 
-  return String(data.access_token);
+  return data.access_token;
 }
 
 async function uploadImage(accessToken: string, imagePath: string): Promise<string> {
   const data = await uploadMultipart(`https://api.weixin.qq.com/cgi-bin/media/uploadimg?access_token=${accessToken}`, imagePath);
 
-  if (!data.url) {
+  if (typeof data.url !== "string") {
     throw buildWechatError("upload_image", data);
   }
 
-  return String(data.url);
+  return data.url;
 }
 
 async function uploadThumb(accessToken: string, imagePath: string): Promise<string> {
   const data = await uploadMultipart(`https://api.weixin.qq.com/cgi-bin/material/add_material?access_token=${accessToken}&type=thumb`, imagePath);
 
-  if (!data.media_id) {
+  if (typeof data.media_id !== "string") {
     throw buildWechatError("upload_thumb", data);
   }
 
-  return String(data.media_id);
+  return data.media_id;
 }
 
 async function buildImageMultipart(imagePath: string): Promise<{ body: Buffer; contentType: string }> {
@@ -227,20 +224,20 @@ async function createDraft(input: {
   if (errcode !== 0) {
     throw buildWechatError("create_draft", data);
   }
-  if (!data.media_id) {
+  if (typeof data.media_id !== "string") {
     throw new Error(`WeChat create_draft error: missing media_id in response: ${JSON.stringify(data)}`);
   }
 
-  return { mediaId: String(data.media_id) };
+  return { mediaId: data.media_id };
 }
 
 function extractTitleFromHtml(html: string): string {
-  const $ = cheerio.load(html);
+  const $ = cheerio.load(html, CHEERIO_OPTIONS, false);
   return $("h1").first().text().trim() || "未命名文章";
 }
 
 function extractDigestFromHtml(html: string): string {
-  const $ = cheerio.load(html);
+  const $ = cheerio.load(html, CHEERIO_OPTIONS, false);
   return $("p")
     .toArray()
     .map((element) => $(element).text().trim())
@@ -261,7 +258,7 @@ function removeElementOrImageOnlyParent($: cheerio.CheerioAPI, image: Element): 
   const meaningfulChildren = parent
     .contents()
     .toArray()
-    .filter((child) => child.type !== "text" || $(child).text().trim());
+    .filter((child) => !isText(child) || $(child).text().trim());
 
   if (parent.length && parent[0]?.tagName === "p" && meaningfulChildren.length === 1) {
     parent.remove();
@@ -290,10 +287,14 @@ function removeCoverImageFromDraft($: cheerio.CheerioAPI, root: cheerio.Cheerio<
 }
 
 function extractDraftContentHtml(html: string, coverImage?: PublishImageInput): string {
-  const $ = cheerio.load(html);
-  const root = $(".preview-body > section").first().length
-    ? $(".preview-body > section").first()
-    : $("body");
+  const $ = cheerio.load(html, CHEERIO_OPTIONS, false);
+  let root: cheerio.Cheerio<AnyNode> = $(".preview-body > section").first();
+  if (!root.length) {
+    root = $("body").first();
+  }
+  if (!root.length) {
+    root = $.root();
+  }
 
   root.find("h1").remove();
   removeCoverImageFromDraft($, root, coverImage);
