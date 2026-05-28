@@ -1,11 +1,11 @@
 
-# 公众号编排智能体
+# WeChat Article Composer
 
 > 一个面向微信公众号创作者的 Obsidian 插件：根据文章内容完成公众号排版预览、封面与正文配图生成，并发布到公众号草稿箱。
 > 
 ![wechat-article-obsidian 宣传图](screen/wechat-article-obsidian-promo-info-v2.png)
 
-![公众号编排智能体界面](screen/ScreenShot_2026-05-08_202036_640.png)
+![WeChat Article Composer interface](screen/ScreenShot_2026-05-08_202036_640.png)
 ## 功能特点
 
 - 根据文章内容生成公众号排版预览。
@@ -69,7 +69,7 @@
    - `.obsidian/plugins/wechat-article/`
 4. 将 `manifest.json`、`main.js`、`styles.css` 放入该目录。
 5. 重启 Obsidian，或在 Obsidian 设置中重新加载社区插件。
-6. 在 Obsidian 设置中启用「公众号编排智能体」。
+6. 在 Obsidian 设置中启用「WeChat Article Composer」。
 
 ## 使用前准备
 
@@ -92,7 +92,7 @@
 
 发布到微信公众号草稿箱前，需要先在插件设置中创建账户。
 
-1. 打开 Obsidian 设置，进入「公众号编排智能体」。
+1. 打开 Obsidian 设置，进入「WeChat Article Composer」。
 2. 在「账户」页点击「新增账户」。
 3. 填写基础信息：
    - 名称：用于顶部作者选择和发布作者名，例如 `刘Sir.2035`。
