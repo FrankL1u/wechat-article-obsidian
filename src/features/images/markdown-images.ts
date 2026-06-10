@@ -113,12 +113,6 @@ function buildImageMarkdown(alt: string, markdownPath: string): string {
   return `![${alt}](${markdownPath.trim()})`;
 }
 
-function inferManagedKindFromPath(markdownPath: string): "cover" | "inline" | null {
-  if (/\/wao-cover-(?:\d{4}-\d{1,2}-\d{1,2}-)?[a-f0-9]{40}\./i.test(markdownPath)) return "cover";
-  if (/\/wao-inline-(?:\d{4}-\d{1,2}-\d{1,2}-)?[a-f0-9]{40}\./i.test(markdownPath)) return "inline";
-  return null;
-}
-
 function buildBlockTargetContexts(markdown: string, blocks: MarkdownBlock[]): Map<number, BlockTargetContext> {
   const contexts = new Map<number, BlockTargetContext>();
   const { sections, paragraphs } = extractIllustrationBlocks(markdown);
@@ -178,6 +172,7 @@ export function scanMarkdownImages(
 ): ParsedMarkdownImage[] {
   const { blocks } = parseBlocks(markdown);
   const contexts = buildBlockTargetContexts(markdown, blocks);
+  let imageIndex = 0;
 
   return blocks.flatMap((block, blockIndex) => {
     if (block.type !== "image" || !block.image) return [];
@@ -186,12 +181,8 @@ export function scanMarkdownImages(
     const imageId = parseManagedImageId(markdownPath);
     const record = imageId ? resolveRecord(imageId) : null;
     const managed = Boolean(imageId && record);
-    const isManagedName = isManagedImagePath(markdownPath);
-    const inferredKind = managed
-      ? record!.kind
-      : isManagedName
-        ? (inferManagedKindFromPath(markdownPath) ?? "inline")
-        : "inline";
+    const inferredKind = imageIndex === 0 ? "cover" : "inline";
+    imageIndex += 1;
     const context = inferredKind === "inline" ? findNearestTargetContext(contexts, blockIndex) : {};
 
     return [

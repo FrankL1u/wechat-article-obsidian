@@ -135,7 +135,7 @@ describe("markdown image state", () => {
     expect(scanned[1]?.kind).toBe("inline");
   });
 
-  it("infers dated managed cover paths as cover images even when the record is missing", () => {
+  it("treats the first markdown image as the cover even when the record is missing", () => {
     const input = `![封面图](${articleAssetDir}/wao-cover-2026-4-27-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.png)
 
 # 标题
@@ -147,7 +147,7 @@ describe("markdown image state", () => {
     expect(scanned[0]?.kind).toBe("cover");
   });
 
-  it("treats leading unmanaged markdown images as inline images", () => {
+  it("treats leading unmanaged markdown images as cover images", () => {
     const input = `![外部图](assets/hero.png)
 
 # 标题
@@ -156,7 +156,22 @@ describe("markdown image state", () => {
 
     const scanned = scanMarkdownImages(input, () => null);
     expect(scanned[0]?.managed).toBe(false);
-    expect(scanned[0]?.kind).toBe("inline");
+    expect(scanned[0]?.kind).toBe("cover");
+  });
+
+  it("treats images after the first image as inline regardless of managed filename", () => {
+    const input = `![封面](assets/manual-cover.png)
+
+# 标题
+
+正文第一段。
+
+![第二张图](${articleAssetDir}/wao-cover-2026-4-27-cccccccccccccccccccccccccccccccccccccccc.png)`;
+
+    const scanned = scanMarkdownImages(input, () => null);
+    expect(scanned[0]?.kind).toBe("cover");
+    expect(scanned[1]?.managed).toBe(false);
+    expect(scanned[1]?.kind).toBe("inline");
   });
 
   it("removes image blocks by block index", () => {
