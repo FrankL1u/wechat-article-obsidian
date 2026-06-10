@@ -458,6 +458,102 @@ describe("workbench-view render context", () => {
     expect(nextMarkdown).not.toContain("wao-inline");
   });
 
+  it("does not generate inline images when inline mode is disabled even if outline returns targets", async () => {
+    buildOutlineWithModel.mockResolvedValue({
+      articleType: "Methodology",
+      coreArguments: ["核心论点"],
+      imageCount: 1,
+      outline: [
+        {
+          id: "illustration-1",
+          positionType: "paragraph",
+          locationText: "正文第一段",
+          excerpt: "正文第一段",
+          sectionTitle: "标题",
+          purpose: "解释方法",
+          inlineType: "framework",
+          visualContent: "结构图",
+        },
+      ],
+    });
+    buildTypeSpecificWithModel.mockResolvedValue({
+      prompts: [
+        {
+          illustrationId: "illustration-1",
+          typeSpecific: {
+            title: "结构图",
+            structure: "layered framework",
+            nodes: ["A", "B"],
+            relationships: "A to B",
+          },
+        },
+      ],
+    });
+    buildCoverPromptWithModel.mockResolvedValue({
+      type: "cover",
+      frontmatter: { type: "cover", style: "editorial", palette: "default" },
+      contentContext: { articleTitle: "标题", articleType: "Methodology", language: "zh" },
+      visualDesign: {
+        type: "conceptual",
+        style: "editorial",
+        palette: "default",
+        mood: "balanced",
+        font: "clean",
+        textLevel: "title-only",
+        aspectRatio: "2.35:1",
+      },
+    });
+    generateCoverImageAsset.mockResolvedValue({
+      imageId: "cover-only-image",
+      kind: "cover",
+      relativePath: "_wechat-article-assets/demo/wao-cover-2026-4-27-cover-only-image.svg",
+      markdownPath: "../_wechat-article-assets/demo/wao-cover-2026-4-27-cover-only-image.svg",
+      record: {},
+    });
+
+    const leaf = new WorkspaceLeaf();
+    const renderSpy = vi.fn();
+    const modify = vi.fn().mockResolvedValue(undefined);
+    const plugin = createPlugin({
+      defaultCoverType: "conceptual",
+      defaultStyle: "editorial",
+      apiKey: "",
+    }, { modify });
+    const view = new WechatArticleWorkbenchView(leaf, plugin as never) as unknown as {
+      app: unknown;
+      root: { render: (node: unknown) => void; unmount: () => void };
+      render: (entry: ViewCacheEntry) => void;
+    };
+    view.app = plugin.app;
+    view.root = { render: renderSpy, unmount: vi.fn() };
+    view.render(createEntry());
+
+    let appNode = renderSpy.mock.calls.at(-1)?.[0] as {
+      props: {
+        actions: {
+          onGenerateImages: () => Promise<void> | void;
+          onImageOptionsChange: (partial: Record<string, string>) => void;
+        };
+      };
+    };
+    appNode.props.actions.onImageOptionsChange({ inlineMode: "none" });
+    appNode = renderSpy.mock.calls.at(-1)?.[0] as typeof appNode;
+    await appNode.props.actions.onGenerateImages();
+
+    await vi.waitFor(() => {
+      expect(modify).toHaveBeenCalled();
+    });
+    expect(buildOutlineWithModel).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.any(String),
+      expect.objectContaining({ inlineMode: "none" }),
+    );
+    expect(buildTypeSpecificWithModel).not.toHaveBeenCalled();
+    const nextMarkdown = modify.mock.calls.at(-1)?.[1] as string;
+    expect(nextMarkdown).toContain("wao-cover-2026-4-27-cover-only-image.svg");
+    expect(nextMarkdown).not.toContain("wao-inline");
+  });
+
   it("regenerates a managed cover image and replaces only the cover markdown path", async () => {
     const leaf = new WorkspaceLeaf();
     const renderSpy = vi.fn();
@@ -598,7 +694,9 @@ describe("workbench-view render context", () => {
     };
     const entry = {
       ...createEntry(),
-      sourceMarkdown: `# 标题
+      sourceMarkdown: `![封面](assets/cover.png)
+
+# 标题
 
 第一段正文，解释一个适合配图的核心概念。
 
@@ -617,7 +715,7 @@ describe("workbench-view render context", () => {
         actions: { onRegenerateImage?: (imageId: string, options: Record<string, string>) => void };
       };
     };
-    const image = appNode.props.state.imageResults.find((item) => item.managed === false);
+    const image = appNode.props.state.imageResults.find((item) => item.managed === false && item.kind === "inline");
     expect(image).toBeTruthy();
     expect(image?.kind).toBe("inline");
 

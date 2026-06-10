@@ -21,7 +21,7 @@ export const INLINE_IMAGE_MODE_OPTIONS: Array<{ key: InlineImageMode; label: str
   { key: "balanced", label: "3~5张" },
   { key: "per-section", label: "按章节" },
   { key: "rich", label: "全文" },
-  { key: "none", label: "不生成正文图" },
+  { key: "none", label: "只生成封面" },
 ];
 
 export const INLINE_IMAGE_TYPE_OPTIONS: Array<{ key: InlineImageType; label: string }> = [

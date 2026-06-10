@@ -87,7 +87,22 @@
 - 需要历史背景时，才读 `/.agents/log/YYYY-MM-DD.md`。
 - **不要用开发日志推断当前状态，当前状态以 `current-state.md` 为准。**
 
-## 6. 开发日志规则
+## 6. 分支命名规则
+
+- 分支命名格式固定为：`类型/模块-动作-对象`。
+- 类型定义：
+  - `feature/`：新功能开发
+  - `fix/`：普通 Bug 修复
+  - `hotfix/`：紧急线上修复
+  - `docs/`：文档修改
+- `模块-动作-对象` 使用简短、明确的英文小写短语，单词之间用 `-` 连接。
+- 示例：
+  - `feature/images-add-cover-mode`
+  - `fix/publish-handle-manual-cover`
+  - `hotfix/wechat-fix-invalid-media-id`
+  - `docs/agents-add-branch-rules`
+
+## 7. 开发日志规则
 
 - 开发日志统一写入 `/.agents/log/`。
 - 同一天只保留一个日志文件，文件名固定为 `YYYY-MM-DD.md`。
@@ -112,7 +127,7 @@
   - 最终方案
   - 关键验证
 
-## 7. 禁止行为
+## 8. 禁止行为
 
 - 不要脑补 V1 外的强需求。
 - 不要把 workbench 做成第二编辑器。

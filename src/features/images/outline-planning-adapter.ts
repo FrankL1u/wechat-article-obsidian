@@ -24,6 +24,8 @@ export function adaptOutlineToPlannedTargets(
   options: ImageOptions,
   result: OutlinePlanningResult,
 ): PlannedImageTarget[] {
+  if (options.inlineMode === "none") return [];
+
   const { sections, paragraphs } = extractIllustrationBlocks(markdown);
   const outlineTargets: PlannedImageTarget[] = [];
 

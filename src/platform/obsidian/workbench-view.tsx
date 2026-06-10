@@ -561,7 +561,10 @@ export class WechatArticleWorkbenchView extends ItemView {
   private async resolveOutline(entry: ViewCacheEntry): Promise<OutlinePlanningResult> {
     const vaultBasePath = getVaultBasePath(this.app);
     const outline = await buildOutlineWithModel(this.plugin.settings, entry.sourceMarkdown, entry.imageOptions);
-    writeOutlinePlanArtifact(vaultBasePath, entry.sourcePath, outline, {
+    const effectiveOutline = normalizeInlineMode(entry.imageOptions.inlineMode) === "none"
+      ? { ...outline, imageCount: 0, outline: [] }
+      : outline;
+    writeOutlinePlanArtifact(vaultBasePath, entry.sourcePath, effectiveOutline, {
       sourcePath: entry.sourcePath,
       inlineMode: entry.imageOptions.inlineMode,
       inlineType: entry.imageOptions.inlineType,
@@ -570,7 +573,7 @@ export class WechatArticleWorkbenchView extends ItemView {
       llmModel: this.plugin.settings.llmModel,
       llmBaseUrl: this.plugin.settings.llmBaseUrl,
     });
-    return outline;
+    return effectiveOutline;
   }
 
   private buildIllustrationTypeMap(outline: OutlinePlanningResult): Record<string, string> {
@@ -749,8 +752,10 @@ export class WechatArticleWorkbenchView extends ItemView {
         }
       }
 
-      const plan = adaptOutlineToPlannedTargets(entry.sourceMarkdown, entry.imageOptions, outline)
-        .filter((target) => target.kind === "inline");
+      const plan = normalizeInlineMode(entry.imageOptions.inlineMode) === "none"
+        ? []
+        : adaptOutlineToPlannedTargets(entry.sourceMarkdown, entry.imageOptions, outline)
+          .filter((target) => target.kind === "inline");
       const materialized: Array<{ target: PlannedImageTarget; markdownPath: string; alt: string }> = generatedCover ? [generatedCover] : [];
       if (!plan.length && !materialized.length) {
         throw new Error("未生成可插入正文的配图定位");
