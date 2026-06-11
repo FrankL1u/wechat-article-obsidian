@@ -28,8 +28,7 @@ export default class WechatArticlePlugin extends Plugin {
       const leaf = existingLeaf ?? this.app.workspace.getRightLeaf(false);
       if (!leaf) return;
       await leaf.setViewState({ type: VIEW_TYPE_WECHAT_ARTICLE, active: true });
-      await this.app.workspace.revealLeaf(leaf);
-      await leaf.loadIfDeferred?.();
+      this.app.workspace.setActiveLeaf(leaf, { focus: true });
 
       const view = leaf.view;
       if (view instanceof WechatArticleWorkbenchView) {
