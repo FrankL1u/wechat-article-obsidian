@@ -102,7 +102,66 @@
   - `hotfix/wechat-fix-invalid-media-id`
   - `docs/agents-add-branch-rules`
 
-## 7. 开发日志规则
+## 7. 发布规则
+
+### 版本号规则
+
+- 本项目是 Obsidian 插件，发布版本必须同时更新：
+  - `package.json`
+  - `package-lock.json`
+  - `manifest.json`
+  - `versions.json`
+- GitHub Release tag 必须和 `manifest.json` 里的 `version` 完全一致，不加 `v` 前缀。
+- `versions.json` 必须新增当前版本到最低 Obsidian 版本的映射，例如：`"1.0.4": "1.6.0"`。
+- 普通 Bug 修复默认递增 patch 版本，例如 `1.0.3` -> `1.0.4`。
+- 新功能默认递增 minor 版本；破坏性变更才递增 major 版本。
+
+### 正确发布流程
+
+1. 在功能或修复分支完成代码修改。
+2. 在同一个分支内先更新版本号：
+   - 执行 `npm version <version> --no-git-tag-version` 更新 `package.json` 和 `package-lock.json`。
+   - 手动同步 `manifest.json` 的 `version`。
+   - 手动在 `versions.json` 追加当前版本。
+3. 执行验证：
+   - `npm run typecheck`
+   - `npm run test`
+   - `npm run obsidian:dev`
+4. 确认 `main.js`、`styles.css`、`manifest.json` 是当前版本对应的构建结果。
+5. 提交代码和版本变更，commit message 使用明确动作，例如：`fix: handle cover image release 1.0.4`。
+6. 切回 `main`，先执行 `git pull --ff-only origin main`。
+7. 将发布分支合并到 `main`。
+8. 推送 `main` 到远端。
+9. 在 `main` 当前提交上创建与版本号一致的 tag，例如 `1.0.4`。
+10. 推送 tag。
+11. 创建 GitHub Release，release name 使用同一个版本号，例如 `1.0.4`。
+12. Release 附件必须上传以下独立文件：
+   - `manifest.json`
+   - `main.js`
+   - `styles.css`
+13. 发布后检查：
+   - GitHub Release 页面存在当前版本。
+   - Release tag、release name、`manifest.json.version` 三者一致。
+   - Release 附件包含 `manifest.json`、`main.js`、`styles.css`。
+   - 远端 `main` 的根目录 `manifest.json` 已是当前版本。
+
+### 禁止的发布顺序
+
+- 不要先把功能合并并 push 到 `main`，再发现需要改版本号并追加 release commit。
+- 不要先创建 GitHub Release，再回头修改 `manifest.json` 或 `versions.json`。
+- 不要创建带 `v` 前缀的 tag，例如不要用 `v1.0.4`。
+- 不要只上传 zip 包；Obsidian 插件市场需要 Release 中存在独立的 `manifest.json`、`main.js`、`styles.css`。
+- 不要让 tag 指向的提交和远端 `main` 的版本文件不一致。
+- 不要把“本地 Obsidian 已 reload”当作 GitHub Release 或插件市场发布完成。
+
+### Obsidian 插件市场更新规则
+
+- 插件市场更新依赖 GitHub 仓库根目录的 `manifest.json` 和对应版本的 GitHub Release。
+- 已收录插件不需要每次向 `obsidian-releases` 提交新增 PR；正常更新版本时，满足 Release 规则即可。
+- Obsidian 客户端或市场页面可能存在缓存和审核延迟，不能把“Release 已创建”表述为“用户端已立即可见”。
+- 如果插件 id、名称、描述、仓库地址等市场元信息变化，才需要检查 `obsidianmd/obsidian-releases` 中 `community-plugins.json` 是否需要同步。
+
+## 8. 开发日志规则
 
 - 开发日志统一写入 `/.agents/log/`。
 - 同一天只保留一个日志文件，文件名固定为 `YYYY-MM-DD.md`。
@@ -127,7 +186,7 @@
   - 最终方案
   - 关键验证
 
-## 8. 禁止行为
+## 9. 禁止行为
 
 - 不要脑补 V1 外的强需求。
 - 不要把 workbench 做成第二编辑器。

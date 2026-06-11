@@ -1,6 +1,44 @@
 
 # WeChat Article Composer
 
+WeChat Article Composer is an Obsidian desktop plugin for writers who draft WeChat Official Account articles in Markdown. It reads the current note, renders a WeChat-style preview, generates cover and inline illustrations, and creates a draft in the WeChat Official Account backend.
+
+## Features
+
+- Preview the current Markdown note with WeChat article layouts.
+- Generate cover images and inline article illustrations from the article content.
+- Regenerate or delete individual generated images.
+- Create WeChat Official Account drafts after account credentials are configured.
+- Configure compatible LLM and image generation providers.
+
+## Installation
+
+### Community plugin directory
+
+1. Open Obsidian Settings.
+2. Go to Community plugins and browse the community plugin directory.
+3. Search for `WeChat Article Composer`.
+4. Install and enable the plugin.
+
+### Manual installation
+
+1. Download `manifest.json`, `main.js`, and `styles.css` from the latest GitHub Release.
+2. Create this folder in your vault: `.obsidian/plugins/wechat-article/`.
+3. Copy the three files into that folder.
+4. Restart Obsidian or reload community plugins.
+5. Enable `WeChat Article Composer` in Obsidian Settings.
+
+## Basic usage
+
+1. Open the Markdown note you want to turn into a WeChat article.
+2. Click the WeChat Article Composer ribbon icon to open the side workbench.
+3. Choose a layout style and preview the article.
+4. Use Smart Images to generate a cover and optional inline illustrations.
+5. Configure a WeChat Official Account in the plugin settings before creating drafts.
+6. Click the draft action in the workbench to create a WeChat draft for final review in the WeChat backend.
+
+The plugin only creates WeChat drafts. It does not publish or mass-send articles automatically.
+
 > 一个面向微信公众号创作者的 Obsidian 插件：根据文章内容完成公众号排版预览、封面与正文配图生成，并发布到公众号草稿箱。
 > 
 ![wechat-article-obsidian 宣传图](screen/wechat-article-obsidian-promo-info-v2.png)
