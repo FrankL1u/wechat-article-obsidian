@@ -143,7 +143,7 @@ function buildRegeneratedImageId(imageId: string): string {
 async function deleteVaultFileIfExists(app: App, relativePath: string): Promise<void> {
   const file = app.vault.getAbstractFileByPath(relativePath);
   if (file instanceof TFile) {
-    await app.vault.delete(file);
+    await app.fileManager.trashFile(file);
   }
 }
 
@@ -271,7 +271,8 @@ export class WechatArticleWorkbenchView extends ItemView {
 
   onOpen(): Promise<void> {
     const contentEl = this.contentEl;
-    if (!(contentEl instanceof HTMLElement)) {
+    const HTMLElementCtor = contentEl.ownerDocument.defaultView?.HTMLElement;
+    if (!HTMLElementCtor || !(contentEl instanceof HTMLElementCtor)) {
       throw new Error("公众号编排智能体容器不可用");
     }
 

@@ -89,12 +89,12 @@ export function Dropdown({
       setOpen(false);
     };
 
-    document.addEventListener("click", handleClickOutside);
-    document.addEventListener("keydown", handleEscape);
+    activeDocument.addEventListener("click", handleClickOutside);
+    activeDocument.addEventListener("keydown", handleEscape);
     window.addEventListener(CLOSE_ALL_DROPDOWNS_EVENT, handleCloseAll);
     return () => {
-      document.removeEventListener("click", handleClickOutside);
-      document.removeEventListener("keydown", handleEscape);
+      activeDocument.removeEventListener("click", handleClickOutside);
+      activeDocument.removeEventListener("keydown", handleEscape);
       window.removeEventListener(CLOSE_ALL_DROPDOWNS_EVENT, handleCloseAll);
     };
   }, []);
@@ -131,7 +131,7 @@ export function Dropdown({
             </button>
           ))}
         </div>,
-        document.body,
+        activeDocument.body,
       )
     : null;
 

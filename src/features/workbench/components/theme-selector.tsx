@@ -30,11 +30,11 @@ export function ThemeSelector({ themeKey, onThemeChange, disabled = false }: The
       }
     };
 
-    document.addEventListener("keydown", handleEscape);
-    document.addEventListener("pointerdown", handleBackdropClick);
+    activeDocument.addEventListener("keydown", handleEscape);
+    activeDocument.addEventListener("pointerdown", handleBackdropClick);
     return () => {
-      document.removeEventListener("keydown", handleEscape);
-      document.removeEventListener("pointerdown", handleBackdropClick);
+      activeDocument.removeEventListener("keydown", handleEscape);
+      activeDocument.removeEventListener("pointerdown", handleBackdropClick);
     };
   }, [modalOpen]);
 

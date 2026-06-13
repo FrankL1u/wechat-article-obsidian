@@ -1,21 +1,5 @@
 import type { PluginSettings } from "../../platform/obsidian/plugin-settings";
-
-interface RequestUrlResponseLike {
-  status: number;
-  headers: Record<string, string>;
-  arrayBuffer: ArrayBuffer;
-  json: unknown;
-  text: string;
-}
-
-type ObsidianRequestUrl = (request: {
-  url: string;
-  method?: string;
-  headers?: Record<string, string>;
-  contentType?: string;
-  body?: string | ArrayBuffer;
-  throw?: boolean;
-}) => Promise<RequestUrlResponseLike>;
+import { getObsidianRequestUrl } from "../../platform/obsidian/request-url-registry";
 
 interface HttpResponseLike {
   ok: boolean;
@@ -60,10 +44,10 @@ function normalizeHeaders(headers?: HeadersInit): Record<string, string> {
 async function httpRequest(url: string, init: RequestInit, timeoutMs: number): Promise<HttpResponseLike> {
   const headers = normalizeHeaders(init.headers);
   const body = typeof init.body === "string" || init.body instanceof ArrayBuffer ? init.body : undefined;
-  const requestUrlImpl = (globalThis as typeof globalThis & { __waoRequestUrl?: ObsidianRequestUrl }).__waoRequestUrl;
+  const requestUrlImpl = getObsidianRequestUrl();
 
   if (requestUrlImpl) {
-    let timer: ReturnType<typeof setTimeout> | null = null;
+    let timer: number | null = null;
     const response = await Promise.race([
       requestUrlImpl({
         url,
@@ -74,13 +58,10 @@ async function httpRequest(url: string, init: RequestInit, timeoutMs: number): P
         throw: false,
       }),
       new Promise<never>((_, reject) => {
-        timer = setTimeout(() => reject(new Error(`timeout after ${timeoutMs}ms`)), timeoutMs);
-        if (typeof timer === "object" && timer !== null && "unref" in timer && typeof timer.unref === "function") {
-          timer.unref();
-        }
+        timer = window.setTimeout(() => reject(new Error(`timeout after ${timeoutMs}ms`)), timeoutMs);
       }),
     ]).finally(() => {
-      if (timer) clearTimeout(timer);
+      if (timer) window.clearTimeout(timer);
     });
 
     return {

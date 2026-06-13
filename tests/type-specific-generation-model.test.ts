@@ -4,6 +4,7 @@ import {
   buildUsedTypeSpecificTemplates,
   readTypeSpecificTemplates,
 } from "../src/features/images/type-specific-generation-model";
+import { clearObsidianRequestUrl, setObsidianRequestUrl } from "../src/platform/obsidian/request-url-registry";
 
 const SETTINGS = {
   llmEndpointType: "openai",
@@ -15,7 +16,7 @@ const SETTINGS = {
 
 describe("type-specific generation model", () => {
   afterEach(() => {
-    delete (globalThis as typeof globalThis & { __waoRequestUrl?: unknown }).__waoRequestUrl;
+    clearObsidianRequestUrl();
     vi.restoreAllMocks();
   });
 
@@ -79,7 +80,7 @@ describe("type-specific generation model", () => {
       },
       text: "",
     });
-    (globalThis as typeof globalThis & { __waoRequestUrl?: unknown }).__waoRequestUrl = requestUrlMock;
+    setObsidianRequestUrl(requestUrlMock);
 
     const result = await buildTypeSpecificWithModel(
       SETTINGS,

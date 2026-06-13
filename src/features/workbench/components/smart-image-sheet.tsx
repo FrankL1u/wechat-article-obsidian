@@ -96,14 +96,14 @@ export function SmartImageSheet({
       }
     };
 
-    const timer = setTimeout(() => {
-      document.addEventListener("click", handleClickOutside);
+    const timer = window.setTimeout(() => {
+      activeDocument.addEventListener("click", handleClickOutside);
     }, 0);
-    document.addEventListener("keydown", handleEscape);
+    activeDocument.addEventListener("keydown", handleEscape);
     return () => {
-      clearTimeout(timer);
-      document.removeEventListener("click", handleClickOutside);
-      document.removeEventListener("keydown", handleEscape);
+      window.clearTimeout(timer);
+      activeDocument.removeEventListener("click", handleClickOutside);
+      activeDocument.removeEventListener("keydown", handleEscape);
     };
   }, [open, onClose]);
 

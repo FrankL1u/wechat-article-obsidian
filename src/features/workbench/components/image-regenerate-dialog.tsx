@@ -113,8 +113,8 @@ export function ImageRegenerateDialog({
       }
     };
 
-    document.addEventListener("keydown", handleEscape);
-    return () => document.removeEventListener("keydown", handleEscape);
+    activeDocument.addEventListener("keydown", handleEscape);
+    return () => activeDocument.removeEventListener("keydown", handleEscape);
   }, [isSubmitting, onClose, open]);
 
   if (!open) {

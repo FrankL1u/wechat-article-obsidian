@@ -28,8 +28,8 @@ export function AuthorChip({ clients, selectedClientId, onOpenSettings, onSelect
       }
     };
 
-    document.addEventListener("pointerdown", handlePointerDown);
-    return () => document.removeEventListener("pointerdown", handlePointerDown);
+    activeDocument.addEventListener("pointerdown", handlePointerDown);
+    return () => activeDocument.removeEventListener("pointerdown", handlePointerDown);
   }, [open]);
 
   const handleClick = () => {
