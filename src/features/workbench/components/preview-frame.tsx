@@ -51,9 +51,9 @@ export function PreviewFrame({
     let frameId = 0;
     const scheduleRefresh = () => {
       if (frameId) {
-        cancelAnimationFrame(frameId);
+        window.cancelAnimationFrame(frameId);
       }
-      frameId = requestAnimationFrame(() => {
+      frameId = window.requestAnimationFrame(() => {
         restorePreviewScrollPosition(iframe.contentDocument);
         capturePreviewScrollSnapshot(iframe.contentDocument);
       });
@@ -67,7 +67,7 @@ export function PreviewFrame({
 
     return () => {
       if (frameId) {
-        cancelAnimationFrame(frameId);
+        window.cancelAnimationFrame(frameId);
       }
       observer.disconnect();
     };

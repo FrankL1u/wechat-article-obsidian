@@ -21,8 +21,6 @@ import xml from 'highlight.js/lib/languages/xml';
 import yaml from 'highlight.js/lib/languages/yaml';
 import MarkdownIt from 'markdown-it';
 import taskLists from 'markdown-it-task-lists';
-import { readFileSync } from 'node:fs';
-import { resolve } from 'node:path';
 
 import { resolveArticleMetadata, stripPrimaryTitle } from './article-metadata.js';
 import { enhanceCodeBlocks } from './code-block-processor.js';
@@ -132,12 +130,6 @@ export class WeChatConverter {
     const digest = this.generateDigest(html);
 
     return { html, title, digest, images };
-  }
-
-  convertFile(inputPath: string): ConvertResult {
-    const absPath = resolve(inputPath);
-    const text = readFileSync(absPath, 'utf-8');
-    return this.convert(text);
   }
 
   // --- Internal Methods ---

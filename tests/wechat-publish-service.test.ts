@@ -3,11 +3,12 @@ import os from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { publishWechatDraft } from "../src/platform/obsidian/wechat-publish-service";
+import { clearObsidianRequestUrl, setObsidianRequestUrl } from "../src/platform/obsidian/request-url-registry";
 
 describe("publishWechatDraft", () => {
   afterEach(() => {
     vi.restoreAllMocks();
-    delete (globalThis as typeof globalThis & { __waoRequestUrl?: unknown }).__waoRequestUrl;
+    clearObsidianRequestUrl();
   });
 
   it("rejects when author or credentials are missing", async () => {
@@ -49,7 +50,7 @@ describe("publishWechatDraft", () => {
       .mockResolvedValueOnce({ status: 200, headers: {}, arrayBuffer: new ArrayBuffer(0), text: "", json: { media_id: "thumb-123" } })
       .mockResolvedValueOnce({ status: 200, headers: {}, arrayBuffer: new ArrayBuffer(0), text: "", json: { media_id: "draft-456" } });
 
-    (globalThis as typeof globalThis & { __waoRequestUrl?: typeof requestUrlMock }).__waoRequestUrl = requestUrlMock;
+    setObsidianRequestUrl(requestUrlMock);
 
     const result = await publishWechatDraft({
       html: '<h1>标题</h1><p>第一段摘要。</p><p><img src="inline-local.png" /></p>',
@@ -98,7 +99,7 @@ describe("publishWechatDraft", () => {
       .mockResolvedValueOnce({ status: 200, headers: {}, arrayBuffer: new ArrayBuffer(0), text: "", json: { media_id: "thumb-123" } })
       .mockResolvedValueOnce({ status: 200, headers: {}, arrayBuffer: new ArrayBuffer(0), text: "", json: { media_id: "draft-456" } });
 
-    (globalThis as typeof globalThis & { __waoRequestUrl?: typeof requestUrlMock }).__waoRequestUrl = requestUrlMock;
+    setObsidianRequestUrl(requestUrlMock);
 
     await publishWechatDraft({
       html: `
@@ -166,7 +167,7 @@ describe("publishWechatDraft", () => {
       return { status: 404, headers: {}, arrayBuffer: new ArrayBuffer(0), text: "", json: { errcode: 404, errmsg: "not found" } };
     });
     vi.stubGlobal("fetch", fetchMock);
-    (globalThis as typeof globalThis & { __waoRequestUrl?: typeof requestUrl }).__waoRequestUrl = requestUrl;
+    setObsidianRequestUrl(requestUrl);
 
     const result = await publishWechatDraft({
       html: '<h1>标题</h1><p>第一段摘要。</p><p><img src="inline-local.png" /></p>',

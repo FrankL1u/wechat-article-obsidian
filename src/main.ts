@@ -1,5 +1,6 @@
 import { addIcon, Plugin, requestUrl } from "obsidian";
 import { DEFAULT_SETTINGS, normalizePluginSettings, type PluginSettings } from "./platform/obsidian/plugin-settings";
+import { clearObsidianRequestUrl, setObsidianRequestUrl } from "./platform/obsidian/request-url-registry";
 import { WechatArticleSettingTab } from "./platform/obsidian/settings-tab";
 import { captureMarkdownContext, type MarkdownContext } from "./platform/obsidian/active-note-bridge";
 import { VIEW_TYPE_WECHAT_ARTICLE, WechatArticleWorkbenchView } from "./platform/obsidian/workbench-view";
@@ -11,7 +12,7 @@ export default class WechatArticlePlugin extends Plugin {
   private launchContext: MarkdownContext | null = null;
 
   async onload(): Promise<void> {
-    (globalThis as typeof globalThis & { __waoRequestUrl?: typeof requestUrl }).__waoRequestUrl = requestUrl;
+    setObsidianRequestUrl(requestUrl);
     await this.loadSettings();
 
     addIcon(
@@ -38,7 +39,7 @@ export default class WechatArticlePlugin extends Plugin {
   }
 
   onunload(): void {
-    delete (globalThis as typeof globalThis & { __waoRequestUrl?: typeof requestUrl }).__waoRequestUrl;
+    clearObsidianRequestUrl();
   }
 
   async loadSettings(): Promise<void> {

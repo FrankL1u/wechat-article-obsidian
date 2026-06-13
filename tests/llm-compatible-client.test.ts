@@ -1,9 +1,10 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { requestLlmJsonContent } from "../src/features/images/llm-compatible-client";
+import { clearObsidianRequestUrl, setObsidianRequestUrl } from "../src/platform/obsidian/request-url-registry";
 
 describe("requestLlmJsonContent", () => {
   afterEach(() => {
-    delete (globalThis as typeof globalThis & { __waoRequestUrl?: unknown }).__waoRequestUrl;
+    clearObsidianRequestUrl();
     vi.restoreAllMocks();
   });
 
@@ -17,7 +18,7 @@ describe("requestLlmJsonContent", () => {
       },
       text: "",
     });
-    (globalThis as typeof globalThis & { __waoRequestUrl?: unknown }).__waoRequestUrl = requestUrlMock;
+    setObsidianRequestUrl(requestUrlMock);
 
     const content = await requestLlmJsonContent(
       {
@@ -50,7 +51,7 @@ describe("requestLlmJsonContent", () => {
       },
       text: "",
     });
-    (globalThis as typeof globalThis & { __waoRequestUrl?: unknown }).__waoRequestUrl = requestUrlMock;
+    setObsidianRequestUrl(requestUrlMock);
 
     const content = await requestLlmJsonContent(
       {

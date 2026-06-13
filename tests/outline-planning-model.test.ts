@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { buildOutlineWithModel } from "../src/features/images/outline-planning-model";
+import { clearObsidianRequestUrl, setObsidianRequestUrl } from "../src/platform/obsidian/request-url-registry";
 
 const SETTINGS = {
   llmEndpointType: "openai",
@@ -19,7 +20,7 @@ const OPTIONS = {
 
 describe("buildOutlineWithModel", () => {
   afterEach(() => {
-    delete (globalThis as typeof globalThis & { __waoRequestUrl?: unknown }).__waoRequestUrl;
+    clearObsidianRequestUrl();
     vi.restoreAllMocks();
   });
 
@@ -55,7 +56,7 @@ describe("buildOutlineWithModel", () => {
       },
       text: "",
     });
-    (globalThis as typeof globalThis & { __waoRequestUrl?: unknown }).__waoRequestUrl = requestUrlMock;
+    setObsidianRequestUrl(requestUrlMock);
 
     const result = await buildOutlineWithModel(SETTINGS, "# 标题\n\n正文", OPTIONS);
 
@@ -65,7 +66,7 @@ describe("buildOutlineWithModel", () => {
   });
 
   it("throws when model output cannot be parsed into outline", async () => {
-    (globalThis as typeof globalThis & { __waoRequestUrl?: unknown }).__waoRequestUrl = vi.fn().mockResolvedValue({
+    setObsidianRequestUrl(vi.fn().mockResolvedValue({
       status: 200,
       headers: {},
       arrayBuffer: new ArrayBuffer(0),
@@ -73,7 +74,7 @@ describe("buildOutlineWithModel", () => {
         choices: [{ message: { content: "{\"bad\":true}" } }],
       },
       text: "",
-    });
+    }));
 
     await expect(buildOutlineWithModel(SETTINGS, "# 标题\n\n正文", OPTIONS)).rejects.toThrow("invalid_outline");
   });

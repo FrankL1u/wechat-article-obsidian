@@ -2,12 +2,13 @@ import { rmSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
+import { clearObsidianRequestUrl, setObsidianRequestUrl } from "../src/platform/obsidian/request-url-registry";
 
 describe("generateImageAsset", () => {
   const tempDirs: string[] = [];
 
   afterEach(() => {
-    delete (globalThis as typeof globalThis & { __waoRequestUrl?: unknown }).__waoRequestUrl;
+    clearObsidianRequestUrl();
     vi.restoreAllMocks();
     while (tempDirs.length) {
       rmSync(tempDirs.pop()!, { recursive: true, force: true });
@@ -25,7 +26,7 @@ describe("generateImageAsset", () => {
       headers: {},
     });
 
-    (globalThis as typeof globalThis & { __waoRequestUrl?: typeof requestUrlMock }).__waoRequestUrl = requestUrlMock;
+    setObsidianRequestUrl(requestUrlMock);
 
     const { generateImageAsset } = await import("../src/features/images/generate-images");
     const result = await generateImageAsset({
@@ -61,7 +62,7 @@ describe("generateImageAsset", () => {
       headers: {},
     });
 
-    (globalThis as typeof globalThis & { __waoRequestUrl?: typeof requestUrlMock }).__waoRequestUrl = requestUrlMock;
+    setObsidianRequestUrl(requestUrlMock);
 
     const { generateImageAsset } = await import("../src/features/images/generate-images");
     await expect(
@@ -111,7 +112,7 @@ describe("generateImageAsset", () => {
       };
     });
 
-    (globalThis as typeof globalThis & { __waoRequestUrl?: typeof requestUrlMock }).__waoRequestUrl = requestUrlMock;
+    setObsidianRequestUrl(requestUrlMock);
 
     const { generateImageAsset } = await import("../src/features/images/generate-images");
     const result = await generateImageAsset({
@@ -149,7 +150,7 @@ describe("generateImageAsset", () => {
       headers: {},
     });
 
-    (globalThis as typeof globalThis & { __waoRequestUrl?: typeof requestUrlMock }).__waoRequestUrl = requestUrlMock;
+    setObsidianRequestUrl(requestUrlMock);
 
     const { generateImageAsset } = await import("../src/features/images/generate-images");
     const result = await generateImageAsset({
@@ -204,7 +205,7 @@ describe("generateImageAsset", () => {
       headers: {},
     });
 
-    (globalThis as typeof globalThis & { __waoRequestUrl?: typeof requestUrlMock }).__waoRequestUrl = requestUrlMock;
+    setObsidianRequestUrl(requestUrlMock);
 
     const { generateImageAsset } = await import("../src/features/images/generate-images");
     await generateImageAsset({
@@ -251,7 +252,7 @@ describe("generateImageAsset", () => {
       headers: {},
     });
 
-    (globalThis as typeof globalThis & { __waoRequestUrl?: typeof requestUrlMock }).__waoRequestUrl = requestUrlMock;
+    setObsidianRequestUrl(requestUrlMock);
 
     const { generateImageAsset } = await import("../src/features/images/generate-images");
     const result = await generateImageAsset({

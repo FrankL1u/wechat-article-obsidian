@@ -3,6 +3,7 @@ import { basename } from "node:path";
 import * as cheerio from "cheerio/slim";
 import { isText, type AnyNode, type Element } from "domhandler";
 import type { ClientProfile } from "./plugin-settings";
+import { getObsidianRequestUrl, type ObsidianRequestUrl } from "./request-url-registry";
 
 const CHEERIO_OPTIONS = { xml: { decodeEntities: false, xmlMode: false } } as const;
 
@@ -25,25 +26,8 @@ interface PublishWechatDraftResult {
   mediaId: string;
 }
 
-interface RequestUrlResponseLike {
-  status: number;
-  headers: Record<string, string>;
-  arrayBuffer: ArrayBuffer;
-  json: unknown;
-  text: string;
-}
-
-type ObsidianRequestUrl = (request: {
-  url: string;
-  method?: string;
-  headers?: Record<string, string>;
-  contentType?: string;
-  body?: string | ArrayBuffer;
-  throw?: boolean;
-}) => Promise<RequestUrlResponseLike>;
-
 function getRequestUrlImpl(): ObsidianRequestUrl | undefined {
-  return (globalThis as typeof globalThis & { __waoRequestUrl?: ObsidianRequestUrl }).__waoRequestUrl;
+  return getObsidianRequestUrl();
 }
 
 function bufferToArrayBuffer(buffer: Buffer): ArrayBuffer {
