@@ -560,12 +560,12 @@ describe("workbench-view render context", () => {
     const modify = vi.fn().mockResolvedValue(undefined);
     const createBinary = vi.fn().mockResolvedValue(undefined);
     const modifyBinary = vi.fn().mockResolvedValue(undefined);
-    const trashFile = vi.fn().mockResolvedValue(undefined);
+    const trash = vi.fn().mockResolvedValue(undefined);
     const plugin = createPlugin({
       defaultCoverType: "conceptual",
       defaultStyle: "editorial",
       apiKey: "",
-    }, { modify, createBinary, modifyBinary, trashFile });
+    }, { modify, createBinary, modifyBinary, trash });
     const vaultBasePath = plugin.app.vault.adapter.getBasePath();
     const sourcePath = "Inbox/原文.md";
     const imageId = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
@@ -660,7 +660,7 @@ describe("workbench-view render context", () => {
     expect(nextMarkdown).not.toContain(`wao-cover-2026-4-27-${imageId}.svg`);
     expect(nextMarkdown).toContain("正文第一段");
     expect(createBinary.mock.calls.length + modifyBinary.mock.calls.length).toBeGreaterThan(0);
-    expect(trashFile).toHaveBeenCalledWith(expect.objectContaining({ path: oldRelativePath }));
+    expect(trash).toHaveBeenCalledWith(expect.objectContaining({ path: oldRelativePath }), true);
     expect(existsSync(path.join(assetDir.absoluteDir, `2026-4-27-image-record-${imageId}.json`))).toBe(false);
   });
 
@@ -836,10 +836,8 @@ function createPlugin(overrides: Partial<typeof DEFAULT_SETTINGS>, vaultOverride
         createBinary: vi.fn().mockResolvedValue(undefined),
         modifyBinary: vi.fn().mockResolvedValue(undefined),
         createFolder: vi.fn().mockResolvedValue(undefined),
+        trash: vi.fn().mockResolvedValue(undefined),
         ...vaultOverrides,
-      },
-      fileManager: {
-        trashFile: vaultOverrides.trashFile ?? vi.fn().mockResolvedValue(undefined),
       },
     },
     settings: {
