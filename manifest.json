@@ -1,9 +1,9 @@
 {
   "id": "wechat-article",
   "name": "WeChat Article Composer",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "minAppVersion": "1.6.0",
-  "description": "Preview, illustrate, and create WeChat Official Account drafts from the current Obsidian note.",
+  "description": "Preview, illustrate, and create WeChat Official Account drafts from the current note.",
   "author": "Frank",
   "authorUrl": "",
   "isDesktopOnly": true

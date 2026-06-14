@@ -143,7 +143,7 @@ function buildRegeneratedImageId(imageId: string): string {
 async function deleteVaultFileIfExists(app: App, relativePath: string): Promise<void> {
   const file = app.vault.getAbstractFileByPath(relativePath);
   if (file instanceof TFile) {
-    await app.fileManager.trashFile(file);
+    await app.vault.trash(file, true);
   }
 }
 
